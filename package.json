@@ -1,0 +1,80 @@
+{
+  "name": "averos-dag-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI-native deterministic software generation platform combining structured application manifests, DAG planning, workflow execution, MCP integration, and conversational application design.",
+  "keywords": [
+    "averos",
+    "ai-native",
+    "software-generation",
+    "application-generation",
+    "workflow-engine",
+    "dag",
+    "orchestration",
+    "mcp",
+    "model-context-protocol",
+    "llm",
+    "agentic-ai",
+    "code-generation",
+    "manifest",
+    "enterprise-architecture",
+    "developer-platform",
+    "automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/averos-io/averos.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/averos-io/averos#readme",
+  "author": "averos-io<averos.tech@gmail.com>",
+  "bugs": "https://github.com/averos-io/averos-io/averos/issues",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "clean": "npm run clean --workspaces --if-present",
+    "build": "npm run build -w packages/dag-engine && npm run build -w packages/executor && npm run build -w packages/ai && npm run build -w packages/cli && npm run build -w packages/mcp",
+    "build:deps":   "npm run build -w packages/dag-engine && npm run build -w packages/executor",
+    "build:mcp":    "npm run build:deps && npm run build -w packages/mcp",
+    "mcp": "npm run start -w packages/mcp", 
+    "test": "npm run test --workspaces --if-present && npm run smoke:all && npm run integration:all",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "integration:executor": "bash scripts/integration/integration-test-executor.sh",
+    "integration:ai":       "bash scripts/integration/integration-test-ai.sh",
+    "smoke:plan":           "bash scripts/smoke/minimal-plan.sh",
+    "smoke:run":            "bash scripts/smoke/minimal-run.sh",
+    "smoke:gr-run":         "bash scripts/smoke/golden-reference-run.sh",
+    "smoke:gr-plan":        "bash scripts/smoke/golden-reference-plan.sh",
+    "smoke:all":            "npm run smoke:plan && npm run smoke:run && npm run smoke:gr-plan && npm run smoke:gr-run",
+    "integration:all":      "npm run integration:executor && npm run integration:ai",
+    "e2e":                  "bash scripts/e2e/run-real-angular.sh",
+    "e2e:local":            "bash scripts/e2e/run-local-angular.sh --tgz=scripts/e2e/wiforge-averos-2.0.0.tgz --averos-version=2.0.0",
+    "e2e:keep":             "bash scripts/e2e/run-real-angular.sh --keep-workspace",
+    "e2e:local:keep":       "bash scripts/e2e/run-local-angular.sh --keep-workspace --tgz=scripts/e2e/wiforge-averos-2.0.0.tgz --averos-version=2.0.0",
+    "e2e:skip-build":       "bash scripts/e2e/run-real-angular.sh --skip-build",
+    "e2e:dry":              "bash scripts/e2e/run-real-angular.sh --dry-run --skip-build",
+    "e2e:local:dry":        "bash scripts/e2e/run-local-angular.sh --dry-run --tgz=scripts/e2e/wiforge-averos-2.0.0.tgz --averos-version=2.0.0",
+
+    "pack": "npm run pack --workspaces",
+
+    "release:local": "npm run clean && npm run build && npm run pack",
+    "release:pack": "npm run release:pack -w packages/dag-engine && npm run release:pack -w packages/executor && npm run release:pack -w packages/ai && npm run release:pack -w packages/cli && npm run release:pack -w packages/mcp",
+    "release:install-global": "cd release && sudo npm install -g averos-dag-engine-1.0.0.tgz averos-executor-1.0.0.tgz averos-ai-1.0.0.tgz averos-mcp-1.0.0.tgz averos-cli-1.0.0.tgz",
+    "release:uninstall-global": "sudo npm uninstall -g @averos/cli @averos/ai @averos/executor @averos/dag-engine @averos/mcp"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}
