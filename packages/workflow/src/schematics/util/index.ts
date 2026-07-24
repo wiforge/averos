@@ -1920,8 +1920,8 @@ export function findClassImplementationFilePath(tree: Tree, className: string, o
     }
 
     const isProjectSource = filePath.includes('/src/') && !filePath.includes('/node_modules/');
-    const isAllowedLibrary = (filePath.includes('/node_modules/@angular/') ||
-                             filePath.includes('/node_modules/@averos/') && !onlyInApplication);
+    const isAllowedLibrary = !onlyInApplication && (filePath.includes('/node_modules/@angular/') ||
+                             filePath.includes('/node_modules/@averos/'));
 
     if (!isProjectSource && !isAllowedLibrary) {
       return;
