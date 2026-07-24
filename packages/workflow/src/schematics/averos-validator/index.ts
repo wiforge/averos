@@ -213,7 +213,7 @@ function registerCustomValidator(options: AverosValidatorOption): Rule {
       throw new Error(`❌ Cannot retrieve the project source path.`)
     }
     // let modulePath = normalize(join(normalize(options.path as string), 'app-module.ts'))
-    let modulePath = findClassImplementationFilePath(host, 'AppModule');
+    let modulePath = findClassImplementationFilePath(host, 'AppModule', true);
     if (!host.exists(modulePath)) {
       throw new Error(
         `❌ Unable to find the main application module in the following location: ${modulePath}`,

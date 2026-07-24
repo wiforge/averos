@@ -69,7 +69,7 @@ export default function (options: AverosAuthConfigOption): Rule {
 function updateAuthProviderConfig(options: AverosAuthConfigOption): Rule {
   return (host: Tree, context: SchematicContext) => {
     // const modulePath = normalize(join(normalize(options.path as string), '/app-module.ts'))
-    const modulePath = findClassImplementationFilePath(host, 'AppModule');
+    const modulePath = findClassImplementationFilePath(host, 'AppModule', true);
 
     if (!host.exists(modulePath)) {
       throw new Error(`❌ Unable to find the main application module at: ${modulePath}`)

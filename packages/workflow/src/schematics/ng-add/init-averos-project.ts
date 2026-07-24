@@ -193,7 +193,7 @@ function integrateAverosCoreModule(options: NgAddOption): Rule {
   return (host: Tree, context: SchematicContext) => {
     context.logger.info(`🔧 Integrating averos core module...`)
     // let modulePath = normalize(join(normalize(options.srcPath as string), '/app-module.ts'))
-	const modulePath = findClassImplementationFilePath(host, 'AppModule');
+	const modulePath = findClassImplementationFilePath(host, 'AppModule', true);
     if (!host.exists(modulePath)) {
       throw new Error(
         `❌ Unable to find the main application module in the following location: ${modulePath}`,
@@ -349,6 +349,7 @@ function addApplicationInitializer(options: NgAddOption): Rule {
       )
       return
     }
+	context.logger.info(`🔧 Initializing the application initializer...`)
     host.create(
       initializerPath,
       `\nimport { Injectable } from '@angular/core';
@@ -391,6 +392,7 @@ describe('ApplicationInitializerService', () => {
   });
 });`,
     )
+	context.logger.info(`🔧 Application initializer configured.`)
   }
 }
 

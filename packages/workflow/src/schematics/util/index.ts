@@ -1908,7 +1908,7 @@ function isExcludedPath(filePath: string, excludedPaths: string[]): boolean {
 }
 
 // Utility to find the file implementing a class
-export function findClassImplementationFilePath(tree: Tree, className: string): string | null {
+export function findClassImplementationFilePath(tree: Tree, className: string, onlyInApplication: boolean = false): string | null {
   let foundPath: string | null = null;
   tree.visit((filePath) => {
     if (isExcludedPath(filePath, BASE_EXCLUDED_PATHS)) {
@@ -1920,8 +1920,8 @@ export function findClassImplementationFilePath(tree: Tree, className: string): 
     }
 
     const isProjectSource = filePath.includes('/src/') && !filePath.includes('/node_modules/');
-    const isAllowedLibrary = filePath.includes('/node_modules/@angular/') ||
-                             filePath.includes('/node_modules/@averos/');
+    const isAllowedLibrary = (filePath.includes('/node_modules/@angular/') ||
+                             filePath.includes('/node_modules/@averos/') && !onlyInApplication);
 
     if (!isProjectSource && !isAllowedLibrary) {
       return;

@@ -85,7 +85,7 @@ export default function (options: AddLanguageOption): Rule {
 export function addLanguageSupport(options: AddLanguageOption): Rule {
   return async (host: Tree, context: SchematicContext) => {
     // let modulePath = normalize(join(normalize(options.srcPath as string), '/app/app-module.ts'))
-    const modulePath = findClassImplementationFilePath(host, 'AppModule');
+    const modulePath = findClassImplementationFilePath(host, 'AppModule', true);
     if (!host.exists(modulePath)) {
       throw new Error(
         `❌ Unable to find the main application module in the following location: ${modulePath}`,

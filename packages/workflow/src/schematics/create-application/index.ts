@@ -53,10 +53,14 @@ function addAverosFramework(options: CreateApplicationOption): Rule {
     let newAppOptions = toAngularOptionsArray(appOtions)
 
     if (tree.exists(options.applicationName)) {
-      context.logger.error(
+      throw new SchematicsException(
         `❌ The directory ${options.applicationName} already exists. Please remove it or choose a different name.`,
       )
-      return tree
+
+      //      context.logger.error(
+      //   `❌ The directory ${options.applicationName} already exists. Please remove it or choose a different name.`,
+      // )
+      // return tree
     }
 
     context.logger.info(`📦 Running "ng new ${options.applicationName}"...`)
@@ -66,8 +70,11 @@ function addAverosFramework(options: CreateApplicationOption): Rule {
     })
 
     if (result.error) {
-      context.logger.error(`❌ Failed to create a new application: ${result.error.message}`)
-      return tree // Stop further execution if error occurs
+       throw new SchematicsException(
+        `❌ Failed to create a new application: ${result.error.message}`,
+      )
+      // context.logger.error(`❌ Failed to create a new application: ${result.error.message}`)
+      // return tree // Stop further execution if error occurs
     }
 
     const appPath = path.join(process.cwd(), options.applicationName)
