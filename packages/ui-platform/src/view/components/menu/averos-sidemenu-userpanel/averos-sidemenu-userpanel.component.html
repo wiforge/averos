@@ -1,0 +1,16 @@
+<!-- <div class="averos-user-panel" fxLayout="column" fxLayoutAlign="center center"> -->
+<div class="averos-user-panel flex-col justify-center items-center">
+    <div class="averos-user-panel-container">
+      <img class="averos-user-panel-avatar" [src]="userPicture()"
+                                                  onerror="this.onerror=null; this.src='assets/images/avatars/default_avatar.svg'" 
+                                                  alt="avatar" 
+                                                  width="64" />
+    </div>
+    <h4 class="averos-user-panel-name">{{currentLoggedUserProfile.displayName}}</h4>
+    <h5 class="averos-user-panel-email">{{currentLoggedUserProfile.email}}</h5>
+    <div class="averos-user-panel-icons">
+      <a mat-icon-button (click)="authService.logoutUser()" [matTooltip]="'logout' | translate: 'user.logout'">
+        <mat-icon [safeIcon]="'exit_to_app'" class="icon-18"></mat-icon>
+      </a>
+    </div>
+</div>

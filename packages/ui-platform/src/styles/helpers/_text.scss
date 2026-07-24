@@ -1,0 +1,55 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+// ==================================================
+// TEXT
+// ==================================================
+@use "./variables" as var;
+@use "sass:map";
+.text-ellipsis,
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+
+$text: (
+  'text-transform': (
+    property: text-transform,
+    class: text,
+    values: (
+      capitalize: capitalize,
+      uppercase: uppercase,
+      lowercase: lowercase
+    )
+  ),
+  'text-align': (
+    property: text-align,
+    class: text,
+    values: (
+      center: center,
+      right: right,
+      left: left
+    )
+  ),
+  'white-space': (
+    property: white-space,
+    class: text,
+    values: (
+      wrap: normal,
+      nowrap: nowrap
+    )
+  )
+);
+
+$utilities: map.merge($text, var.$utilities);

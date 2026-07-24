@@ -1,0 +1,33 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+// ==================================================
+// CURSOR
+// ==================================================
+@use "./variables" as var;
+@use "sass:map";
+$cursor: (
+  'cursor': (
+    property: cursor,
+    class: cursor,
+    values: (
+      default: default,
+      pointer: pointer,
+      text: text,
+      move: move,
+      copy: copy,
+      not-allowed: not-allowed
+    )
+  )
+);
+
+$utilities: map.merge($cursor, var.$utilities);

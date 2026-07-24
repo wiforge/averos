@@ -1,0 +1,27 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@mixin averos-settings-panel-theme($theme) {
+  // $background: mat-color($theme, 'background');
+  // $foreground: mat-color($theme, 'foreground');
+
+  // .averos-settings-panel {
+  //   color: mat-color($foreground, text);
+  //   background-color: mat-color($background, dialog);
+  // }
+
+  // .averos-settings-panel-overlay {
+  //   &.opened {
+  //     background-color: mat-color($foreground, divider);
+  //   }
+  // }
+}

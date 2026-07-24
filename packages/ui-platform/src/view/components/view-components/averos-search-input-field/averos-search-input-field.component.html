@@ -1,0 +1,35 @@
+<form [formGroup]="searchInputFormGoup">
+  @switch (fieldViewLayout.type) {
+    <!-- date -->
+    @case ('date') {
+      <averos-search-input-date-field [entityAccessorKey]="fieldViewLayout.entityFieldName"
+        [label]="fieldViewLayout.label"
+        [labelTranslationID]="fieldViewLayout.labelTranslationID!"
+        [placeholder]="fieldViewLayout.placeholder!"
+        [placeholderTranslationID]="fieldViewLayout.placeholderTranslationID!"
+        [appearance]="$any(useCaseConfig.componentAppearance)!"
+        [formControlName]="fieldViewLayout.entityFieldName">
+      </averos-search-input-date-field>
+    }
+    <!-- collection -->
+    @case ('collection') {
+    }
+    <!-- combo (~ collection) -->
+    @case ('combo') {
+    }
+    <!-- image -->
+    @case ('image') {
+    }
+    <!-- Default -->
+    @default {
+      <averos-search-input-text-field [entityAccessorKey]="fieldViewLayout.entityFieldName"
+        [label]="fieldViewLayout.label"
+        [labelTranslationID]="fieldViewLayout.labelTranslationID!"
+        [maxLength]=200
+        [placeholder]="fieldViewLayout.placeholder!"
+        [placeholderTranslationID]="fieldViewLayout.placeholderTranslationID!"
+        [formControlName]="fieldViewLayout.entityFieldName">
+      </averos-search-input-text-field>
+    }
+  }
+</form>

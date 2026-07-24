@@ -1,0 +1,33 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ *
+ */
+ 
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}

@@ -1,0 +1,276 @@
+
+<div [ngClass]="{'': useCaseConfig.useCase!==useCase.DISPLAY_SIMPLE_TEXT, 'a-resizable': useCaseConfig.useCase===useCase.DISPLAY_SIMPLE_TEXT}">
+  <div class="averos-dialog">
+    <div class="averos-dialog-title">
+      @if (useCaseConfig.useCase===useCase.VIEW) {
+        <h1 class="flex-auto"
+          mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle> {{!editModeActivated
+          ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+          : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+        </h1>
+      }
+
+      @if (useCaseConfig.useCase===useCase.EDIT || useCaseConfig.useCase===useCase.CREATE) {
+        <h1 class="flex-auto"
+          mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle> {{editModeActivated
+          ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+          : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+        </h1>
+      }
+
+      @if (useCaseConfig.useCase===useCase.SEARCH_RESULT_TABLE || useCaseConfig.useCase===useCase.SELECTABLE_SEARCH_RESULT_TABLE) {
+        <h1 class="flex-auto"
+          mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+          {{(entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID}}
+        </h1>
+      }
+
+      @if (useCaseConfig.useCase===useCase.DISPLAY_SIMPLE_TEXT) {
+        <h1 class="flex-auto"
+          mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+          {{useCaseConfig.customUseCaseMetaData.title | translate: useCaseConfig.customUseCaseMetaData.titleTranslationID}}
+        </h1>
+      }
+
+      <div class="averos-dialog-header-actions">
+        @if (useCaseConfig.useCase!==useCase.DISPLAY_SIMPLE_TEXT) {
+          <button mat-icon-button class="averos-dialog-header-button" (click)="expandDialog()">
+            <mat-icon [safeIcon]="'fullscreen'" class="icon-18"></mat-icon>
+          </button>
+        }
+        <button mat-icon-button class="averos-dialog-header-button" [mat-dialog-close]="true" >
+          <mat-icon [safeIcon]="'close'" class="icon-18"></mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- DIALOG CONTENT -->
+    <div mat-dialog-content>
+      @if (useCaseConfig.useCase!==useCase.SEARCH_RESULT_TABLE
+        && useCaseConfig.useCase!==useCase.SELECTABLE_SEARCH_RESULT_TABLE
+        && useCaseConfig.useCase!==useCase.DISPLAY_SIMPLE_TEXT) {
+        <form [formGroup]="reactiveForm" #formDir="ngForm">
+          <mat-card appearance="outlined">
+            <fieldset class="averos-fieldset">
+              <legend>
+                <span>
+                  @if (useCaseConfig.useCase===useCase.VIEW) {
+                    <mat-card-title>
+                      {{!editModeActivated
+                      ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+                      : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+                    </mat-card-title>
+                  }
+                  @if (useCaseConfig.useCase===useCase.EDIT || useCaseConfig.useCase===useCase.CREATE) {
+                    <mat-card-title>
+                      {{editModeActivated
+                      ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+                      : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+                    </mat-card-title>
+                  }
+                </span>
+              </legend>
+                      <ng-container *ngTemplateOutlet="((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable | toCompositeViewLayout | async)?.containerType ==='COMPOSITE' 
+                                  ? compositeView: simpeView ">
+              </ng-container>
+              <!-- SIMPLE VIEW -->
+              <ng-template #simpeView>
+                <div animationDuration="300ms">
+                  <averos-dynamic-simple-view [useCaseConfig]="useCaseConfig"
+                    [editModeActivated]="editModeActivated"
+                    [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+                    [reactiveForm]="reactiveForm"
+                    (isFormModified)="formModified($event)">
+                  </averos-dynamic-simple-view>
+                </div>
+              </ng-template>
+              <!-- COMPOSITE VIEW -->
+              <ng-template #compositeView>
+                          <ng-container *ngTemplateOutlet="((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable | toCompositeViewLayout | async)?.viewLayout ==='tab' 
+                                                      ? tabbedCompositeView: simpleCompositeView ">
+                </ng-container>
+                <ng-template #tabbedCompositeView>
+                  <mat-tab-group dynamicHeight animationDuration="300ms" style="min-height: 50px;" mat-stretch-tabs="false" mat-align-tabs="start">
+                    @for (compositeViewLayoutGroup of ((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable
+                      | toCompositeViewLayout | async)?.transformedCompositeViewLayoutGroups ?? [] | sortCollectionBy: 'asc':'order'; track $index) {
+                      @if (compositeViewLayoutGroup.isParent) {
+                        <mat-tab>
+                          <ng-template mat-tab-label>
+                            <mat-icon [safeIcon]="'tag'"></mat-icon>
+                            {{((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+                          </ng-template>
+                          <averos-dynamic-simple-view [useCaseConfig]="useCaseConfig"
+                            [editModeActivated]="editModeActivated"
+                            [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+                            [reactiveForm]="reactiveForm"
+                            (isFormModified)="formModified($event)">
+                          </averos-dynamic-simple-view>
+                        </mat-tab>
+                      }
+                      @if ((!compositeViewLayoutGroup.isParent && compositeViewLayoutGroup?.relationType === 'collection')
+                        || (evaluateExpression(useCaseConfig.entity,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)!== null
+                        && evaluateExpression(useCaseConfig.entity,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName) !== undefined
+                        && compositeViewLayoutGroup?.relationType === 'composite')) {
+                        <mat-tab
+                          [disabled]="useCaseConfig.useCase===useCase.CREATE && !useCaseConfig.entity.idName">
+                          <ng-template mat-tab-label>
+                            <ng-container *ngTemplateOutlet="compositeViewLayoutGroup?.relationType === 'collection' ? collectionEntityTab : simpleCompositeEntityTab">
+                            </ng-container>
+                            <!-- Show Collection count in case the relation is a collection-->
+                            <ng-template #collectionEntityTab>
+                              <span [matBadge]="getCollectionCount(useCaseConfig.entity,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                                matBadgeColor="accent"
+                                matBadgeSize="small"
+                                matBadgeOverlap="false">
+                              {{(compositeViewLayoutGroup?.transformedViewLayoutGroup[0]?.groupedFieldsLayout[0]?.label | translate:compositeViewLayoutGroup?.transformedViewLayoutGroup[0]?.groupedFieldsLayout[0]?.labelTranslationID)}}</span>
+                            </ng-template>
+                            <ng-template #simpleCompositeEntityTab>
+                              {{(compositeViewLayoutGroup?.transformedViewLayoutGroup[0]?.groupedFieldsLayout[0]?.label | translate:compositeViewLayoutGroup?.transformedViewLayoutGroup[0]?.groupedFieldsLayout[0]?.labelTranslationID)}}
+                            </ng-template>
+                          </ng-template>
+                          @if (compositeViewLayoutGroup?.relationType === 'collection') {
+                            <averos-dynamic-table #averosDynamicTable
+                              [showRowActions]="useCaseConfig.useCase === useCase.CREATE || useCaseConfig.useCase === useCase.EDIT || useCaseConfig.useCase === useCase.UPDATE"
+                              [showFilterComponent]="true"
+                              [filterComponentLabel]="'Search Filter'"
+                              [filterComponentLabelTranslationID]="'app.filter'"
+                              [filterKey]="'any key'"
+                              [viewLayout]="(getEntityViewLayout_((entityUseCaseViewLayout$ | async)!.entityType!, compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName) | async)!"
+                              [useCaseConfig]="getCollectionRelationEntityUseCaseConfig((entityUseCaseViewLayout$ | async)!.entityType!, compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                              (deleteObject)="onDeleteRelationCollectionItem({itemSubjectToAction: $event, relationName: compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName})"
+                              (addObject)="onAddRelationCollectionItem(compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                              (resetReloadData)="resetTableReloadData($event)"
+                              [reloadData]="reloadData">
+                            </averos-dynamic-table>
+                          }
+                          @if (compositeViewLayoutGroup?.relationType === 'composite') {
+                            @if (evaluateExpression(useCaseConfig.entity,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)!== null && evaluateExpression(useCaseConfig.entity,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName) !== undefined) {
+                              <averos-dynamic-simple-view
+                                [useCaseConfig]="getCompositeRelationEntityUseCaseConfig((entityUseCaseViewLayout$ | async)!.entityType!, compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                                [editModeActivated]="editModeActivated"
+                                [entityUseCaseViewLayout$]="$any(getCompositeRelationUseCaseViewLayout((entityUseCaseViewLayout$ | async)!.entityType!, compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName))"
+                                [reactiveForm]="getCompositeRelationEntityReactiveForm((entityUseCaseViewLayout$ | async)!.entityType!, compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)">
+                              </averos-dynamic-simple-view>
+                            }
+                          }
+                        </mat-tab>
+                      }
+                    }
+                  </mat-tab-group>
+                </ng-template>
+                <ng-template #simpleCompositeView>
+                </ng-template>
+              </ng-template>
+            </fieldset>
+            @if (displayActions) {
+              <div class="flex-row justify-end items-center">
+                @if (editModeActivated) {
+                  <button mat-raised-button color="primary" class="m-t-8" [disabled]="disableSave()" (click)="onSubmit()">
+                    <mat-icon [safeIcon]="'save'"></mat-icon>
+                  {{'Save' | translate:'app.save'}}</button>
+                  @if (useCaseConfig.useCase===useCase.CREATE) {
+                    <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="formDir.resetForm()">
+                      <mat-icon [safeIcon]="'undo'"></mat-icon>
+                    {{'Reset' | translate:'app.reset'}}</button>
+                  }
+                  <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="cancelUpdate()">
+                    <mat-icon [safeIcon]="'cancel'"></mat-icon>
+                  {{'Cancel' | translate:'app.cancel'}}</button>
+                } @else {
+                  <button mat-raised-button color="primary" class="m-t-8" (click)="clone()">{{'Clone' | translate: 'app.clone'}}</button>
+                  <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="edit()">{{'Edit' | translate: 'app.edit'}}</button>
+                }
+              </div>
+            }
+          </mat-card>
+        </form>
+      }
+
+      <!-- Used for relation collection view use cases-->
+      @if (useCaseConfig.useCase===useCase.SEARCH_RESULT_TABLE) {
+        <div>
+          <averos-dynamic-table
+            [dataSource$]="dataCollection$"
+            [showRowActions]="false"
+            [showFilterComponent]="true"
+            [filterComponentLabel]="'Search Filter'"
+            [filterComponentLabelTranslationID]="'app.filter'"
+            [filterKey]="'any key'"
+            [viewLayout]="(getEntityViewLayout() | async)!">
+          </averos-dynamic-table>
+        </div>
+      }
+      <!-- Used for relation collection selection-->
+      @if (useCaseConfig.useCase===useCase.SELECTABLE_SEARCH_RESULT_TABLE) {
+        <div>
+          <averos-dynamic-table
+            [useCaseConfig]="{useCase: useCase.SELECTABLE_SEARCH_RESULT_TABLE}"
+            [selectable]="true"
+            [dataSource$]="dataCollection$"
+            [showRowActions]="true"
+            [showFilterComponent]="true"
+            [filterComponentLabel]="'Search Filter'"
+            [filterComponentLabelTranslationID]="'app.filter'"
+            [filterKey]="'any key'"
+            [viewLayout]="(getEntityViewLayout() | async)!"
+            (selectOne)="onSelect($any($event))"
+            (selectMany)="onSelectMany($any($event))">
+          </averos-dynamic-table>
+        </div>
+      }
+      @if (useCaseConfig.useCase===useCase.DISPLAY_SIMPLE_TEXT) {
+        <div class="text-displayer mat-typography">
+          <p>{{useCaseConfig.customUseCaseMetaData.data}}</p>
+        </div>
+      }
+    </div>
+    <!-- ACTION BUTTONS -->
+    @if (useCaseConfig.useCase!==useCase.SEARCH_RESULT_TABLE
+      && useCaseConfig.useCase!==useCase.SELECTABLE_SEARCH_RESULT_TABLE
+      && useCaseConfig.useCase!==useCase.DISPLAY_SIMPLE_TEXT
+      && useCaseConfig.useCase!==useCase.EVENT_ACTION) {
+      @if (editModeActivated) {
+        <div class="mat-dialog-footer flex-row justify-end items-center" mat-dialog-actions>
+          <button mat-raised-button color="primary" class="m-t-8" [disabled]="disableSave()" (click)="onSubmit()">
+            <mat-icon [safeIcon]="'save'"></mat-icon>
+          {{'Save' | translate:'app.save'}}</button>
+          <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="resetForm()">
+            <mat-icon [safeIcon]="'undo'"></mat-icon>
+          {{'Reset' | translate:'app.reset'}}</button>
+          <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" cdkFocusInitial (click)="onCancel()">
+            <mat-icon [safeIcon]="'cancel'"></mat-icon>
+          {{'Cancel' | translate:'app.cancel'}}</button>
+        </div>
+      }
+      @if (!editModeActivated && canActivateEditMode) {
+        <div class="mat-dialog-footer flex-row justify-end items-center" mat-dialog-actions>
+          <button mat-raised-button color="primary" class="m-t-8" cdkFocusInitial (click)="edit()">
+            <mat-icon [safeIcon]="'edit'"></mat-icon>
+          {{'Edit' | translate: 'app.edit'}}</button>
+        </div>
+      }
+    }
+
+    @if (useCaseConfig.useCase===useCase.EVENT_ACTION) {
+      <!-- event action use case TOBE IMPLEMENTED:
+      * add a , eventaction configuration to the UseCaseConfig.
+      * UseCaseEventAction contains:
+      - eventName: ex: "Change Status"
+      - eventNameTranslationID: the related Translation identifier
+      -either eventAction or (eventName/eventActionController)
+      - eventAction: of type Method: describes the method to execute
+      or
+      -eventName: the name of the method to execute
+      - eventActionController: the name of the actionController (service) to execute. In this case
+      a new decorator should be added to the framework @ActionController
+      (to be verified)
+      -->
+      <!-- <ng-container *ngIf="editModeActivated && canActivateEditMode">
+      <div class="mat-dialog-footer" mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" class="m-t-8" type="button" (click)="onCancel()">{{'Cancel' | translate:'app.cancel'}}</button>
+        <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="resetForm()">{{'Reset' | translate:'app.reset'}}</button>
+        <button mat-raised-button color="primary" class="m-t-8 m-l-8" [disabled]="disableSave()" (click)="onSubmit()">{{'Save' | translate:'app.save'}}</button>
+      </div>
+    </ng-container> -->
+  }
+</div>
+</div>

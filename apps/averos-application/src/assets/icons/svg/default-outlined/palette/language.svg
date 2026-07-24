@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <svg xmlns="http://www.w3.org/2000/svg" 
+            width="125.66987609863281" 
+            height="50" 
+            viewBox="0 0 125.66987609863281 50">
+            <style>
+                text {
+                font-family: Cairo, sans-serif;
+                }
+            </style>
+        <g xmlns="http://www.w3.org/2000/svg" model-id="d56ba8a7-a270-4b5c-9482-08daa1fa167d" data-type="averos.language" id="j_9" class="joint-cell joint-type-averos joint-type-averos-language joint-element joint-theme-default"><rect joint-selector="body" id="v-490" width="125.66987609863281" height="50" stroke-width="1" rx="2" ry="2" fill="#D6EAF8" stroke="#2980B9"/><rect joint-selector="header" id="v-491" width="125.66987609863281" height="35" stroke-width="1" fill="#AED6F1" stroke="#1A5276"/><text joint-selector="tagLabel" id="v-492" font-size="11" xml:space="preserve" text-anchor="middle" fill="#000" text="&lt;&lt;Language&gt;&gt;" transform="matrix(1,0,0,1,62.8,10.5)"><tspan dy="0.3em" class="v-line">&lt;&lt;Language&gt;&gt;</tspan></text><text joint-selector="nameLabel" id="v-493" font-weight="bold" font-size="13" xml:space="preserve" text-anchor="middle" fill="#000" text="MyLanguage_0" transform="matrix(1,0,0,1,62.8,24.5)"><tspan dy="0.3em" class="v-line">MyLanguage_0</tspan></text></g>
+        </svg>

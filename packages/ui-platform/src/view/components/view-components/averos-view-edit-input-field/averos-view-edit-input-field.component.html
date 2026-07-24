@@ -1,0 +1,355 @@
+<ng-container *ngTemplateOutlet="editModeActivated ? editMode : viewMode">
+</ng-container>
+
+<!-- EDIT VIEW TEMPLATE -->
+<ng-template #editMode>
+  @let validIcon = icon !== null && icon !== undefined;
+  @let showIcon= formControlName && !formControlName.pending && validIcon;
+  @switch (type){
+
+    <!-- COMBO BOX -->
+    @case (FieldType.combo){
+      @if (targetFieldDomain$ | async) {
+        <mat-form-field [appearance]="appearance" class="form-field-full-width">
+          <mat-label>
+            {{label | translate: labelTranslationID}}
+            @if(iconLayout === 'label'){
+              <mat-icon  [safeIcon]="icon"></mat-icon>
+            }
+          </mat-label>
+          @if(showIcon && iconOrientation === 'PREFIX' && iconLayout === 'component'){
+            <mat-icon [safeIcon]="icon"  class="icon-18" matPrefix></mat-icon>
+          }
+          @if(showIcon && iconOrientation === 'SUFFIX' && iconLayout === 'component'){
+            <mat-icon [safeIcon]="icon" class="icon-18" matSuffix></mat-icon>
+          }
+          <mat-select  [formControl]="$any(formControlName.control)"
+            (change)="onValueChange(value)"
+            (selectionChange)="onValueChange($event.value)"
+            [required]="required"
+            (click)="triggerOpened()">
+            <mat-option>--</mat-option>
+            @for (comboEntity of (targetFieldDomain$ | async); track comboEntity.key) {
+              <mat-option [value]="comboEntity.value">
+                {{ comboEntity.key | translate: comboEntity.translationID }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (formControlName.control?.invalid) {
+            <mat-error>{{controlErrorDescription}}</mat-error>
+          }
+        </mat-form-field>
+      }
+    }
+
+    <!-- DATE -->
+    @case (FieldType.date){
+      <mat-form-field [appearance]="appearance" class="form-field-full-width">
+        <mat-label>{{label | translate: labelTranslationID}}
+          @if (iconLayout === 'label') {
+            <mat-icon [safeIcon]="icon"></mat-icon>
+          }
+        </mat-label>
+        <input matInput [matDatepicker]="picker"
+          [readonly]="formControlName.pending"
+          [placeholder]="placeholder | translate: placeholderTranslationID"
+          [formControl]="$any(formControlName.control)"
+          [required]="required"
+          (change)="onValueChange(value)"
+          (dateChange)="onValueChange($event.target.value)"
+          #dateInput>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <!--switch to mobile touchUI if ishandset (responsive) -->
+        <mat-datepicker [touchUi]="isHandset$ | async" #picker
+                            [startAt]="dateInput.value !== null &&
+                                      dateInput.value !== undefined ? dateInput.value : startDate">
+        </mat-datepicker>
+        @if (formControlName.control?.invalid) {
+          <mat-error>{{controlErrorDescription}}</mat-error>
+        }
+      </mat-form-field>
+    }
+
+    <!-- PHONE -->
+    @case (FieldType.phone){
+      <mat-form-field [appearance]="appearance" class="form-field-full-width">
+        <mat-label i18n="@@app.phone.prefix"><span matPrefix>+216&nbsp;</span> {{label | translate: labelTranslationID}}
+                @if (iconLayout === 'label') {
+                  <mat-icon [safeIcon]="icon"></mat-icon>
+                }
+              </mat-label>
+      <mat-icon [safeIcon]="icon" class="icon-18" matSuffix></mat-icon>
+      <input  matInput
+        type="tel"
+        maxlength=16
+        [readonly]="formControlName.pending"
+        [value]="value"
+        [placeholder]="placeholder | translate: placeholderTranslationID"
+        [required]="required"
+        [type]="type"
+        [formControl]="$any(formControlName.control)"
+        (change)="onValueChange(value)"
+        #telInput>
+      <mat-hint i18n="@@app.phone.maxlenght.hint" align="end">{{telInput.value.length}} / 8</mat-hint>
+      @if (formControlName.control?.invalid) {
+        <mat-error>{{controlErrorDescription}}</mat-error>
+      }
+
+    </mat-form-field>
+  }
+
+  <!-- TEXT AREA -->
+  @case (FieldType.textarea){
+    <mat-form-field [appearance]="appearance" class="form-field-full-width">
+      <mat-label>{{label | translate: labelTranslationID}}
+        @if (iconLayout === 'label'){
+          <mat-icon [safeIcon]="icon"></mat-icon>
+        }
+      </mat-label>
+      <textarea matInput
+        [placeholder]="placeholder | translate: placeholderTranslationID"
+        [readonly]="formControlName.pending"
+        [formControl]="$any(formControlName.control)"
+        [maxlength]="4000"
+        (change)="onValueChange(value)"
+        #textAreaInput>
+      </textarea>
+      <mat-hint align="end">{{textAreaInput.value.length}} / 4000 </mat-hint>
+    </mat-form-field>
+  }
+
+  <!-- PASSWORD -->
+  @case (FieldType.password){
+    <mat-form-field [appearance]="appearance" class="form-field-full-width">
+      <mat-label>{{label | translate: labelTranslationID}}
+        @if (iconLayout === 'label'){
+          <mat-icon [safeIcon]="icon !== null ? icon : 'lock'"></mat-icon>
+        }
+      </mat-label>
+      <input  matInput
+        type="password"
+        autocomplete="new-password"
+        maxlength=32
+        [readonly]="formControlName.pending"
+        [value]="value"
+        [placeholder]="placeholder | translate: placeholderTranslationID"
+        [required]="required"
+        [type]="type"
+        [formControl]="$any(formControlName.control)"
+        (input)="changeInputValue($event.target.value)"
+        (change)="onValueChange(value)"
+        (blur)="onTouched()"
+        #passInput>
+      @if (iconOrientation === 'PREFIX' && iconLayout === 'component') {
+        <mat-icon [safeIcon]="icon !== null ? icon : 'lock'" class="icon-18" matPrefix></mat-icon>
+      }
+      @if (iconOrientation === 'SUFFIX' && iconLayout === 'component') {
+        <mat-icon [safeIcon]="icon !== null ? icon : 'lock'" class="icon-18" matSuffix></mat-icon>
+      }
+      @if (formControlName.control?.invalid) {
+        <mat-error>{{controlErrorDescription}}</mat-error>
+      }
+    </mat-form-field>
+  }
+
+  <!-- BOOLEAN -->
+  @case (FieldType.boolean){
+    <div class="check-box-field">
+      <mat-checkbox [formControl]="$any(formControlName.control)"
+        [labelPosition]="'after'"
+        (change)="onCheckBoxChange($event.checked)"
+        [indeterminate]="getIndeterminate(value)">
+        {{label | translate: labelTranslationID}}
+      </mat-checkbox>
+      @if (value!==undefined && value !== null) {
+        <mat-icon [safeIcon]="value ? 'check_circle' : 'cancel'"
+        [style.color]="value ? '#43A047' : '#E8382A'"></mat-icon>
+      }
+      @if (value===undefined || value === null) {
+        <mat-icon [safeIcon]="'help'"
+        [style.color]="'#F28C1E'"></mat-icon>
+      }
+    </div>
+  }
+
+  <!-- NUMBER -->
+  @case (FieldType.number){
+    <mat-form-field [appearance]="appearance" class="form-field-full-width">
+      <mat-label>
+        {{label | translate: labelTranslationID}}
+        @if (iconLayout === 'label'){
+          <mat-icon [safeIcon]="icon"></mat-icon>
+        }
+      </mat-label>
+      <input  matInput
+        type="number"
+        [readonly]="formControlName.pending"
+        [placeholder]="placeholder | translate: placeholderTranslationID"
+        [required]="required"
+        [formControl]="$any(formControlName.control)"
+        (input)="changeInputValue($event.target.value)"
+        (change)="onValueChange(value)"
+        (blur)="onTouched()"
+        #matInputComponent>
+      @if(showIcon && iconOrientation === 'PREFIX' && iconLayout === 'component'){
+        <mat-icon [safeIcon]="icon"  class="icon-18" matPrefix></mat-icon>
+      }
+      @if(showIcon && iconOrientation === 'SUFFIX' && iconLayout === 'component'){
+        <mat-icon [safeIcon]="icon" class="icon-18" matSuffix></mat-icon>
+      }
+      @if (formControlName.control?.invalid) {
+        <mat-error>{{controlErrorDescription}}
+        </mat-error>
+      }
+    </mat-form-field>
+  }
+
+  <!-- NUMBER Slider-->
+  @case (FieldType.numberslider){
+    <div class="averos-slider">
+      <mat-label>
+        {{label | translate: labelTranslationID}}
+        @if(iconLayout === 'label'){
+          <mat-icon [safeIcon]="icon"></mat-icon>
+        }
+      </mat-label>
+      <mat-slider
+                  [max]="1000"
+                  [min]="0"
+                  [step]="1"
+                  [discrete]="true"
+                  aria-labelledby="averos-slider">
+                  <input  matSliderThumb 
+                          [formControl]="$any(formControlName.control)"
+                          (valueChange)="onValueChange($event)" />
+      </mat-slider>
+      @if(showIcon && iconOrientation === 'PREFIX' && iconLayout === 'component'){
+        <mat-icon [safeIcon]="icon"  class="icon-18" matPrefix></mat-icon>
+      }
+      @if(showIcon && iconOrientation === 'SUFFIX' && iconLayout === 'component'){
+        <mat-icon [safeIcon]="icon" class="icon-18" matSuffix></mat-icon>
+      }
+      @if (formControlName.control?.invalid){
+        <mat-error>{{controlErrorDescription}}</mat-error>
+      }
+    </div>
+  }
+
+  <!-- OneToOne relation / Composite relation-->
+  @case (FieldType.composite){
+
+    @if (compositeEntity()==='' || compositeEntity()===null || compositeEntity()===undefined) {
+      <button mat-icon-button aria-label="Search Composite element"
+        (click)="onCompositeRelationAddClicked(formControlName.name)">
+        <mat-icon [safeIcon]="'search'" class="icon-18" matSuffix></mat-icon>
+      </button>
+    }
+    @if(compositeEntity()!=='' && compositeEntity()!==null && compositeEntity()!==undefined){
+      <mat-chip-row
+        (removed)="onCompositeRelationDeleteClicked(compositeEntity())"
+        [editable]="false"
+        [aria-description]="'press enter to edit ' + 'fruit.name'">
+        {{compositeEntity()}}
+        <button matChipRemove [attr.aria-label]="'remove ' + 'fruit.name'">
+          <mat-icon [safeIcon]="'cancel'"></mat-icon>
+        </button>
+      </mat-chip-row>
+    }
+    <input  matInput
+      type="text"
+      (value)="compositeEntity()"
+      [type]="type"
+      [formControl]="$any(formControlName.control)"
+      hidden="true"
+      #searchComposite>
+  }
+
+  <!-- DEFAULT : SIMPLE INPUT FIELD -->
+  @default {
+    <mat-form-field [appearance]="appearance" class="form-field-full-width">
+      <mat-label>
+        {{label | translate: labelTranslationID}}
+        @if (iconLayout === 'label') {
+          <mat-icon [safeIcon]="icon"></mat-icon>
+        }
+      </mat-label>
+      @if (formControlName && formControlName.pending) {
+        <mat-icon matSuffix>
+          <averos-app-notification #appNotif
+            [role]="'LocalInline'"
+            [isLocal]="true"
+            [color]="'accent'"
+            [mode]="'indeterminate'"
+            [isInlineLoadingOverride]="true">
+          </averos-app-notification>
+        </mat-icon>
+      }
+      @if(showIcon && iconOrientation === 'PREFIX' && iconLayout === 'component'){
+        <mat-icon [safeIcon]="icon"  class="icon-18" matPrefix></mat-icon>
+      }
+      @if(showIcon && iconOrientation === 'SUFFIX' && iconLayout === 'component'){
+        <mat-icon [safeIcon]="icon" class="icon-18" matSuffix></mat-icon>
+      }
+      <input  matInput
+        maxlength=1000
+        [readonly]="formControlName.pending"
+        [placeholder]="placeholder | translate: placeholderTranslationID"
+        [required]="required"
+        [formControl]="$any(formControlName.control)"
+        (input)="changeInputValue($event.target.value)"
+        (change)="onValueChange(value)"
+        (blur)="onTouched()"
+        #matInputComponent>
+      @if (formControlName.control?.invalid) {
+        <mat-error>{{controlErrorDescription}}</mat-error>
+      }
+    </mat-form-field>
+  }
+}
+
+</ng-template>
+
+<!-- VIEW TEMPLATE -->
+<ng-template #viewMode>
+  <div class="p-b-24 view-edit-input-field">
+    <div class="m-b-8 flex-row">
+      <span class="v-bar-label"></span>
+      <label class="justify-end items-center">
+        {{label | translate: labelTranslationID}}
+        @if (icon !== null && icon !== undefined) {
+          <mat-icon [safeIcon]="icon" class="icon-18 m-l-8 m-t-0"></mat-icon>
+        }
+      </label>
+    </div>
+    <div class="p-l-8">
+      <span class="v-bar-label"></span>
+      @switch (type) {
+        @case ('date') {
+          <strong>{{value!==undefined && value !==null ? (value | date: 'dd-MM-yyyy') : '- - -'}}</strong>
+        }
+        @case ('boolean') {
+          @if (value!==undefined && value !== null) {
+            <mat-icon [safeIcon]="value ? 'check_circle' : 'cancel'" [style.color]="value ? '#43A047' : '#E8382A'"></mat-icon>
+          }
+          @if (value===undefined || value === null) {
+            <mat-icon [safeIcon]="'help'" [style.color]="'#F28C1E'"></mat-icon>
+          }
+        }
+        @case ('composite') {
+          @if(compositeEntity()!=='' && compositeEntity()!==null && compositeEntity()!==undefined){
+            <button mat-flat-button class="button-composite"
+              (click)="onCompositeRelationViewClicked(value)">
+              {{displayValue(7)}}
+            </button>
+          } @else {
+            <mat-icon [safeIcon]="'close_small'" [style.color]="'#F28C1E'"></mat-icon>
+          }
+        }
+        @default {
+          <strong>{{displayValue()}}</strong>
+        }
+      }
+    </div>
+  </div>
+</ng-template>

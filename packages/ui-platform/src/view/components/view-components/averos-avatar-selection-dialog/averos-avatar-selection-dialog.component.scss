@@ -1,0 +1,59 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ *
+ */
+ 
+.avatar-selection-container {
+    justify-content: flex-start; 
+    margin-top: 14px;
+    margin-bottom: 10px;
+}
+.avatar-card {
+  border-radius: 50%;
+  padding: 0px;
+  margin: 8px;
+}
+.mat-mdc-card-content{
+    margin: 0px;
+    padding: 0px;
+}
+
+.mat-mdc-card:focus {
+    border: 2px solid #01579b;
+   & .avatar-img {
+    opacity: 1;
+   }    
+  }
+
+  .mat-mdc-card:hover {
+   & .avatar-img {
+    opacity: 1;
+   }    
+  }
+
+
+.avatar-img{
+    border-radius: 50%;
+    width: 100px;
+    display: block;
+    opacity: 0.5;
+}
+
+// .mat-card-content>:first-child {
+//     margin-top: 14px;
+// }
+
+// .mat-card-content>:last-child{
+//     margin-top: 14px;
+// }
+
+// .mat-card>:first-child {
+//      margin-top: 14px;
+// }

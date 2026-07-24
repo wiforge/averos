@@ -1,0 +1,163 @@
+<form [formGroup]="reactiveForm">
+  <div class="simple-view-component">
+    <ng-container *ngTemplateOutlet="(entityUseCaseViewLayout$ | async)?.orderedView ? orderedView : randomView">
+    </ng-container>
+
+    <!-- ORDERED VIEW -->
+    <ng-template #orderedView>
+      @for (groupedViewLayout of ((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable | toViewLayout | async) ?? [] | sortCollectionBy: 'asc':'group.groupOrder'; track $index) {
+        <!-- NONE GROUPED FIELDS || Simple fields -->
+        @if(groupedViewLayout.group.groupLabel === undefined && !groupedViewLayout?.isCompositeField){
+          <div class="flex-100">
+            <div class="flex-row-wrap gap-8-grid justify-space-between">
+              @for (fieldViewLayout of groupedViewLayout.groupedFieldsLayout | sortCollectionBy: 'asc':'order'; track fieldViewLayout.entityFieldName) {
+                @if (fieldViewLayout.visible) {
+                                  <div class="e_pad_8 flex-dynamic-basis" [style]="'--desktop-flex-basis: ' + (groupedViewLayout.groupedFieldsLayout.length > ((entityUseCaseViewLayout$ | async)?.standardGroupMaxLineItems ?? 4) 
+                                    ? 100/((entityUseCaseViewLayout$ | async)?.standardGroupMaxLineItems ?? 4)
+                                    : 100/groupedViewLayout.groupedFieldsLayout.length) + '%; --mobile-flex-basis: ' + (editModeActivated ? 100 : 50) + '%;'">
+                    <averos-view-edit-input-field [editModeActivated]="editModeActivated"
+                      [label]="fieldViewLayout.label"
+                      [labelTranslationID]='fieldViewLayout.labelTranslationID'
+                      [value]="getFieldValue(fieldViewLayout.entityFieldName)"
+                      [entityAccessorKey]="fieldViewLayout.entityFieldName"
+                      [compositeEntityAccessorKey]="getCompositeEntityAccessorKey(fieldViewLayout)"
+                      [required]="fieldViewLayout.required"
+                      [placeholder]="fieldViewLayout.placeholder"
+                      [placeholderTranslationID]="fieldViewLayout.placeholderTranslationID"
+                      [controlErrorDescription]="getValidationMessage(reactiveForm, fieldViewLayout.entityFieldName, fieldViewLayout.validators)"
+                      [icon]="fieldViewLayout.icon"
+                      [iconOrientation]="(entityUseCaseViewLayout$ | async)?.iconOrientation ?? 'SUFFIX'"
+                      [appearance]="$any(useCaseConfig.componentAppearance ?? 'outline')"
+                      [iconLayout]="useCaseConfig.iconLayout ?? 'component'"
+                      [formControlName]="fieldViewLayout.entityFieldName"
+                      [type]="fieldViewLayout.type"
+                      [targetFieldDomain]="fieldViewLayout.targetFieldDomain"
+                      (componentValueChanged)="onValueChange($event)">
+                    </averos-view-edit-input-field>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Simple GROUPED FIELDS -->
+        @if(groupedViewLayout.group.groupLabel && !groupedViewLayout?.isCompositeField){
+          <div class="flex-100">
+            <fieldset>
+              <legend class="button"><span>{{groupedViewLayout.group.groupLabel | translate:groupedViewLayout.group.groupLabelTranslationID }}</span></legend>
+              <div class="flex-row-wrap gap-8-grid justify-space-between">
+                @for (fieldViewLayout of groupedViewLayout.groupedFieldsLayout; track fieldViewLayout.entityFieldName) {
+                  @if (fieldViewLayout.visible && fieldViewLayout.fieldGroup && fieldViewLayout?.fieldGroup.groupId) {
+                                          <div class="e_pad_8 flex-dynamic-basis" [style]="'--desktop-flex-basis: ' + (groupedViewLayout.groupedFieldsLayout.length > ((entityUseCaseViewLayout$ | async)?.standardGroupMaxLineItems ?? 4) 
+                                            ? 100/((entityUseCaseViewLayout$ | async)?.standardGroupMaxLineItems ?? 4) 
+                                            : 100/groupedViewLayout.groupedFieldsLayout.length) + '%; --mobile-flex-basis: ' + (editModeActivated ? 100 : 50) + '%;'">
+                      <averos-view-edit-input-field [editModeActivated]="editModeActivated"
+                        [label]="fieldViewLayout.label"
+                        [labelTranslationID]='fieldViewLayout.labelTranslationID'
+                        [value]="getFieldValue(fieldViewLayout.entityFieldName)"
+                        [entityAccessorKey]="fieldViewLayout.entityFieldName"
+                        [compositeEntityAccessorKey]="getCompositeEntityAccessorKey(fieldViewLayout)"
+                        [required]="fieldViewLayout.required"
+                        [placeholder]="fieldViewLayout.placeholder"
+                        [placeholderTranslationID]="fieldViewLayout.placeholderTranslationID"
+                        [controlErrorDescription]="getValidationMessage(reactiveForm, fieldViewLayout.entityFieldName, fieldViewLayout.validators)"
+                        [icon]="fieldViewLayout.icon"
+                        [iconOrientation]="(entityUseCaseViewLayout$ | async)?.iconOrientation ?? 'SUFFIX'"
+                        [appearance]="$any(useCaseConfig.componentAppearance ?? 'outline')"
+                        [iconLayout]="useCaseConfig.iconLayout ?? 'component'"
+                        [formControlName]="fieldViewLayout.entityFieldName"
+                        [type]="fieldViewLayout.type"
+                        [targetFieldDomain]="fieldViewLayout.targetFieldDomain"
+                        (componentValueChanged)="onValueChange($event)">
+                      </averos-view-edit-input-field>
+                    </div>
+                  }
+                }
+              </div>
+            </fieldset>
+          </div>
+        }
+        <!-- COMPOSITE GROUPED FIELDS -->
+        @if(groupedViewLayout?.isCompositeField && isCompositeNavigationKey(groupedViewLayout?.groupedFieldsLayout[0]?.entityFieldName) && groupedViewLayout.compositeFieldLayout==='inline'){
+          <div class="flex-100" [formGroupName]="getCompositeFieldGroupName(groupedViewLayout?.groupedFieldsLayout[0]?.entityFieldName)">
+            <fieldset>
+              <legend class="button"><span>{{groupedViewLayout.group.groupLabel ?  ( groupedViewLayout.group.groupLabel| translate:groupedViewLayout.group.groupLabelTranslationID ) : getCompositeFieldGroupName(groupedViewLayout?.groupedFieldsLayout[0]?.entityFieldName)}}</span></legend>
+              <div class="flex-row-wrap gap-8-grid justify-space-between">
+                @for (fieldViewLayout of groupedViewLayout.groupedFieldsLayout; track fieldViewLayout.entityFieldName) {
+                  @if (fieldViewLayout.visible && fieldViewLayout.fieldGroup && fieldViewLayout?.fieldGroup.groupId) {
+                                          <div class="e_pad_8 flex-dynamic-basis" [style]="'--desktop-flex-basis: ' + (groupedViewLayout.groupedFieldsLayout.length > ((entityUseCaseViewLayout$ | async)?.standardGroupMaxLineItems ?? 4) 
+                                            ? 100/((entityUseCaseViewLayout$ | async)?.standardGroupMaxLineItems ?? 4) 
+                                            : 100/groupedViewLayout.groupedFieldsLayout.length) + '%; --mobile-flex-basis: ' + (editModeActivated ? 100 : 50) + '%;'">
+                      <averos-view-edit-input-field [editModeActivated]="editModeActivated"
+                        [label]="fieldViewLayout.label"
+                        [labelTranslationID]='fieldViewLayout.labelTranslationID'
+                        [value]="getFieldValue(fieldViewLayout.entityFieldName)"
+                        [entityAccessorKey]="fieldViewLayout.entityFieldName"
+                        [compositeEntityAccessorKey]="getCompositeEntityAccessorKey(fieldViewLayout)"
+                        [required]="fieldViewLayout.required"
+                        [placeholder]="fieldViewLayout.placeholder"
+                        [placeholderTranslationID]="fieldViewLayout.placeholderTranslationID"
+                        [controlErrorDescription]="getValidationMessage(reactiveForm, fieldViewLayout.entityFieldName, fieldViewLayout.validators)"
+                        [icon]="fieldViewLayout.icon"
+                        [iconOrientation]="(entityUseCaseViewLayout$ | async)?.iconOrientation ?? 'SUFFIX'"
+                        [appearance]="$any(useCaseConfig.componentAppearance ?? 'outline')"
+                        [iconLayout]="useCaseConfig.iconLayout ?? 'component'"
+                        [formControlName]="getCompositeFormControlName(fieldViewLayout.entityFieldName)"
+                        [type]="fieldViewLayout.type"
+                        [targetFieldDomain]="fieldViewLayout.targetFieldDomain"
+                        (componentValueChanged)="onValueChange($event)">
+                      </averos-view-edit-input-field>
+                    </div>
+                  }
+                }
+              </div>
+            </fieldset>
+          </div>
+        }
+        <!-- Case composite Field is of type simple (ex. ID / string)  -->
+        @if(groupedViewLayout?.isCompositeField && !isCompositeNavigationKey(groupedViewLayout?.groupedFieldsLayout[0]?.entityFieldName) && groupedViewLayout.compositeFieldLayout==='inline'){
+          <div class="flex-100">
+            <fieldset>
+              <legend class="button"><span>{{groupedViewLayout.group.groupLabel ?  ( groupedViewLayout.group.groupLabel| translate:groupedViewLayout.group.groupLabelTranslationID ) : getCompositeFieldGroupName(groupedViewLayout?.groupedFieldsLayout[0]?.entityFieldName)}}</span></legend>
+              <div class="flex-row-wrap gap-8-grid justify-space-between">
+                @for (fieldViewLayout of groupedViewLayout.groupedFieldsLayout; track fieldViewLayout.entityFieldName) {
+                  @if (fieldViewLayout.visible && fieldViewLayout.fieldGroup && fieldViewLayout?.fieldGroup.groupId) {
+                                          <div class="e_pad_8 flex-dynamic-basis" [style]="'--desktop-flex-basis: ' + (groupedViewLayout.groupedFieldsLayout.length > ((entityUseCaseViewLayout$ | async)?.standardGroupMaxLineItems ?? 4) 
+                                            ? 100/((entityUseCaseViewLayout$ | async)?.standardGroupMaxLineItems ?? 4) 
+                                            : 100/groupedViewLayout.groupedFieldsLayout.length) + '%; --mobile-flex-basis: ' + (editModeActivated ? 100 : 50) + '%;'">
+                      <averos-view-edit-input-field [editModeActivated]="editModeActivated"
+                        [label]="fieldViewLayout.label"
+                        [labelTranslationID]='fieldViewLayout.labelTranslationID'
+                        [value]="getFieldValue(fieldViewLayout.entityFieldName)"
+                        [entityAccessorKey]="fieldViewLayout.entityFieldName"
+                        [compositeEntityAccessorKey]="getCompositeEntityAccessorKey(fieldViewLayout)"
+                        [required]="fieldViewLayout.required"
+                        [placeholder]="fieldViewLayout.placeholder"
+                        [placeholderTranslationID]="fieldViewLayout.placeholderTranslationID"
+                        [controlErrorDescription]="getValidationMessage(reactiveForm, fieldViewLayout.entityFieldName, fieldViewLayout.validators)"
+                        [icon]="fieldViewLayout.icon"
+                        [iconOrientation]="(entityUseCaseViewLayout$ | async)?.iconOrientation ?? 'SUFFIX'"
+                        [appearance]="$any(useCaseConfig.componentAppearance ?? 'outline')"
+                        [iconLayout]="useCaseConfig.iconLayout ?? 'component'"
+                        [formControlName]="getCompositeFormControlName(fieldViewLayout.entityFieldName)"
+                        [type]="fieldViewLayout.type"
+                        [targetFieldDomain]="fieldViewLayout.targetFieldDomain"
+                        (componentValueChanged)="onValueChange($event)"
+                        (onCompositeRelationActionEvent)="onCompositeRelationAction($event, fieldViewLayout.entityFieldName)">
+                      </averos-view-edit-input-field>
+                    </div>
+                  }
+                }
+              </div>
+            </fieldset>
+          </div>
+        }
+      }
+    </ng-template>
+
+    <!-- RANDOM VIEW: NON ORDERED -->
+    <ng-template #randomView>
+    </ng-template>
+  </div>
+</form>

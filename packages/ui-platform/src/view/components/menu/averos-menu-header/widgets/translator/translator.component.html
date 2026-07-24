@@ -1,0 +1,22 @@
+<div>
+  <button mat-button class="averos-toolbar-button" (click)="openLanguageSelection()" [matTooltip]="'Switch language'| translate: 'app.switchlanguage'">
+    <mat-icon [safeIcon]="'flags/'+(getCurrentProfileSVGIcon() | async)" class="icon-24"></mat-icon>
+  </button>
+  @if (((languageProfileSet$ | async) ?? []).length > 1) {
+    <mat-select #mselect
+      (selectionChange)="onChangeLanguage($event.value)">
+      @for (languageProfile of (languageProfileSet$ | async); track languageProfile.code) {
+        <mat-option [value]="languageProfile.code">
+          <span>
+            <mat-icon [safeIcon]="'flags/'+languageProfile.icon"
+              [matTooltip]="languageProfile.code"
+              class="icon-36"
+              aria-hidden="false"
+              aria-label="country flag">
+            </mat-icon>
+          </span>
+        </mat-option>
+      }
+    </mat-select>
+  }
+</div>

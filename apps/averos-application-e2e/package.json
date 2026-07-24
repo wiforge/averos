@@ -1,0 +1,8 @@
+{
+  "name": "@averos/averos-application-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "averos-application-e2e"
+  }
+}

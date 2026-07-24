@@ -1,0 +1,208 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+@use "sass:map";
+@use '@angular/material' as mat;
+
+@mixin averos-grid-theme($theme) {
+
+  $is-dark-theme: map.get($theme, is-dark);
+  $accent: map.get($theme, accent);
+  $primary: map.get($theme, primary);
+  $background: map.get($theme, background);
+  $foreground: map.get($theme, foreground);
+
+  $row-hover-bg: #f2f2f2;
+  $row-odd-bg: #f7f7f7;
+
+  $row-hover-bg-dark: #373737;
+  $row-odd-bg-dark: #3b3b3b;
+
+  .table-filter {
+    mat-icon {
+      @if $is-dark-theme {
+        color: mat.m2-get-color-from-palette($accent, darker);
+      } @else {
+        color: mat.m2-get-color-from-palette($primary);
+      }
+    }
+  }
+
+  .mtx-grid {
+    .mat-mdc-table {
+      .mat-mdc-cell, .mat-mdc-header-cell {
+        .mat-cell-img {
+          width: 30px;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-top: 5px;
+          align-items: center; 
+        }
+
+        .mat-cell-composite {
+          font-size: smaller;
+          height: auto;
+          border-radius: 20px;
+          line-height: 25px;
+          cursor: pointer;
+          margin-top: 5px;
+          min-width: fit-content;
+          @if $is-dark-theme {
+            background-color: #2c3d46;
+          } @else {
+            background-color: #daf0fb;
+          }
+        }
+
+        .mat-cell-collection {
+          font-size: smaller;
+          border-radius: 20px;
+          line-height: 25px;
+          cursor: pointer;
+          margin-top: 5px;
+          min-width: fit-content;
+          @if $is-dark-theme {
+            background-color: mat.m2-get-color-from-palette($primary);
+          } @else {
+            background-color: #daf0fb;
+          }
+        }
+
+        .mat-cell-action {
+          font-size: smaller;
+          height: auto;
+          border-radius: 20px;
+          line-height: 25px;
+          cursor: pointer;
+          margin-top: 5px;
+          min-width: fit-content;
+          @if $is-dark-theme {
+            background-color: mat.m2-get-color-from-palette($accent, darker);
+            color: black;
+          } @else {
+            background-color: mat.m2-get-color-from-palette($accent, lighter);
+            color: mat.m2-get-color-from-palette($background);
+          }
+          &:hover {
+            @if $is-dark-theme {
+              background-color: mat.m2-get-color-from-palette($accent, 600);
+            } @else {
+              background-color: mat.m2-get-color-from-palette($accent, darker);
+            }
+          }
+        }
+
+        .mat-cell-boolean {
+          margin-top: 5px;
+        }
+        
+        //// ActionIcons Layout and shape
+        .mat-mdc-icon-button.mat-mdc-button-base {
+          width: 40px;
+          height: 40px;
+          padding: 0px;
+        }
+        .mat-cell-action-button {
+          .mat-icon {
+            @if $is-dark-theme {
+              color: mat.m2-get-color-from-palette($accent, darker);
+            } @else {
+              color: mat.m2-get-color-from-palette($primary);
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+////// GRID THEME ////////////////
+
+.mtx-grid {
+  border: 1px solid rgba(mat.m2-get-color-from-palette($foreground, secondary-text), .2);
+
+  .mat-mdc-table-sticky-left {
+    border-right: 1px solid mat.m2-get-color-from-palette($foreground, divider);
+
+    [dir='rtl'] & {
+      border-right-width: 0;
+      border-left: 1px solid mat.m2-get-color-from-palette($foreground, divider);
+    }
+  }
+
+  .mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
+  @if $is-dark-theme {
+    background-color: #2a2a2a;
+  } @else {
+    background-color: #f5f5f5;
+  }
+}
+
+.mat-mdc-row {
+  &.selected,
+  &.mat-row-odd.selected {
+    @if $is-dark-theme {
+      background-color: #2a2a2a;
+    } @else {
+      background-color: #e5e5e5;
+    }
+  }
+}
+
+  .mat-mdc-cell {
+    &.selected {
+      box-shadow: inset 0 0 0 1px mat.m2-get-color-from-palette($accent);
+    }
+  }
+
+  .mat-mdc-paginator {
+    border-top: 1px solid mat.m2-get-color-from-palette($foreground, divider);
+  }
+
+  .mat-mdc-footer-row {
+    .mat-mdc-footer-cell {
+      border-top: 1px solid mat.m2-get-color-from-palette($foreground, divider);
+      border-bottom-width: 0;
+      background-color: mat.m2-get-color-from-palette($background, app-bar);
+    }
+  }
+}
+
+.mtx-grid-column-menu-item {
+  color: mat.m2-get-color-from-palette($foreground, text);
+}
+
+.grid-mat-button {
+  & mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    line-height: 18px;
+    @if $is-dark-theme {
+      color: mat.m2-get-color-from-palette($accent, darker) !important;
+    } @else {
+      color: mat.m2-get-color-from-palette($primary) !important;
+    }
+    &:hover {
+      animation: spin 0.8s ease-in-out;
+    }
+  }
+  & span {
+    @if $is-dark-theme {
+      color: mat.m2-get-color-from-palette($accent, darker);
+    } @else {
+      color: mat.m2-get-color-from-palette($primary);
+    }
+  }
+}
+
+}

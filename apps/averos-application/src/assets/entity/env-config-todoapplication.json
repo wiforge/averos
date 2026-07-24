@@ -1,0 +1,30 @@
+{"configurationItems": [
+	{
+		"configurationId": "ToDoArea",
+		"entityId": "ToDoArea",
+		"externalKeysMapping": [
+			{
+				"targetServices": ["ToDoAreaService"],
+				"keysMapping": {
+					"areaId": "_id"
+				}
+
+			}
+		]
+	},
+	{
+		"configurationId": "ToDoTask",
+		"entityId": "ToDoTask",
+		"externalKeysMapping": [
+			{
+				"targetServices": ["ToDoTaskService"],
+				"keysMapping": {
+					"taskId": "task_id",
+					"description": "taskDescription",
+					"_entityCreatedAt": "creatxedAt",
+					"_entityUpdatedAt": "updatedAt"
+				}
+			}
+		]
+	}
+	]}

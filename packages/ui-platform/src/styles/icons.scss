@@ -1,0 +1,28 @@
+ 
+  
+  /**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+  /* Rules for sizing the icon. */
+  .mat-icon.md-18 { font-size: 18px; }
+  .mat-icon.md-24 { font-size: 24px; }
+  .mat-icon.md-36 { font-size: 36px; }
+  .mat-icon.md-48 { font-size: 48px; }
+  
+//   /* Rules for using icons as black on a light background. */
+  .mat-icon.md-dark { color: rgba(0, 0, 0, 0.54); }
+  .mat-icon.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+  
+//   /* Rules for using icons as white on a dark background. */
+  .mat-icon.md-light { color: rgba(255, 255, 255, 1); }
+  .mat-icon.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+

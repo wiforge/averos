@@ -1,0 +1,175 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "create-application": {
+      "description": "Creates a new averos application.",
+      "factory": "./create-application#createApplication",
+      "schema": "./create-application/schema.json"
+    },
+    "ng-add": {
+      "description": "Add averos support to the project.",
+      "factory": "./ng-add",
+      "schema": "./ng-add/schema.json"
+    },
+    "create-entity-uc": {
+      "description": "Generate a Create Entity use case.",
+      "aliases": ["ucc"],
+      "factory": "./create-entity-uc",
+      "schema": "./create-entity-uc/schema.json"
+    },
+    "search-entity-uc": {
+      "description": "Generate a Search Entity use case.",
+      "aliases": ["ucs"],
+      "factory": "./search-entity-uc",
+      "schema": "./search-entity-uc/schema.json"
+    },
+    "averos-service": {
+      "aliases": ["as"],
+      "description": "Generate an Averos Entity Service scaffolding for crud operations.",
+      "factory": "./averos-service",
+      "schema": "./averos-service/schema.json"
+    },
+    "averos-entity": {
+      "description": "Generate a new Averos Entity along with its related service then register it.",
+      "aliases": ["ae"],
+      "factory": "./averos-entity",
+      "schema": "./averos-entity/schema.json"
+    },
+    "map-entity-field": {
+      "description": "Creates a mapping record between an entity field key and an external entity field key.",
+      "aliases": ["mef"],
+      "factory": "./map-entity-field/entity-field-mapping#mapEntityFieldToExternalField",
+      "schema": "./map-entity-field/entity-field-mapping-schema.json"
+    },
+    "averos-validator": {
+      "description": "Generate a new Averos Validator for a given Entity member ",
+      "aliases": ["av"],
+      "factory": "./averos-validator",
+      "schema": "./averos-validator/schema.json"
+    },
+    "predefined-validator": {
+      "description": "Configures a predefined Validator for a given Entity member ",
+      "private": true,
+      "aliases": ["pv"],
+      "factory": "./averos-validator/predefined-validators/predefined-validators-config",
+      "schema": "./averos-validator/predefined-validators/predefined-validators-config-schema.json"
+    },
+    "predefined-action-global-custom-validator": {
+      "description": "Configures a predefined Validation action for a given Entity member using the globalCustomValidator class",
+      "private": true,
+      "aliases": ["pagcv"],
+      "factory": "./averos-validator/predefined-validators/global-custom-validator/global-custom-validator-action-config",
+      "schema": "./averos-validator/predefined-validators/global-custom-validator/global-custom-validator-action-config-schema.json"
+    },
+    "predefined-action-validators": {
+      "description": "Configures a predefined Validation action for a given Entity member using the Validators class",
+      "private": true,
+      "aliases": ["pavs"],
+      "factory": "./averos-validator/predefined-validators/validators/validators-action-config",
+      "schema": "./averos-validator/predefined-validators/validators/validators-action-config-schema.json"
+    },
+    "predefined-action-parameters": {
+      "description": "Configures Validation action parameters for a given validation action",
+      "private": true,
+      "aliases": ["pap"],
+      "factory": "./averos-validator/predefined-validators/action-parameter/action-parameter-config",
+      "schema": "./averos-validator/predefined-validators/action-parameter/action-parameter-config-schema.json"
+    },
+    "custom-validator": {
+      "description": "Configures a custom Validator for a given Entity member ",
+      "private": true,
+      "aliases": ["cv"],
+      "factory": "./averos-validator/custom-validators/custom-validators-config",
+      "schema": "./averos-validator/custom-validators/custom-validators-config-schema.json"
+    },
+    "add-composite-member": {
+      "description": "Adds a new averos composite member to a given averos entity.",
+      "aliases": ["acm"],
+      "factory": "./add-composite-member",
+      "schema": "./add-composite-member/schema.json"
+    },
+    "add-simple-member": {
+      "description": "Adds a new averos simple member (enum, string, number) to a given averos entity.",
+      "aliases": ["asm"],
+      "factory": "./add-simple-member",
+      "schema": "./add-simple-member/schema.json"
+    },
+    "add-enumeration-member": {
+      "description": "Adds a member of type enumeration",
+      "factory": "./add-simple-member/add-enumeration",
+      "schema": "./add-simple-member/enum-schema.json"
+    },
+    "advanced-crud": {
+      "description": "Generate a Create Entity use case.",
+      "aliases": ["acrud"],
+      "factory": "./advanced-crud",
+      "schema": "./advanced-crud/schema.json"
+    },
+    "initialize-averos-project": {
+      "description": "Sets up the specified project after the ng-add dependencies have been installed.",
+      "private": true,
+      "factory": "./ng-add/init-averos-project",
+      "schema": "./ng-add/schema.json"
+    },
+    "post-add": {
+      "description": "Post ng-add actions.",
+      "private": true,
+      "factory": "./ng-add/post-add",
+      "schema": "./ng-add/post-add_schema.json"
+    },
+    "add-language": {
+      "description": "add a specific language to the application (multilanguage support).",
+      "aliases": ["alang"],
+      "factory": "./add-language",
+      "schema": "./add-language/schema.json"
+    },
+    "add-translation-entry": {
+      "description": "add a translation entry to a specific language.",
+      "aliases": ["ate"],
+      "factory": "./add-translation-entry",
+      "schema": "./add-translation-entry/schema.json"
+    },
+    "create-page": {
+      "description": "Generate a a new empty page.",
+      "aliases": ["cp"],
+      "factory": "./create-page",
+      "schema": "./create-page/schema.json"
+    },
+    "update-route-menu": {
+      "description": "adds a default entry to the default menu and route .",
+      "private": true,
+      "factory": "./create-page/update-route-menu",
+      "schema": "./create-page/update-route-menu-schema.json"
+    },
+    "averos-config": {
+      "aliases": ["ac"],
+      "description": "Creates an averos configuration",
+      "factory": "./averos-config",
+      "schema": "./averos-config/schema.json"
+    },
+    "service-config": {
+      "description": "Creates a service configuration",
+      "private": true,
+      "factory": "./averos-config/service-config",
+      "schema": "./averos-config/service-config-schema.json"
+    },
+    "gateway-config": {
+      "description": "Creates a gateway configuration",
+      "private": true,
+      "factory": "./averos-config/gateway-config",
+      "schema": "./averos-config/gateway-config-schema.json"
+    },
+    "averos-auth": {
+      "aliases": ["aa"],
+      "description": "Add/Update an averos authentication provider",
+      "factory": "./averos-auth",
+      "schema": "./averos-auth/schema.json"
+    },
+    "averos-auth-config": {
+      "aliases": ["aac"],
+      "description": "Add/Update an averos authentication configuration",
+      "factory": "./averos-auth-config",
+      "schema": "./averos-auth-config/schema.json"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "@averos/workflow/schematics/dependencies-lib",
+    "version": "1.0.0",
+    "description": "Averos lib dependencies ",
+    "dependencies": {
+        "@averos/workflow": "2.0.0",
+        "@averos/ui-platform": "2.0.0",
+        "@angular/material": "~21.2.6",
+        "@angular/cdk": "~21.2.6",
+        "@angular/localize": "~21.2.9",
+        "file-saver": "2.0.5"
+    },
+    "externalDependencies": {
+        "firebase": "12.8.0",
+        "keycloak-js": "26.2.2"
+    }
+  }

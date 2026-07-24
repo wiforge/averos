@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAddAverosSimpleMember",
+  "title": "Generates a new simple member named mname for the entity ename",
+  "type": "object",
+  "properties": {
+    "ename": {
+      "description": "The name of the entity.",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the Entity to which you would like to add your new member?"
+    },
+    "mname": {
+      "description": "The simple member name (the field name).",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the simple member that you wish to add to your entity?"
+    },
+    "memberType": {
+      "description": "The type of the new member that you ou wish to add to your entity.",
+      "type": "string",
+      "minLength": 1,
+      "default": "string",
+      "enum": [
+                "enumeration",
+                "string",
+                "number",
+                "boolean",
+                "date",
+                "array",
+                "map",
+                "textarea",
+                "password",
+                "phone"
+              ],
+      "x-prompt": {
+        "message": "Which is the type of the composite member you wish to add to your entity?",
+        "type": "list",
+        "items": [
+          { "value": "enumeration", "label": "Enumeration"},
+          { "value": "string", "label": "String"},
+          { "value": "number", "label": "Number (Input component)" },
+          { "value": "numberslider", "label": "Number (Slider component)" },
+          { "value": "boolean", "label": "Boolean" },
+          { "value": "date", "label": "Date" },
+          { "value": "array", "label": "Array" },
+          { "value": "textarea", "label": "TextArea (String With TextArea Layout Support)" },
+          { "value": "password", "label": "Password (String With Password Layout Support)" },
+          { "value": "phone", "label": "Phone (String With Phone Layout Support)" }
+        ]
+      }
+    },
+    "listOfEnumValues": {
+      "description": "The list of the enumeration values seperated by ','",
+      "type": "string"
+    },
+    "technicalId": {
+      "description": "The entity's technical unique id (such as primary key)",
+      "type": "boolean",
+      "default": false,
+      "x-prompt": "Is your member a technical unique Identifier for your entity [NO] ?"
+    },
+    "businessId": {
+      "description": "The entity's business identifier such as a short name. (Displayed in messages and notifications)",
+      "type": "boolean",
+      "default": false,
+      "x-prompt": "Is your member a business Identifier displayed in notifications related to your entity (ex. name) [NO] ?"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "ename", "mname", "memberType"
+  ]
+}

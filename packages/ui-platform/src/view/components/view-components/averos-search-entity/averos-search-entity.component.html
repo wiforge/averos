@@ -1,0 +1,64 @@
+<mat-accordion animate.enter="fade-enter">
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>
+      <mat-panel-title><h2>{{((entityUseCaseViewLayout$ | async)?.title ?? '')  | translate: (entityUseCaseViewLayout$ | async)?.titleTranslationID}}</h2></mat-panel-title>
+    </mat-expansion-panel-header>
+    @if (searchInputFormGoup) {
+      <form (keydown.enter)="searchEntities()" novalidate [formGroup]="searchInputFormGoup" class="search-input-form">
+        <mat-card appearance="outlined">
+          <fieldset>
+            <legend class="button"><span>{{((entityUseCaseViewLayout$ | async)?.parentEntityLabel! | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}</span></legend>
+            <!-- Form Container for our filter form group for the user to filter the accounts list -->
+            <div class="flex-row-wrap gap-8-grid justify-space-between">
+              @for (groupedViewLayout of ((((entityUseCaseViewLayout$ | async)?.ucViewLayout))
+                | toObservable | toViewLayout | async) ?? [] | sortCollectionBy: 'asc':'group.groupOrder'; track groupedViewLayout) {
+                <!-- NONE GROUPED FIELDS || Simple fields -->
+                @if (groupedViewLayout?.group?.groupLabel === undefined && !groupedViewLayout?.isCompositeField) {
+                  <div class="e_pad_8 flex-100">
+                    <div class="flex-row-wrap gap-8-grid justify-space-between">
+                      @for (fieldViewLayout of groupedViewLayout.groupedFieldsLayout | sortCollectionBy: 'asc':'order'; track fieldViewLayout) {
+                        @if (fieldViewLayout.visible) {
+                          <div class="e_pad_8 flex-dynamic-basis" [style]="'--desktop-flex-basis: ' + 100/groupedViewLayout.groupedFieldsLayout.length + '%; --mobile-flex-basis: 100%;'">
+                            <averos-search-input-field [fieldViewLayout]="fieldViewLayout"
+                              [useCaseConfig]="useCaseConfig"
+                              [searchInputFormGoup]="searchInputFormGoup">
+                            </averos-search-input-field>
+                          </div>
+                        }
+                      }
+                    </div>
+                  </div>
+                }
+                <!-- Simple GROUPED FIELDS-->
+                @if (groupedViewLayout.group.groupLabel && !groupedViewLayout?.isCompositeField) {
+                  <div class="e_pad_8 flex-100">
+                    <fieldset>
+                      <legend class="button"><span>{{groupedViewLayout.group.groupLabel | translate:groupedViewLayout.group.groupLabelTranslationID }}</span></legend>
+                      <div class="flex-row-wrap gap-8-grid justify-space-between">
+                        @for (fieldViewLayout of groupedViewLayout.groupedFieldsLayout; track fieldViewLayout) {
+                          @if (fieldViewLayout.visible && fieldViewLayout.fieldGroup && fieldViewLayout?.fieldGroup.groupId) {
+                            <div class="e_pad_8 flex-dynamic-basis" [style]="'--desktop-flex-basis: ' + 100/groupedViewLayout.groupedFieldsLayout.length + '%; --mobile-flex-basis: 100%;'">
+                              <averos-search-input-field [fieldViewLayout]="fieldViewLayout"
+                                [useCaseConfig]="useCaseConfig"
+                                [formControlName]="fieldViewLayout.entityFieldName">
+                              </averos-search-input-field>
+                            </div>
+                          }
+                        }
+                      </div>
+                    </fieldset>
+                  </div>
+                }
+              }
+              <div class="e_pad_8 flex-100">
+                <button mat-raised-button color="primary" (click)="searchEntities()">
+                  <mat-icon [safeIcon]="'search'" matSuffix></mat-icon> {{'search' | translate: 'app.search'}}
+                </button>
+              </div>
+            </div>
+          </fieldset>
+        </mat-card>
+      </form>
+    }
+  </mat-expansion-panel>
+</mat-accordion>

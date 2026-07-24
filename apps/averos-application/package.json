@@ -1,0 +1,25 @@
+{
+  "name": "averos-application",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@angular/common":                    "catalog:",
+    "@angular/compiler":                  "catalog:",
+    "@angular/core":                      "catalog:",
+    "@angular/forms":                     "catalog:",
+    "@angular/material":                  "catalog:",
+    "@angular/cdk":                       "catalog:",
+    "@angular/platform-browser":          "catalog:",
+    "@angular/router":                    "catalog:",
+    "@angular/service-worker":            "catalog:",
+    "@angular/localize":                  "catalog:",
+    "@averos/ui-platform":                "workspace:*",
+    "@averos/core":                       "catalog:",
+    "rxjs":                               "catalog:",
+    "zone.js":                            "catalog:",
+    "tslib":                              "catalog:",
+    "file-saver":                         "catalog:",
+    "keycloak-js":                        "catalog:",
+    "firebase":                           "catalog:"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAverosValidator",
+  "title": "Generates a validator for a specific entity field",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The Predefined Validator name ",
+      "type": "string",
+      "default": "predefined",
+      "enum": [
+        "custom",
+        "predefined",
+        "none"
+      ],
+      "x-prompt": {
+        "message": "Please choose whether you want to create/use a custom validator or use a predefined one...",
+        "type": "list",
+        "items": [
+          { "value": "custom", "label": "Create or use a custom Validator" },
+          { "value": "predefined", "label": "Use a predefined Validator" }
+        ]
+      }
+    },
+    "name": {
+      "description": "The name of the validator.",
+      "type": "string"
+    },
+    "entityName": {
+      "description": "The target entity name.",
+      "type": "string"
+    },
+    "fieldName": {
+      "description": "The target entity field name.",
+      "type": "string"
+    },
+    "nature": {
+      "description": "The Validator nature: sync/async",
+      "type": "string"
+    },
+    "validatorId": {
+      "description": "The validation method name.",
+      "type": "string"
+    },
+    "validatorKey": {
+      "description": "The validation key.",
+      "type": "string"
+    },
+    "validationParameters": {
+      "description": "The validation parameters used with the validation method (comma-separated values).",
+      "type": "string"
+    },
+    "validationDefaultMessage": {
+      "description": "The default validation message.",
+      "type": "string"
+    },
+    "validationMessageTranslationId": {
+      "description": "The translation id related to the validation message.",
+      "type": "string"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+  ]
+}

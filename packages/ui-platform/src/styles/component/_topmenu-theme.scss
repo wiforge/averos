@@ -1,0 +1,33 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@use 'sass:map';
+@use "@angular/material" as mat;
+
+@mixin averos-topnav-theme($theme) {
+  $background: mat.m2-get-color-from-palette($theme, 'background');
+  $foreground: mat.m2-get-color-from-palette($theme, 'foreground');
+
+  .averos-topmenu {
+    background: mat.m2-get-color-from-palette($background, app-bar);
+    color: mat.m2-get-color-from-palette($foreground, text);
+
+    .mat-mdc-button {
+      &.active {
+        background-color: mat.m2-get-color-from-palette($background, focused-button);
+      }
+    }
+  }
+
+
+  
+}

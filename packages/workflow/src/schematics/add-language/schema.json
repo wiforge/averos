@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAddLanguage",
+  "title": "Add a new language support",
+  "type": "object",
+  "properties": {
+    "languageCode": {
+      "description": "The additional language, other than the default profile language that the user want to set up for multilanguage application support.",
+      "type": "string",
+      "minLength": 1,
+      "default": "en",
+      "enum": [
+                "ar",
+                "cn",
+                "en",
+                "es",
+                "fr",
+                "de",
+                "jp",
+                "nl",
+                "no",
+                "ru",
+                "se"
+              ],
+      "x-prompt": {
+        "message": "Which language support would you like to add to your application? (english is default",
+        "type": "list",
+        "items": [
+          { "value": "ar", "label": "Arabic     [ 🇹🇳 ]" },
+          { "value": "cn", "label": "Chinese    [ 🇨🇳 ]" },
+          { "value": "en", "label": "English    [ 🇺🇸 ]" },
+          { "value": "es", "label": "Spanish    [ 🇪🇸 ]" },
+          { "value": "fr", "label": "French     [ 🇫🇷 ]" },
+          { "value": "de", "label": "German     [ 🇩🇪 ]" },
+          { "value": "jp", "label": "Japanese   [ 🇯🇵 ]" },
+          { "value": "nl", "label": "Dutch      [ 🇳🇱 ]" },
+          { "value": "no", "label": "Norwegian  [ 🇳🇴 ]" },
+          { "value": "ru", "label": "Russian    [ 🇷🇺 ]" },
+          { "value": "se", "label": "Swedish    [ 🇸🇪 ]" }
+        ]
+      }
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the use case component.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "languageCode"
+  ]
+}

@@ -1,0 +1,705 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+
+@use 'sass:math';
+@use '@angular/material' as mat;
+@use './component/transitions' as transitions;
+@use './component/variables' as var;
+@use './component/breakpoints' as bp;
+@use './component/scrollbar';
+@use './component/badge' as bd;
+
+.averos-table {
+  display: flex;
+  flex-direction: column;
+}
+
+  .search-input-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .mat-form-field-flex {
+      width: auto;
+    }
+  }
+
+  .a-resizable {
+    // border-radius: 3px; 
+    resize: both;
+    word-wrap: normal;
+    min-width: 100px;
+    overflow: hidden;
+    height: fit-content;
+  }
+
+// ###################### averos-Menu-header ######################
+
+// #### AVEROS ######################
+
+/////Brand styling  ///////////
+.averos-brand {
+  display: inline-block;
+  color: inherit;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.averos-brand-logo-expanded {
+  width: 55px;
+  height: 32px;
+  margin-right: 10px;
+  margin-top: 10px;
+  vertical-align: middle;
+
+  [dir='rtl'] & {
+    margin-left: 10px;
+    margin-right: auto;
+  }
+}
+
+.averos-brand-name {
+  font-weight: normal;
+  vertical-align: middle;
+}
+//////////////////
+
+.averos-toolbar {
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+  
+    .averos-navbar-side.averos-header-fixed & {
+      border-bottom: black;
+  
+      @include mat.elevation(6);
+    }
+  
+    .badge {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      font-size: 12px;
+      border-radius: 10px;
+    }
+  }
+
+  .averos-brand-name {
+    font-weight: normal;
+    vertical-align: middle;
+  }
+
+  // Customize toolbar button
+.averos-toolbar-button {
+    &.mat-mdc-button,
+    &.mat-mdc-icon-button {
+      margin: 0 3px;
+    }
+  
+    &.mat-mdc-button {
+      min-width: unset;
+      line-height: 0px;
+      border-radius: 999px;
+    }
+  
+    &.averos-avatar-button {
+      display: flex;
+      // padding: 5px 4px;
+      font-size: 0;
+      .mdc-button__label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .averos-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+      }
+  
+      .averos-username {
+        margin: 0 8px;
+        font-size: 14px;
+      }
+    }
+  }
+
+.averos-container-wrap,
+.averos-container {
+  height: 100%;
+}
+
+.averos-content {
+  position: relative;
+  display: block;
+  height: 100%;
+  // padding: $gutter;
+  section & {
+     main & {
+      padding: var.$gutter;
+    }
+  }  
+}
+
+///
+  .averos-content {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    app-login, app-register, averos-request-password-reset {
+      background-image: url("../assets/images/wiforge/bg/averos.svg");
+      background-color: whitesmoke;
+      height: 100%;
+      //position: relative;
+      width: 100%;
+      // opacity: 0.90;
+      opacity: 1;
+      background-position: left;
+      // background-position: left;
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 0px ;
+      background-attachment: fixed;
+    }
+
+    app-register {
+      background-position: right;
+    }
+
+    app-login{
+      background-position: left;
+    }
+  }
+
+averos-home {
+  .averos-content {
+  padding: 0px !important;
+  }
+}
+
+.averos-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+
+  .averos-toolbar {
+    padding: 0 8px;
+  }
+
+  // Layout control
+  .averos-header-fixed & {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.averos-sidenav {
+  position: absolute;
+  overflow-x: hidden;
+  transition: transitions.swift-ease-out(width); // Only set width property
+
+  @include mat.elevation(2);
+
+  &.mat-drawer-side {
+    border-width: 0;
+  }
+}
+
+// Layout control
+.averos-header-above {
+  .averos-container {
+    height: calc(100% - #{var.$toolbar-height-desktop}) !important;
+  }
+
+  .averos-sidebar-main {
+    height: 100% !important;
+  }
+}
+
+// Layout control
+.averos-sidenav-collapsed,
+.averos-sidenav-collapsed-fix {
+  .averos-sidenav {
+    width: var.$sidenav-collapsed-width;
+
+    .menu-name,
+    .menu-label,
+    .menu-badge,
+    .menu-caret,
+    .averos-user-panel-name,
+    .averos-user-panel-email,
+    .averos-user-panel-icons {
+      opacity: 0;
+    }
+
+    .averos-user-panel-avatar {
+      transform: scale(.5);
+    }
+
+    &:hover {
+      
+      width: var.$sidenav-width;
+    
+      .menu-name,
+      .menu-label,
+      .menu-badge,
+      .menu-caret,
+      .averos-user-panel-name,
+      .averos-user-panel-email,
+      .averos-user-panel-icons {
+        opacity: 1;
+      }
+
+      .averos-user-panel-avatar {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+// Layout control
+.averos-sidenav-collapsed {
+  .averos-content-wrap {
+    margin-left: var.$sidenav-collapsed-width !important;
+
+    [dir='rtl'] & {
+      margin-left: auto !important;
+      margin-right: var.$sidenav-collapsed-width !important;
+    }
+  }
+
+  &[dir='rtl'] .averos-content-wrap {
+    margin-left: auto !important;
+    margin-right: var.$sidenav-collapsed-width !important;
+  }
+}
+
+// Layout control
+.averos-navbar-top {
+  .averos-topmenu {
+    top: 0;
+  }
+
+  .averos-brand {
+    margin-left: 16px;
+
+    [dir='rtl'] & {
+      margin-left: auto;
+      margin-right: 16px;
+    }
+  }
+}
+
+// Layout control
+.averos-header-fixed {
+  .averos-topmenu {
+    top: var.$topmenu-sticky-position-desktop;
+
+    @include bp.bp-lt(small) {
+      & {
+        top: var.$topmenu-sticky-position-mobile;
+      }
+    }
+  }
+}
+
+// Fix the init content width
+.averos-content-width-fix {
+  .averos-content-wrap {
+    margin-left: var.$sidenav-width !important;
+
+    [dir='rtl'] & {
+      margin-left: auto !important;
+      margin-right: var.$sidenav-width !important;
+    }
+  }
+}
+
+.view-edit-input-field {
+  overflow-wrap: break-word;
+}
+
+/////////////////////// SIDE BAR MENU STYLING /////////////////
+
+.averos-sidemenu {
+  width: var.$sidenav-width;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  .averos-sidemenu-item {
+    display: block;
+    height: auto;
+    padding: 0;
+
+    &.open {
+      > .averos-sidemenu {
+        max-height: 2000px;
+      }
+
+      > .averos-sidemenu-toggle > .menu-caret {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+    padding: 0 16px;
+    text-decoration: none;
+  }
+
+  .mat-icon.menu-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 16px;
+    font-size: 18px;
+    line-height: 18px;
+
+    [dir='rtl'] & {
+      margin-left: 16px;
+      margin-right: auto;
+    }
+  }
+
+  .mat-icon.menu-caret {
+    display: block;
+    text-align: center;
+    transition: transitions.fast-out-slow(transform);
+  }
+
+  .menu-name,
+  .menu-label,
+  .menu-badge {
+    transition: transitions.swift-ease-out(opacity);
+  }
+
+  .menu-label,
+  .menu-badge {
+    @include bd.badge();
+  }
+
+  .menu-badge {
+    border-radius: 10px;
+  }
+
+  &.level-0 > li > a > .menu-name {
+    margin-right: 5px;
+
+    [dir='rtl'] & {
+      margin-left: 5px;
+      margin-right: auto;
+    }
+  }
+
+  &.level-1 > li > a {
+    padding-left: 50px;
+
+    [dir='rtl'] & {
+      padding-left: 16px;
+      padding-right: 50px;
+    }
+  }
+
+  &.level-2 > li > a {
+    padding-left: 64px;
+
+    [dir='rtl'] & {
+      padding-left: 16px;
+      padding-right: 64px;
+    }
+  }
+
+  &.submenu {
+    max-height: 0;
+    padding-top: 0;
+    overflow: hidden;
+    transform: translateZ(0) !important;
+    transition: transitions.fast-out-slow(max-height);
+
+    .averos-sidemenu-item {
+      border-left-width: 0;
+    }
+  }
+}
+//////////////////////////////// END SIDE BAR MENU STYLING //////////////////////
+
+////////////////////////// Averos SideMEnu UserPanel Styling //////////////////////////////
+.averos-user-panel {
+  padding: 16px 0;
+}
+
+// .averos-user-panel-container {
+//   position: absolute;
+//   background-color: #455A64;
+//   padding: 8px;
+//   border-radius: 50%;
+//   margin-bottom: 8px;
+//   transition: swift-ease-out(transform);
+// }
+
+.averos-user-panel-avatar {
+  // margin-bottom: 8px;
+  // Set default width and height can avoid flashing before avatar image loaded.
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  transition: transitions.swift-ease-out(transform);
+  vertical-align: top;
+}
+
+// .averos-user-panel-avatar:hover {
+//   // display: block;
+//   background-color:black;
+// }
+.averos-user-panel-name,
+.averos-user-panel-email {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: normal;
+}
+
+.averos-user-panel-name,
+.averos-user-panel-email,
+.averos-user-panel-icons {
+  opacity: 1;
+  transition: transitions.swift-ease-out(opacity);
+}
+
+.averos-user-panel-icons {
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding-top: 8px;
+
+  .mat-mdc-icon-button {
+    --mat-mdc-button-persistent-ripple-color: transparent;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0px;
+    margin: 0px 3px 0px 3px; 
+    & .mat-mdc-button-touch-target {
+      width: 18px;
+      height: 18px;
+    }
+    .mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+      line-height: 18px;
+    }
+  }
+}
+
+
+// .mat-mdc-button-touch-target {
+//   width: 18px;
+//   height: 18px;
+//   background-color: aqua;
+// }
+
+/////////////////////////////// END SIDE MENU USER PANEL Styling ////////////////////////////
+.averos-row {
+  margin-right: math.div(-(var.$gutter), 2);
+  margin-left: math.div(-(var.$gutter), 2);
+}
+
+
+.averos-col {
+  padding-right: math.div(var.$gutter, 2);
+  padding-left: math.div(var.$gutter, 2);
+}
+
+/// ######################################################################
+/// #                                                                    #
+/// #                   ANGULAR FLEX-LAYOUT MIGRATION                    #
+/// #                                                                    #
+/// ######################################################################
+
+// Media breakpoints
+$sm: 576px;
+$md: 768px;
+$lg: 990px;
+$xl: 1200px;
+
+.flex-1 { flex: 1 1 0%; box-sizing: border-box; } /// <div fxFlex> → <div class="flex-1">
+.flex { display: flex; }
+.flex-auto { display: flex; flex: auto; }
+.flex-50 { flex: 1 1 50%; max-width: 50%; box-sizing: border-box;}
+.flex-30 { flex: 1 1 30%; max-width: 30%; box-sizing: border-box;}
+.flex-100 { flex: 1 1 100%; max-width: 100%; box-sizing: border-box;}
+
+.flex-100-50 {
+  flex: 1 1 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+  @media screen and (max-width: 959px) { // on mobile
+    flex: 1 1 100%;
+    max-width: 100%; 
+  }
+}
+
+.flex-30-100 {
+  flex: 1 1 30%;
+  max-width: 30%;
+  box-sizing: border-box;
+  @media screen and (max-width: 959px) { // on mobile
+    flex: 1 1 100%;
+    max-width: 100%; 
+  }
+}
+
+.flex-30-50 {
+  flex: 1 1 30%;
+  max-width: 30%;
+  box-sizing: border-box;
+  @media screen and (max-width: 959px) { // on mobile
+    flex: 1 1 50%;
+    max-width: 50%; 
+  }
+}
+
+//fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25"
+.flex-100-50-33-25 {
+  flex: 1 1 25%;
+  max-width: 25%;
+  box-sizing: border-box;
+  @media screen and (max-width: 599px) { //gt-xs
+    flex: 1 1 100%;
+    max-width: 100%; 
+  }
+  @media screen and (min-width: 600px) and (max-width: 768px) { //sm
+    flex: 1 1 50%;
+    max-width: 50%; 
+  }
+  @media screen and (min-width: 767px) and (max-width: 959px) { //sm
+    flex: 1 1 33.33%;
+    max-width: 33.33%; 
+  }
+  @media screen and (min-width: 960px) { //gt-md
+    flex: 1 1 25%;
+    max-width: 25%; 
+  }
+}
+
+/// fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="66.67" fxFlex.gt-md="75"
+.flex-100-50-66-75 {
+  flex: 1 1 70%;
+  max-width: 70%;
+  box-sizing: border-box;
+  @media screen and (max-width: 599px) { //gt-xs
+    flex: 1 1 100%;
+    max-width: 100%; 
+  }
+  @media screen and (min-width: 600px) and (max-width: 768px) { //sm
+    flex: 1 1 50%;
+    max-width: 50%; 
+  }
+  @media screen and (min-width: 767px) and (max-width: 959px) { //sm
+    flex: 1 1 66.67%;
+    max-width: 66.67%; 
+  }
+  @media screen and (min-width: 960px) { //gt-md
+    flex: 1 1 70%;
+    max-width: 70%; 
+  }
+}
+
+.flex-dynamic-basis {
+  flex: 1 1 var(--desktop-flex-basis);
+  max-width: var(--desktop-flex-basis);
+  box-sizing: border-box;
+  @media screen and (max-width: 959px) { // on mobile
+            flex: 1 1 var(--mobile-flex-basis);
+            max-width: var(--mobile-flex-basis);
+  }
+}
+
+.hide-on-small-devices { 
+  @media screen and (max-width: 599px) { display: none; }
+}
+
+.flex-row { display: flex !important; flex-direction: row !important; } /// fxLayout="row"
+.flex-col { display: flex !important; flex-direction: column !important; } /// fxLayout="col"
+.flex-row-wrap { display: flex !important; flex-direction: row !important; flex-wrap: wrap !important;}
+.flex-row-no-wrap { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;}
+.e_pad_8 { padding: 0px 8px 8px 0px; } /// element padding
+.grid { display: grid !important; }
+
+// Flex-wrap utils.
+.flex-wrap { flex-wrap: wrap; }  // Mostly used with flex-row, when wrapping is desired.
+.flex-col-xs { @media screen and (max-width: 599px) { flex-direction: column; } }  // Switch from flex-row to flex-col on mobile.
+
+//// <div fxLayoutGap="8px"> → <div class="gap-8">
+/// fxLayoutGap
+.gap-4 { gap: 4px; }
+.gap-8 { gap: 8px; }
+.gap-8-grid { margin: 0px -8px -8px 0px; }
+.gap-10 { gap: 10px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+
+.justify-center { justify-content: center; } 
+.justify-space-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start; }  // <div fxLayoutAlign="start"> → <div class="justify-start">
+.justify-end { justify-content: flex-end; }
+.items-center { align-items: center; } 
+
+
+/// <div fxLayout="row wrap" fxLayoutGap="8px grid" style="justify-content: center;"> 
+/// ==>
+/// <div class="flex-row-wrap gap-8 justify-center"> 
+
+/// <div fxLayout="row wrap" fxLayoutGap="8px grid" style="justify-content: space-between;">
+/// ==>
+/// <div class="flex-row-wrap gap-8 justify-space-between">
+
+/// <div fxFlex="50" fxFlex.lt-md="100"> => <div class="flex-100-50">
+
+/// <div fxFlex="50" [fxFlex.lt-md]="editModeActivated ? 100 : 50">
+/// ==>
+/// <div [ngClass]="{'flex-100-50': editModeActivated , 'flex-50': !editModeActivated }">
+
+/// <div fxFlex="30" [fxFlex.lt-md]="editModeActivated ? 100 : 50">
+/// ==>
+/// <div [ngClass]="{'flex-30-100': editModeActivated , 'flex-30-50': !editModeActivated }">
+
+/// <div fxLayout="row" fxLayoutAlign="end center"> ==> 
+/// <div class="flex-row">
+/// 
+///
+ 
+// Hide & show for different breakpoints.
+.hide-xs    { @media screen and (max-width: 599px) { display: none; } }  // Hide on mobile.
+.hide-gt-xs { @media screen and (min-width: 600px) { display: none; } }  // Show only on mobile. Hide on desktop.
+.hide-sm    { @media screen and (max-width: 959px) { display: none; } }  // Hide on mobile/tablet.
+.hide-gt-sm { @media screen and (min-width: 960px) { display: none; } }  // Show only on mobile/tablet. Hide on desktop.
+
+/// breakpoint	mediaQuery
+/// xs: extra small	‘screen and (max-width: 599px)’
+/// sm: small medium	‘screen and (min-width: 600px) and (max-width: 959px)’
+/// md: medium	‘screen and (min-width: 960px) and (max-width: 1279px)’
+/// lg: large	‘screen and (min-width: 1280px) and (max-width: 1919px)’
+/// xl: extra large	‘screen and (min-width: 1920px) and (max-width: 5000px)’
+/// lt-sm: less than small medium	‘screen and (max-width: 599px)’
+/// lt-md: less than medium	‘screen and (max-width: 959px)’
+/// lt-lg: less than large	‘screen and (max-width: 1279px)’
+/// lt-xl: less than extra large	‘screen and (max-width: 1919px)’
+/// gt-xs: greater than extra large	‘screen and (min-width: 600px)’
+/// gt-sm: greater than small medium	‘screen and (min-width: 960px)’
+/// gt-md: greater than medium	‘screen and (min-width: 1280px)’
+/// gt-lg: greater than large	‘screen and (min-width: 1920px)’
+/// ############   END OF ANGULAR FLEX-LAYOUT MIGRATION ##################

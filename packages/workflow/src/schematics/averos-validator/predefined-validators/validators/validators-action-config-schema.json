@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsPredefinedValidatorValidators",
+  "title": "Configures a predefined validator for a specific entity field",
+  "type": "object",
+  "properties": {
+   "validatorId": {
+      "description": "The Validator action name (method name)",
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "required",
+        "email",
+        "maxLength"
+      ],
+      "x-prompt": {
+        "message": "please choose one of the predefined validation action to configure with your field...",
+        "type": "list",
+        "items": [
+          { "value": "email", "label": "email" },
+          { "value": "required", "label": "required" },
+          { "value": "maxLength", "label": "maxLength" }
+        ]
+      }
+    }
+   },
+  "required": [
+    "validatorId"
+  ]
+}

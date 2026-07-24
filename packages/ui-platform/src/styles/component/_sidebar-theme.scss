@@ -1,0 +1,157 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '../component/variables' as var;
+@use '../component/breakpoints' as bp;
+
+@mixin averos-sidebar-theme($theme) {
+  $color-config: mat.m2-get-color-config($theme);
+  $is-dark-theme: map.get($theme, is-dark);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $background: map.get($color-config, background);
+  $foreground: map.get($color-config, foreground);
+
+    // User panel background
+    // $averos-user-panel-bg-dark: mat-color(mat-palette($mat-blue-grey, 900));
+    $averos-user-panel-bg-dark: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, 900);
+    $averos-user-panel-bg-light: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, /*500*/700);
+
+    // Main side bar background color
+    // $averos-sidebar-main-bg-dark: mat-color(mat-palette($mat-blue-grey, 900));
+    $averos-sidebar-main-bg-dark: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, 900);
+    $averos-sidebar-main-bg-light: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, /*500*/700);
+
+    .averos-user-panel {
+      border-bottom: 1px solid mat.m2-get-color-from-palette($foreground, divider);
+      @if $is-dark-theme {
+        background-color: $averos-user-panel-bg-dark;
+      } @else {
+        background-color: $averos-user-panel-bg-light;
+      }
+      color: white;
+    }
+
+  /////// SIDE BAR STYLING ///////////////////
+.averos-sidebar-header {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: var.$toolbar-height-desktop;
+  // padding: 0 10px;
+  padding: 0 12px 0px 0px;
+  overflow: hidden;
+  white-space: nowrap;
+  justify-content: space-between;
+
+    @include bp.bp-lt(small) {
+      & {
+        height: var.$toolbar-height-mobile;
+      }
+    }
+
+    & span.mat-h3 {
+      margin: 0px 0px 0px 8px;
+    } 
+    & .sidenav-header-element {
+      margin: 0px 0px 0px 2px;
+    }
+    & .mat-mdc-slide-toggle {
+      margin: 0px 0px 0px 5px;
+    }
+    /// height ad width of the action area
+    .mat-mdc-slide-toggle .mdc-switch .mdc-switch__ripple {
+      height: 15px;
+      width: 15px;
+
+    }
+
+    ////height & width of the handle 
+    .mat-mdc-slide-toggle .mdc-switch .mdc-switch__handle {
+      width: 14px;
+      height: 14px;
+    }
+    //// remove the default material toggle icon
+    .mdc-switch__icons {
+      display: none;
+    }
+    .mat-mdc-slide-toggle .mdc-switch .mdc-switch__track {
+      height: 8px;
+    }
+    .mat-mdc-slide-toggle .mdc-switch {
+      width: 9px;
+    }
+    .mat-mdc-slide-toggle .mdc-switch .mdc-switch__handle-track {
+      width: calc(100% - var(--mat-slide-toggle-handle-width, 4px));
+    }
+  //   & .mat-mdc-slide-toggle-thumb {
+  //     height: 8px;
+  //     width: 8px;
+  //     // font-size: 18px;
+  //     border-radius: 50%;
+  // }
+  // & .mat-mdc-slide-toggle-bar {
+  //   position: relative;
+  //   width: 14px;
+  //   height: 10px;
+  //   flex-shrink: 0;
+  //   border-radius: 8px;
+  // }
+
+  // & .mat-mdc-slide-toggle.mat-checked .mat-mdc-slide-toggle-thumb-container {
+  //   transform: translate3d(3px, 0, 0);
+  // }
+  // & .mat-mdc-slide-toggle-thumb-container {
+  //   position: absolute;
+  //   z-index: 1;
+  //   width: 18px;
+  //   height: 20px;
+  //   left: 0px;
+  //   transform: translate3d(0, 0, 0);
+  //   transition: all 80ms linear;
+  //   transition-property: transform;
+  //   top: 1px;
+  // }
+}
+
+.mat-side-nav-action-button {
+  width: auto !important;
+  height:   auto !important;
+  font-size: 18px;
+  line-height: 15px;
+  button:hover & {
+    animation: spin 0.8s ease-in-out;
+  }
+}
+
+.averos-sidebar-main {
+  height: calc(100% - #{var.$toolbar-height-desktop});
+  overflow: auto;
+  @if $is-dark-theme {
+    background-color: $averos-sidebar-main-bg-dark;
+  } @else {
+    background-color: $averos-sidebar-main-bg-light;
+  }
+  @include bp.bp-lt(small) {
+    & {
+      height: calc(100% - #{var.$toolbar-height-mobile});
+    }
+  }
+}
+////////////////////// END SIDE BAR STYLING /////////////////////
+
+}

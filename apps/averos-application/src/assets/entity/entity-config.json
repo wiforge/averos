@@ -1,0 +1,61 @@
+{
+    "configurationItems": [
+        {
+            "configurationId": "ToDoArea",
+            "entityId": "ToDoArea",
+            "lifecycleId": "todoarea_lifecycle",
+            "externalKeysMapping": [
+                {
+                    "targetServices": ["ToDoAreaService", "testService1", "testService2"],
+                    "keysMapping": {
+                        "area_id": "_id"
+                    }
+
+                },
+                {
+                    "targetServices": ["ToDoAreaService2", "ToDoAreaService3"],
+                    "keysMapping": {
+                        "area_id": "_external_area_id"
+                    }
+                }
+            ]
+        },
+        {
+            "configurationId": "ToDoTask",
+            "entityId": "ToDoTask",
+            "lifecycleId": "todotask_lifecycle",
+            "externalKeysMapping": [
+                {
+                    "targetServices": ["ToDoTaskService"],
+                    "keysMapping": {
+                        "taskId": "task_id",
+                        "description": "taskDescription",
+                        "_entityCreatedAt": "createdAt"
+                    }
+                }
+            ]
+        },
+        {
+            "configurationId": "CompositeTestEntity",
+            "entityId": "CompositeTestEntity",
+            "lifecycleId": "CompositeTestEntity_lifecycle",
+            "externalKeysMapping": [
+                {
+                    "targetServices": ["*"],
+                    "keysMapping": {
+                        "_entityId": "_id",
+                        "_entityCreatedAt": "createdAt"
+                    }
+
+                }
+            ]
+        }
+    ],
+    "globalAPICollectionResponseMappingLookup": {
+        "data": "data",
+        "totalCount": "total_count",
+        "currentPageIndex": "current_page",
+        "pageSize": "page_size",
+        "totalPages": "total_pages"
+    }
+}

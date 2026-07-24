@@ -1,0 +1,46 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+// ==================================================
+// RADIUS
+// ==================================================
+@use "./variables" as var;
+@use "sass:map";
+$border-radius: (
+  'border-radius': (
+    property: border-radius,
+    class: r,
+    values: var.$radius
+  ),
+  'border-top-left-radius': (
+    property: border-top-left-radius,
+    class: r-t-l,
+    values: var.$radius
+  ),
+  'border-top-right-radius': (
+    property: border-top-right-radius,
+    class: r-t-r,
+    values: var.$radius
+  ),
+  'border-bottom-right-radius': (
+    property: border-bottom-right-radius,
+    class: r-b-r,
+    values: var.$radius
+  ),
+  'border-bottom-left-radius': (
+    property: border-bottom-left-radius,
+    class: r-b-l,
+    values: var.$radius
+  )
+);
+
+$utilities: map.merge($border-radius, var.$utilities);

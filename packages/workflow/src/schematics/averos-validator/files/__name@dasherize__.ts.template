@@ -1,0 +1,190 @@
+  
+/**
+ * This source code was generated using the AVEROS CODE GENERATION WORKFLOW tool.
+ * 
+ * The Averos Code Generation platform automates the creation of boilerplate
+ * code and standard structures, streamlining the development process. 
+ * This class adheres to the predefined architecture and coding standards 
+ * specified during the generation process. 
+ * 
+ * Please note:
+ * - While the generated code provides a solid foundation, manual customization 
+ *   may be required to meet specific project requirements.
+ * - Generated methods and attributes are structured to ensure maintainability 
+ *   and compatibility with the existing codebase.
+ * 
+ * It is recommended to review and test the generated code thoroughly to ensure 
+ * it aligns with the intended functionality of the application.
+ * 
+ * For more details on the code generation process, refer to the Averos 
+ * documentation https://www.wiforge.com or contact the development team.
+ */
+
+ /**
+ * This generated Validator Class provides a blueprint for creating validation methods to ensure data integrity and consistency. 
+ * It guides developers on how to implement various types of validation methods for different use cases.
+ * 
+ * Key points about validation methods:
+ * 
+ * 1. **Types of Validation**:
+ *    - **Synchronous**: Perform immediate validation and return the result directly.
+ *    - **Asynchronous**: Perform validation that might involve asynchronous operations, such as API calls or database queries.
+ * 
+ * 2. **Parameterization**:
+ *    - Methods may accept parameters to customize validation rules or criteria.
+ *    - Some methods may not require parameters if the validation logic is self-contained.
+ * 
+ * 3. **Scope of Validation**:
+ *    - **Single-field Validation**: Validates the value of a single entity field against specific criteria.
+ *    - **Inter-field Validation**: Validates a field (e.g., `fieldB`) based on rules that involve another field (e.g., `fieldA`) within the same entity.
+ * 
+ * 4. **Inter-field Validations**:
+ *    - These are designed to ensure logical consistency between fields. 
+ *      For example, validating that `startDate` is earlier than `endDate` in an entity.
+ * 
+ * Developers can use this class as a foundation to define their own validation logic tailored to specific business rules 
+ * while maintaining a consistent structure and approach across the codebase.
+ */
+
+
+import { Injectable } from '@angular/core';
+
+import { AbstractControl, 
+         AsyncValidatorFn, 
+         FormGroup, 
+         ValidationErrors, 
+         ValidatorFn } from '@angular/forms';
+import { AverosValidator } from '@averos/core';
+import { Observable, of} from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+@AverosValidator("<%= classifyPreserveTrailingIndex(name) %>")
+export class <%= classifyPreserveTrailingIndex(name) %> {
+
+
+  constructor() { }
+
+
+/**
+ * syncValidationExample is an example of a synchronous validator with no parameters.
+ * 
+ * You may use this method template 
+ *  to create your own synchronous validators along with your specific validatorID and validatorKey
+ * 
+ * The example below uses the following identifiers:
+ *  - validatorID = syncValidationExample
+ *  - validatorKey = syncValidationExampleNotValid
+ */
+  syncValidationExample(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      // implement your validation logic here 
+      const valid = true; // always valid. If false then always invalid => shows the related validation message
+      return valid ? null : { syncValidationExampleNotValid: true };
+    };
+  }
+
+ /**
+ * syncValidationExampleWithParameters is an example of a synchronous validator with parameters.
+ * 
+ * You may use this method template 
+ *  to create your own synchronous validators along with your specific validatorID and validatorKey
+ * 
+ * The example below uses the following identifiers:
+ *  - validatorID = syncValidationExampleWithParameters
+ *  - validatorKey = syncValidationExampleWithParametersNotValid
+ */
+ syncValidationExampleWithParameters(parameter: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      // implement your validation logic here using your parameter
+      const valid = true; // always valid. If false then always invalid => shows the related validation message
+      return valid ? null : { syncValidationExampleWithParametersNotValid: true };
+    };
+  }
+
+
+/**
+ * asyncValidator is an example of a synchronous validator.
+ * 
+ * You may use this method template 
+ *  to create your own asynchronous validators along with your specific validatorID and validatorKey
+ * 
+ * The example below uses the following identifiers:
+ *  - validatorID = asyncValidator
+ *  - validatorKey = syncValidationExampleWithParametersNotValid
+ */
+  asyncValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+
+      // This is the input value subject to your validation
+      let valueSubjectToValidation = control.value;
+
+      /**
+       * 
+       * Depending on your asynchronous logic, replace the of(valueSubjectToValidation) 
+       *  with a method that returns Observable.
+       * Then upon returnedObject implement your validation logic
+       * (Here if returnedObject exist then the field value is invalid)
+       * 
+       * 
+       **/
+      return of(valueSubjectToValidation)
+      .pipe(map(returnedObject => !!returnedObject ? { asyncValidatorNotValid: true } : null)
+      , catchError(err =>  of({asyncValidatorNotValid: true})));
+    };
+  }
+
+  /**
+   * validateFieldBAgainstFieldAExample is an example of a synchronous inter-field validation.
+   * 
+   * The aim is to validate fieldB against the value of fieldA (ex. password / matchPassword)
+   * 
+   * You may use this method template 
+   *  to create your own synchronous inter-fields validators along with your specific validatorID and validatorKey
+   * 
+   * fieldA and fieldB are equal to the names of the entity fields as declared in the entity to which these two fields belong.
+   * 
+   * The example below uses the following identifiers:
+   *  - validatorID = validateFieldBAgainstFieldAExample
+   *  - validatorKey = fieldBNotValid
+   */
+    validateFieldBAgainstFieldAExample(fieldA: string, fieldB: string) {
+      return (formGroup: FormGroup): AbstractControl | unknown => {
+        const fieldAControl = formGroup.controls[fieldA];
+        const fieldBControl = formGroup.controls[fieldB];
+  
+        if (!fieldAControl || !fieldBControl) {
+          return null;
+        }
+  
+        if (fieldBControl.errors && !fieldBControl.errors['fieldBNotValid']) {
+          return null;
+        }
+  
+        /**
+         * update with your validation logic condition here.
+         * 
+         * This example uses comparaisons between fieldA and fieldB as validation condition
+         * 
+         *  if fieldAControl.value !== fieldBControl.value then fieldB not valid
+         * 
+         **/ 
+        if (fieldAControl.value !== fieldBControl.value) {
+          fieldBControl.setErrors({ fieldBNotValid: true });
+          return;
+        } else {
+          fieldBControl.setErrors(null);
+          return
+        }
+      } ;
+    }
+
+}

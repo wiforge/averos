@@ -1,0 +1,30 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@mixin badge() {
+  display: inline-block;
+  min-width: 18px;
+  padding: 3px 5px;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  color: #fff;
+  background-color: #757575;
+  border-radius: 2px;
+}
+
+.badge {
+  @include badge();
+}

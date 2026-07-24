@@ -1,0 +1,177 @@
+{
+  "sideMenu": [
+{
+  "displayName": "Dashboard",
+  "iconName": "dashboard",
+  "loggedSpace":  "true",
+  "route": "dashboard",
+  "disabled": "true"
+},
+{
+      "loggedSpace": "true",
+      "displayName": "Users",
+      "iconName": "supervisor_account",
+      "children": [
+            {
+              "displayName": "Search Users",
+              "iconName": "local_library",
+              "route": "/users/search"
+            },
+            {
+              "loggedSpace": "true",
+              "displayName": "Add User",
+              "iconName": "person_add",
+              "route": "/users/create"
+            }
+          ]
+}
+  ],
+  "topMenu": [
+      {
+        "displayName": "Dashboard",
+        "iconName": "dashboard",
+        "loggedSpace": "true",
+        "route": "dashboard"
+      },
+       {
+           "displayName": "referential",
+           "iconName": "grain",
+           "loggedSpace": "true",
+           "children": [{
+               "loggedSpace": "true",
+               "displayName": "Users",
+               "iconName": "supervisor_account",
+               "children": [{
+                       "loggedSpace": "true",
+                       "displayName": "Add User",
+                       "iconName": "person_add"
+                     },
+                     {
+                       "displayName": "Search Users",
+                       "iconName": "local_library",
+                       "route": "/users"
+                     }
+                   ]
+             },
+             {
+               "displayName": "Cities",
+               "iconName": "location_cityt",
+               "route": "/users",
+               "children": [
+                     {
+                       "loggedSpace": "true",
+                       "displayName": "Add City",
+                       "iconName": "streetview"
+                     },
+                     {
+                       "displayName": "Search Cities",
+                       "iconName": "map",
+                       "route": "userSearch"
+                     }
+                   ]
+             },
+             {
+               "displayName": "Areas",
+               "iconName": "place",
+               "children": [
+                     {
+                       "loggedSpace": "true",
+                       "displayName": "Add Area",
+                       "iconName": "add_location"
+                     },
+                     {
+                       "displayName": "Search Areas",
+                       "iconName": "not_listed_location"
+                     }
+                   ]
+             },
+             {
+               "displayName": "Healthcare Structure",
+               "iconName": "local_hospital",
+               "children": [
+                     {
+                       "loggedSpace": "true",
+                       "displayName": "Add Healthcare Structure",
+                       "iconName": "add"
+                     },
+                     {
+                       "displayName": "Search Healthcare Structures",
+                       "iconName": "search"
+                     }
+                   ]
+             },
+             {
+               "displayName": "Healthcare Items",
+               "iconName": "local_pharmacy",
+               "children": [
+                     {
+                       "loggedSpace": "true",
+                       "displayName": "Add Item",
+                       "iconName": "add"
+                     },
+                     {
+                       "displayName": "Search Items",
+                       "iconName": "search"
+                     }
+                   ]
+             }]
+         },
+         {
+           "displayName": "Needs List",
+           "iconName": "view_list",
+           "loggedSpace": "true",
+           "children": [
+                       {
+                         "loggedSpace": "true",
+                         "displayName": "Add Healthcare Need",
+                         "iconName": "library_add"
+                       },
+                       {
+                         "displayName": "Search Healthcare Needs",
+                         "iconName": "search"
+                       }
+                   ]
+         },
+         {
+           "displayName": "Misc",
+           "iconName": "dashboard",
+           "disabled": "true",
+           "loggedSpace": "true"
+         },
+         {
+           "displayName": "Events",
+           "iconName": "dashboard",
+           "loggedSpace": "true",
+           "children": [
+             {
+               "displayName": "events",
+               "iconName": "search",
+               "route": "events"
+             },
+             {
+               "displayName": "Special Events",
+               "iconName": "search",
+               "route": "special"
+             }
+         ]
+  
+         },
+        {
+          "displayName": "Users",
+          "iconName": "dashboard",
+          "loggedSpace": "true",
+          "children": [
+             {
+               "displayName": "edit user",
+               "iconName": "add",
+               "route": "userEdit"
+             },
+            {
+              "displayName": "search user",
+              "iconName": "search",
+              "route": "users"
+            }
+          ]
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+<form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
+  <mat-card appearance="outlined">
+    <fieldset class="averos-fieldset">
+      <legend class="button">
+        <span>
+          <mat-card-title>
+            {{editModeActivated
+            ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+            : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+          </mat-card-title>
+        </span>
+      </legend>
+
+
+      <averos-dynamic-composite-view [useCaseConfig]="useCaseConfig"
+        [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+        [editModeActivated]="editModeActivated"
+        [reactiveForm]="reactiveForm"
+        (isFormModified)="formModified($event)">
+      </averos-dynamic-composite-view>
+    </fieldset>
+    @if (displayActions) {
+      <div class="flex-row justify-end items-center">
+        @if (editModeActivated) {
+          <button mat-raised-button color="primary" class="m-t-8" [disabled]="disableSave()" type="submit">
+            <mat-icon [safeIcon]="'save'"></mat-icon>
+          {{'Save' | translate:'app.save'}}</button>
+          <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="formDir.resetForm()">
+            <mat-icon [safeIcon]="'undo'"></mat-icon>
+          {{'Reset' | translate:'app.reset'}}</button>
+          <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="cancelUpdate()">
+            <mat-icon [safeIcon]="'cancel'"></mat-icon>
+          {{'Cancel' | translate:'app.cancel'}}</button>
+        } @else {
+          <button mat-raised-button color="primary" class="m-t-8" (click)="clone()">{{'Clone' | translate: 'app.clone'}}</button>
+        }
+      </div>
+    }
+  </mat-card>
+</form>

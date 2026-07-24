@@ -1,0 +1,482 @@
+{
+    "defaultUCViewLayout": {},
+    "searchInputUCViewLayout": {
+        "orderedView": true,
+        "title": "Search MyAverosApplication",
+        "titleTranslationID": "uc.search.myaverosapplication.title",
+        "parentEntityLabel": "Search Criteria",
+        "parentEntityLabelTranslationId": "uc.search.myaverosapplication.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "label": "name",
+                "labelTranslationID": "myaverosapplication.name",
+                "visible": true,
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "applicationID",
+                "label": "Application ID",
+                "labelTranslationID": "myaverosapplication.applicationid",
+                "visible": true,
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "visible": true,
+                "label": "Creation Date From",
+                "labelTranslationID": "myaverosapplication.createdAt.from",
+                "placeholder": "ex. 01/01/2001 10:00",
+                "placeholderTranslationID": "",
+                "format": "dd-MM-yyyy HH:mm",
+                "type": "date",
+                "icon": "calendar_month",
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": 2,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "visible": true,
+                "label": "Creation Date To",
+                "labelTranslationID": "myaverosapplication.createdAt.to",
+                "placeholder": "ex. 01/01/2001 10:00",
+                "placeholderTranslationID": "",
+                "format": "dd-MM-yyyy HH:mm",
+                "type": "date",
+                "icon": "calendar_month",
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": 2,
+                    "groupOrder": 2
+                }
+            }
+        ]
+    },
+    "tableUCViewLayout": {
+        "orderedView": false,
+        "title": "MyAverosApplication Search Result",
+        "titleTranslationID": "app.search.result",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "label": "name",
+                "labelTranslationID": "myaverosapplication.name",
+                "visible": true,
+                "order": 1
+            },
+            {
+                "entityFieldName": "_entityDescription",
+                "label": "description",
+                "labelTranslationID": "myaverosapplication.description",
+                "visible": true,
+                "order": 2
+            },
+            {
+                "entityFieldName": "_entityCreatedBy",
+                "label": "createdBy",
+                "labelTranslationID": "myaverosapplication.createdby",
+                "type": "composite",
+                "typeName": "User",
+                "visible": true,
+                "order": 3
+            },
+            {
+                "entityFieldName": "_entityUpdatedBy",
+                "label": "updatedBy",
+                "labelTranslationID": "myaverosapplication.updatedBy",
+                "type": "composite",
+                "typeName": "User",
+                "visible": true,
+                "order": 4
+            },
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "label": "Creation Date",
+                "labelTranslationID": "myaverosapplication.createdat",
+                "type": "date",
+                "format": "dd-MM-yyyy HH:mm",
+                "visible": true,
+                "order": 5
+            },
+            {
+                "entityFieldName": "_entityUpdatedAt",
+                "label": "Update Date",
+                "labelTranslationID": "myaverosapplication.updatedat",
+                "type": "date",
+                "format": "dd-MM-yyyy HH:mm",
+                "visible": true,
+                "order": 6
+            },
+            {
+                "entityFieldName": "applicationID",
+                "label": "Application Id",
+                "labelTranslationID": "myaverosapplication.applicationid",
+                "visible": true,
+                "type": "string",
+                "order": 7
+            },
+            {
+                "entityFieldName": "exportedApplicationFileName",
+                "label": "Averos Project",
+                "labelTranslationID": "myaverosapplication.fileName",
+                "visible": true,
+                "type": "file",
+                "format": "json",
+                "dataRetrievalStrategy": {
+                                            "retrievalMethod": "lazy",
+                                            "dataRetrievalAccessLocation": "exportedApplicationFileData"
+                                         },
+                "order": 8
+            },
+            {
+                "entityFieldName": "generationScript",
+                "label": "Generation Script",
+                "labelTranslationID": "myaverosapplication.generationScript",
+                "visible": true,
+                "type": "textarea",
+                "order": 9
+            },
+            {
+                "entityFieldName": "status",
+                "label": "Status",
+                "labelTranslationID": "myaverosapplication.status",
+                "visible": true,
+                "order": 10
+            }
+        ]
+    },
+    "selectableInputTableUCViewLayout": {
+        "orderedView": false,
+        "title": "MyAverosApplication Search Result",
+        "titleTranslationID": "app.search.result",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "label": "name",
+                "labelTranslationID": "myaverosapplication.name",
+                "visible": true,
+                "order": 1
+            },
+            {
+                "entityFieldName": "_entityDescription",
+                "label": "description",
+                "labelTranslationID": "myaverosapplication.description",
+                "visible": true,
+                "order": 2
+            }
+        ]
+    },
+    "viewUCViewLayout": {
+        "orderedView": true,
+        "title": "View MyAverosApplication",
+        "titleTranslationID": "uc.view.myaverosapplication.title",
+        "parentEntityLabel": "MyAverosApplication Details",
+        "parentEntityLabelTranslationId": "uc.view.myaverosapplication.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "visible": true,
+                "label": "MyAverosApplication Name",
+                "labelTranslationID": "myaverosapplication.name",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "badge",
+                "required": true,
+                "disabled": true,
+                "validators": {
+                    "syncValidators": [
+                        {
+                            "validatorID": "required",
+                            "validatorKey": "required",
+                            "type": "Validators",
+                            "nature": "sync",
+                            "validationDefaultMessage": "Please enter a name",
+                            "validationMessageTranslationID": ""
+                        }
+                    ]
+                },
+                "defaultValue": "",
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityDescription",
+                "visible": true,
+                "label": "description",
+                "labelTranslationID": "myaverosapplication.description",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "description",
+                "required": false,
+                "disabled": false,
+                "defaultValue": "",
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityCreatedBy",
+                "label": "createdBy",
+                "labelTranslationID": "user.createdby",
+                "type": "composite",
+                "typeName": "User",
+                "visible": true,
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": 3,
+                    "layout": "tab",
+                    "groupLabel": "Creator",
+                    "groupLabelTranslationID": "user.createdby",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "label": "Creation Date",
+                "labelTranslationID": "myaverosapplication.createdat",
+                "visible": true,
+                "format": "dd-MM-yyyy HH:mm",
+                "type": "date",
+                "icon": "calendar_month",
+                "order": 4,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "applicationID",
+                "label": "Application Id",
+                "labelTranslationID": "myaverosapplication.applicationid",
+                "visible": true,
+                "type": "string",
+                "icon": "label",
+                "order": 5,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "status",
+                "label": "Status",
+                "labelTranslationID": "myaverosapplication.status",
+                "visible": true,
+                "order": 6,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            }
+        ]
+    },
+    "createUCViewLayout": {
+        "orderedView": true,
+        "title": "Create MyAverosApplication",
+        "titleTranslationID": "uc.create.myaverosapplication.title",
+        "parentEntityLabel": "MyAverosApplication Details",
+        "parentEntityLabelTranslationId": "uc.create.myaverosapplication.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "visible": true,
+                "label": "MyAverosApplication Name",
+                "labelTranslationID": "myaverosapplication.name",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "badge",
+                "required": true,
+                "disabled": false,
+                "validators": {
+                    "syncValidators": [
+                        {
+                            "validatorID": "required",
+                            "validatorKey": "required",
+                            "type": "Validators",
+                            "nature": "sync",
+                            "validationDefaultMessage": "Please enter a name",
+                            "validationMessageTranslationID": ""
+                        }
+                    ]
+                },
+                "defaultValue": "",
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityDescription",
+                "visible": true,
+                "label": "description",
+                "labelTranslationID": "myaverosapplication.description",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "description",
+                "required": false,
+                "disabled": false,
+                "defaultValue": "",
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "applicationID",
+                "label": "Application Id",
+                "labelTranslationID": "myaverosapplication.applicationid",
+                "visible": true,
+                "type": "string",
+                "icon": "label",
+                "required": false,
+                "disabled": false,
+                "defaultValue": "",
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "status",
+                "label": "Status",
+                "labelTranslationID": "myaverosapplication.status",
+                "visible": true,
+                "type": "combo",
+                "icon": "view_list",
+                "required": false,
+                "targetFieldDomain": {
+                    "domainServiceRepository": {
+                     "domainControllerType": "MyAverosApplicationDomainControllerService",
+                     "domainControllerMethod": "getMyAverosApplicationStatusValueDomain"
+                   }
+                },
+                "order": 4,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            }
+        ]
+    },
+    "editUCViewLayout": {
+        "orderedView": true,
+        "title": "Edit MyAverosApplication",
+        "titleTranslationID": "uc.edit.myaverosapplication.title",
+        "parentEntityLabel": "MyAverosApplication Details",
+        "parentEntityLabelTranslationId": "uc.edit.myaverosapplication.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "visible": true,
+                "label": "MyAverosApplication Name",
+                "labelTranslationID": "myaverosapplication.name",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "badge",
+                "required": true,
+                "disabled": true,
+                "validators": {
+                    "syncValidators": [
+                        {
+                            "validatorID": "required",
+                            "validatorKey": "required",
+                            "type": "Validators",
+                            "nature": "sync",
+                            "validationDefaultMessage": "Please enter a name",
+                            "validationMessageTranslationID": ""
+                        }
+                    ]
+                },
+                "defaultValue": "",
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityDescription",
+                "visible": true,
+                "label": "description",
+                "labelTranslationID": "myaverosapplication.description",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "description",
+                "required": false,
+                "disabled": false,
+                "defaultValue": "",
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "applicationID",
+                "label": "Application Id",
+                "labelTranslationID": "myaverosapplication.applicationid",
+                "visible": true,
+                "type": "string",
+                "icon": "label",
+                "required": false,
+                "disabled": true,
+                "defaultValue": "",
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "status",
+                "label": "Status",
+                "labelTranslationID": "myaverosapplication.status",
+                "visible": true,
+                "type": "combo",
+                "icon": "view_list",
+                "required": false,
+                "disabled": false,
+                "targetFieldDomain": {
+                    "domainServiceRepository": {
+                     "domainControllerType": "MyAverosApplicationDomainControllerService",
+                     "domainControllerMethod": "getMyAverosApplicationStatusValueDomain"
+                   }
+           },
+                "order": 4,
+                "fieldGroup": {
+                    "groupId": "1",
+                    "groupOrder": 1
+                }
+            }
+        ]
+    }
+}

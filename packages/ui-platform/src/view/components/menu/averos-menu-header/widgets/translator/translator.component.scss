@@ -1,0 +1,39 @@
+
+/* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
+// :host ::ng-deep .mat-mdc-select-value {
+//     display: none;
+//     // text-align: right;
+// } /////<===
+
+// :host ::ng-deep .mat-select-trigger {
+//     display: table;
+//   }
+
+// hide select arrow
+/* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version.*/
+:host ::ng-deep .mat-mdc-select-arrow-wrapper {
+  display: none;
+}
+
+/** 
+  * mat-select width is set to 0 in order to hide the component and make select option panel opens below the compoenent
+  * if mat-select display = none then mat-select won't be visible but mat option panel will opens
+  * at the upper left corner of the application
+  *
+**/
+  // .mat-mdc-select {
+  //   display: inline-block;
+  //   width: 0%;
+  //   outline: none;
+  // }
+
+  /* TODO(mdc-migration): The following rule targets internal classes of option that may no longer apply for the MDC version.*/
+  mat-option {
+    // text-align: center;
+    padding: 6px;
+}
+
+.mat-mdc-select {
+  display: flex;
+  height: 0;
+}

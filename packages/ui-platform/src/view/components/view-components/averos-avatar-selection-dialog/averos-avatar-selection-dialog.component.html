@@ -1,0 +1,32 @@
+<div class="averos-dialog">
+    <div class="averos-dialog-title">
+        <button mat-icon-button class="averos-dialog-header-button" [mat-dialog-close]="true">
+            <mat-icon class="icon-18 rotate-icon" [safeIcon]="'close'"></mat-icon>
+        </button>
+      <h1 i18n="@@user.profile.avatar.selection" mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>Avatar selection</h1>
+    </div>
+    
+    <div mat-dialog-content>
+        
+            <div class="avatar-selection-container flex-row-wrap">
+                @for (avatarSrc of defaultAvatarList; track avatarSrc) {
+                    <mat-card #avatarCard appearance="outlined" matRipple class="d-block avatar-card" tabindex="0"
+                    (click)="onCardClicked(avatarSrc)">
+                        <!-- add a div inside mat-card so that matRipple could work correctly-->
+                        <div>
+                            <mat-card-content>
+                                <img class="avatar-img" [src]="avatarSrc">
+                            </mat-card-content>
+                        </div>
+                    </mat-card>
+                }
+            </div>
+    </div>
+    
+    <!-- <div class="mat-dialog-footer " mat-dialog-actions fxLayout="row" fxLayoutAlign="end center"> -->
+    <div class="mat-dialog-footer flex-row justify-end items-center" mat-dialog-actions>
+        <button mat-raised-button color="primary" class="m-t-8" [disabled]="disableSave()" (click)="onSubmit()">{{'Save' | translate:'app.save'}} </button>
+        <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="onCancel()">{{'Cancel' | translate:'app.cancel'}}</button>
+    </div>
+    </div>
+    

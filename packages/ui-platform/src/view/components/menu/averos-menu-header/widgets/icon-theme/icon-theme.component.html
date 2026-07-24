@@ -1,0 +1,24 @@
+<div>
+  @if(color){
+    <button mat-button [color]="color" class="averos-toolbar-button" [matMenuTriggerFor]="themeMenu"
+      [matTooltip]="'Switch icons theme'| translate: 'app.switchiconstheme'">
+      <mat-icon [safeIcon]="'interests'"
+      class="icon-24"></mat-icon>
+    </button>
+  } @else {
+    <button mat-button class="averos-toolbar-button" [matMenuTriggerFor]="themeMenu"
+      [matTooltip]="'Switch icons theme'| translate: 'app.switchiconstheme'">
+      <mat-icon [safeIcon]="'interests'"
+      class="icon-24"></mat-icon>
+    </button>
+  }
+
+
+  <mat-menu #themeMenu="matMenu">
+    @for (theme of iconThemesSet; track theme) {
+      <button mat-menu-item (click)="onChangeIconTheme(theme)">
+        {{ theme }}
+      </button>
+    }
+  </mat-menu>
+</div>

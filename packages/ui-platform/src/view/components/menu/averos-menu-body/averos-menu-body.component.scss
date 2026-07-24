@@ -1,0 +1,106 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ *
+ */
+
+/* OUTER CONTAINER */
+.tcontainer {
+    width: 100%;
+    overflow: hidden; /* Hide scroll bar */
+  }
+   
+  /* MIDDLE CONTAINER */
+  .ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    padding-left: 100%;
+    box-sizing: content-box;
+  }
+  
+  /* INNER CONTAINER */
+  @keyframes ticker {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+  }
+  .ticker-move {
+    /* Basically move items from right side of screen to left in infinite loop */
+    display: inline-block;
+    white-space: nowrap;
+    padding-right: 100%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: ticker;
+    box-sizing: content-box;
+    animation-duration: 20s; 
+  }
+
+  .ticker-move:hover{
+    animation-play-state: paused; /* Pause scroll on mouse hover */
+  }
+  
+  /* ITEMS */
+  .user-ticker-item, .system-ticker-item{
+    display: inline-block; /* Lay items in a horizontal line */
+    padding: 0 2rem;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .ticker-move { animation-duration: 20s; }
+  }
+
+  .ticker-action-button {
+  display: inline-block;
+  cursor: pointer;
+  }
+
+  .breadcrumb {
+    display: inline-block;
+    // float: left;
+    position: relative;
+    margin-top: 0.25em; // Allows for breadcrumb wrapping
+    margin-right: 0.5em;
+    margin-bottom: 0.25em; // Allows for breadcrumb wrapping
+    padding: 0.5em;
+    background-color: white;
+    color: gray;
+    white-space: nowrap;
+  
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 100%;
+      border-width: 1em 0.25em 1em 0.5em;
+      border-style: solid;
+      border-color: transparent transparent transparent white;
+    }
+  
+    + .breadcrumb {
+      margin-left: 0.75em;
+  
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 100%;
+        border-width: 1em 0.25em 1em 0.5em;
+        border-style: solid;
+        border-color: white white white transparent;
+      }
+    }
+  }
+
+  .left-side-nav-web{
+    width: 30%;
+  }
+  
+  .left-side-nav-handset{
+    width: 50%;
+  }

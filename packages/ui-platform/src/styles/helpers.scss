@@ -1,0 +1,55 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+
+// ------------------------------
+@use 'helpers/functions';
+@use 'helpers/variables' as var;
+@use 'helpers/mixins';
+// ------------------------------
+@use 'helpers/display';
+@use 'helpers/position';
+@use 'helpers/size';
+@use 'helpers/spacing';
+@use 'helpers/border';
+@use 'helpers/radius';
+@use 'helpers/fonts';
+@use 'helpers/text';
+@use 'helpers/alignment';
+@use 'helpers/cursor';
+@use 'helpers/image';
+@use 'helpers/icons';
+
+// Generate Helpers
+@each $key, $utility in var.$utilities {
+  $values: map-get($utility, values);
+  @each $class-modifier, $value in $values {
+    $properties: map-get($utility, property);
+    $property-class-prefix: map-get($utility, class);
+    
+    @if $property-class-prefix == '' {
+      $property-class-prefix-hyphen: $property-class-prefix;
+    } @else {
+      $property-class-prefix-hyphen: $property-class-prefix + '-';
+    }
+    
+    @if type-of($properties) == 'string' {
+      $properties: append((), $properties);
+    }
+    
+    .#{$property-class-prefix-hyphen + $class-modifier} {
+      @each $property in $properties {
+        #{$property}: $value !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsNgAdd",
+  "title": "Initialize averos application",
+  "type": "object",
+  "properties": {
+    "applicationName": {
+      "description": "The Name of the application.",
+      "type": "string",
+      "x-prompt": "What is the name of your application (ex. MyFancyApplication)?"
+    },
+    "enableAuthentication": {
+      "type": "boolean",
+      "description": "enables authentication support.",
+      "default": false,
+      "x-prompt": "Do you want to enable the authentication (NO)?"
+    },
+    "enableExternalEntityMapping": {
+      "type": "boolean",
+      "description": "Enables entity external fields mapping.",
+      "default": false,
+      "x-prompt": "Do you want to enable entity external fields mapping (NO)?"
+    },
+    "defaultLanguageCode": {
+      "description": "The default application language.",
+      "type": "string",
+      "default": "en",
+      "enum": [
+                "ar",
+                "cn",
+                "en",
+                "es",
+                "fr",
+                "de",
+                "jp",
+                "nl",
+                "no",
+                "ru",
+                "se"
+              ],
+      "x-prompt": {
+        "message": "What is your applications's main language? (English is default)",
+        "type": "list",
+        "items": [
+          { "value": "en", "label": "English    [ 🇺🇸 ]" },
+          { "value": "fr", "label": "French     [ 🇫🇷 ]" },
+          { "value": "es", "label": "Spanish    [ 🇪🇸 ]" },
+          { "value": "de", "label": "German     [ 🇩🇪 ]" },
+          { "value": "ar", "label": "Arabic     [ 🇹🇳 ]" },
+          { "value": "ru", "label": "Russian    [ 🇷🇺 ]" },
+          { "value": "cn", "label": "Chinese    [ 🇨🇳 ]" },
+          { "value": "nl", "label": "Dutch      [ 🇳🇱 ]" },
+          { "value": "no", "label": "Norwegian  [ 🇳🇴 ]" },
+          { "value": "se", "label": "Swedish    [ 🇸🇪 ]" },
+          { "value": "jp", "label": "Japanese   [ 🇯🇵 ]" }
+        ]
+      }
+    },
+    "addNewLanguage": {
+      "type": "boolean",
+      "description": "The additional language to support.",
+      "default": false,
+      "x-prompt": "Do you want to set up an additional language support (other than your default one) (NO)?"
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "description": "Skip installing packages.",
+      "default": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+   "required": []
+}

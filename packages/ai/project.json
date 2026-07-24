@@ -1,0 +1,96 @@
+{
+  "name": "@averos/ai",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/ai/src",
+  "projectType": "library",
+  "tags": ["scope:averos", "type:ai"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/packages/ai/dist"],
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "commands": [
+          "tsc --project packages/ai/tsconfig.lib.json",
+          "cp LICENSE packages/ai/LICENSE"
+        ],
+        "parallel": false,
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/packages/ai/test-output/jest/coverage"],
+      "options": {
+        "jestConfig": "packages/ai/jest.config.cts",
+        "passWithNoTests": false
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit --project tsconfig.json",
+        "cwd": "packages/ai"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/ai/**/*.ts"
+        ]
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "rm -rf dist coverage out-tsc test-output *.tsbuildinfo LICENSE",
+        "cwd": "packages/ai"
+      }
+    },
+    "pack": {
+        "executor": "nx:run-commands",
+        "dependsOn": ["build"],
+        "options": {
+            "command": "pnpm pack --pack-destination ../../release",
+            "cwd": "packages/ai"
+        }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npm publish --access public --no-git-checks",
+        "cwd": "packages/ai"
+      },
+      "configurations": {
+        "dry-run": {
+          "command": "npm publish --access public --no-git-checks --dry-run",
+          "cwd": "packages/ai"
+        }
+      }
+    },
+    "unpublish-locally": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm unpublish @averos/ai@$(node -p \"require('./package.json').version\") --registry http://localhost:4873 --force",
+        "cwd": "packages/ai"
+      }
+    },
+    "publish-locally": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "pnpm publish --no-git-checks --registry http://localhost:4873",
+        "cwd": "packages/ai"
+      }
+    }
+  }
+}

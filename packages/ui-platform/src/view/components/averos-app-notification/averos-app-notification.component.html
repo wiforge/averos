@@ -1,0 +1,82 @@
+<!-- 
+  ============================================================================
+  FULL SCREEN LOADING - WEB STYLE
+  ============================================================================
+  Displays a horizontal progress bar at the top with a full-screen overlay
+-->
+@if (isFullScreenLoading() && !isHandset()) {
+  <div>
+    <div id="loading-mask">
+      <mat-progress-bar
+        [color]="this.darkThemeActivated ? 'accent': color" 
+        [mode]="mode"
+        aria-label="Loading content">
+      </mat-progress-bar>
+    </div>
+  </div>
+}
+
+<!-- 
+  ============================================================================
+  FULL SCREEN LOADING - HANDSET STYLE
+  ============================================================================
+  Displays a centered spinner with a full-screen overlay for mobile devices
+-->
+@if (isFullScreenLoading() && isHandset()) {
+  <div>
+    <div id="loading-mask-spinner">
+      <mat-progress-spinner 
+        class="app-mat-progress-spinner" 
+        [color]="this.darkThemeActivated ? 'accent': color" 
+        [mode]="mode"
+        aria-label="Loading content">
+      </mat-progress-spinner>
+    </div>
+  </div>
+}
+
+<!-- 
+  ============================================================================
+  INLINE LOADING - SIMPLE COMPONENT STYLE
+  ============================================================================
+  Displays a small spinner with overlay for inline component loading
+  Used when grid=false
+-->
+@if (isInlineLoading() && !grid) {
+  <div>
+    <div id="loading-mask-spinner"></div>
+      <mat-progress-spinner 
+        [color]="this.darkThemeActivated ? 'accent': color" 
+        [mode]="mode"
+        [diameter]="diameter"
+        aria-label="Loading component data">
+      </mat-progress-spinner>
+  </div>
+}
+   
+<!-- 
+  ============================================================================
+  INLINE LOADING - GRID/TABLE STYLE
+  ============================================================================
+  Displays a progress bar with overlay for grid/table component loading
+  Used when grid=true
+-->
+@if (isInlineLoading() && grid) {
+  <div>
+    <div id="loading-mask-grid">
+      <mat-progress-bar
+        [color]="this.darkThemeActivated ? 'accent': color" 
+        [mode]="mode"
+        aria-label="Loading table data">
+      </mat-progress-bar>
+    </div>
+  </div>
+}
+
+<!-- 
+  ============================================================================
+  ALERT MESSAGES (Success, Error, Warning)
+  ============================================================================
+  Alert messages are automatically handled via dialog in the component's effect
+  No template markup needed - dialogs are opened programmatically
+-->

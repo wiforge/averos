@@ -1,0 +1,17 @@
+  <averos-menu [class.darnet-dark-theme]="darkThemeActivated"
+               [currentLoggedUserProfile]="currentUserProfile"
+               [languageProfileSet$]="supportedLanguages"
+               [openDesigner]="openDesigner"
+               [logged]="authService.isAuthenticated()"
+               [enableAuthentication]="enableAuthentication"
+               [activateAverosSettingsWidget]="activateAverosSettingsWidget"
+               [activateGlobalSearchWidget]="activateGlobalSearchWidget"
+               [activateDefaultGitWidget]="activateDefaultGitWidget"
+               [activateAverosDesigner]="activateAverosDesigner">
+                    
+    <div [ngClass]="{'standalone-designer': openDesigner , 'designer-within-app': !openDesigner }" class="averos-content">
+        <router-outlet></router-outlet>  
+    </div>
+  </averos-menu>
+
+

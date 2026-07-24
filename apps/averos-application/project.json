@@ -1,0 +1,144 @@
+{
+  "name": "averos-application",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "averos",
+  "sourceRoot": "apps/averos-application/src",
+  "tags": ["scope:averos-app", "type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "cache": false,
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": {
+          "base": "apps/averos-application/dist"
+        },
+        "index": "apps/averos-application/src/index.html",
+        "browser": "apps/averos-application/src/main.ts",
+        "polyfills": ["zone.js", "@angular/localize/init"],
+        "tsConfig": "apps/averos-application/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/averos-application/src/favicon.ico",
+          "apps/averos-application/src/manifest.webmanifest",
+          {
+            "glob": "**/*",
+            "input": "apps/averos-application/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/averos-application/public"
+          }
+        ],
+        "styles": [
+          "@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/averos-application/src/styles.scss"
+        ],
+        "scripts": [],
+        "extractLicenses": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true,
+        "allowedCommonJsDependencies": ["file-saver"],
+        "serviceWorker": "apps/averos-application/ngsw-config.json"
+      
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "5mb",
+              "maximumError": "7mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "7kb",
+              "maximumError": "10kb"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "outputHashing": "none",
+          "sourceMap": true,
+          "namedChunks": false,
+          "extractLicenses": false,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "6mb",
+              "maximumError": "8mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "9kb",
+              "maximumError": "10kb"
+            }
+          ]
+        },
+        "dev-lib": {
+          "tsConfig": "apps/averos-application/tsconfig.app.dev.json",
+          "optimization": false,
+          "outputHashing": "none",
+          "sourceMap": true,
+          "namedChunks": true,
+          "extractLicenses": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "options": {
+        "buildTarget": "averos-application:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "averos-application:build:production"
+        },
+        "development": {
+          "buildTarget": "averos-application:build:development"
+        },
+        "dev-lib": {
+          "buildTarget": "averos-application:build:dev-lib"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/averos-application/**/*.ts",
+          "apps/averos-application/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "averos-application:build",
+        "port": 4200,
+        "staticFilePath": "apps/averos-application/dist/browser",
+        "spa": true
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+<div class="register-form" animate.enter="slide-up-enter" 
+                           animate.leave="slide-up-leave">
+  <form #registerF [formGroup]="registerForm" (ngSubmit)="registerUser()">
+    <mat-card appearance="outlined" class="login-card mat-elevation-z6">
+      <mat-card-header>
+        <mat-card-title i18n="@@user.register">Register</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="m-t-10">
+        <fieldset class="fieldset-register">
+          <legend class="button"><span i18n="@@user.register.personalInformations">Personal Informations</span></legend>
+          <mat-form-field appearance="outline" class="form-field-full-width">
+            <mat-label i18n="@@user.firstName">First Name</mat-label>
+            <input i18n-placeholder="@@user.firstName.placeholder" placeholder="User Name" matInput formControlName="firstName" required>
+            @if (registerForm.controls['firstName'].hasError('required')) {
+              <mat-error>
+                FirstName is <strong>required</strong>
+              </mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-full-width">
+            <mat-label i18n="@@user.lastName">Last Name</mat-label>
+            <input i18n-placeholder="@@user.lastName.placeholder" matInput placeholder="Last Name" formControlName="lastName" required>
+            @if (registerForm.controls['lastName'].hasError('required')) {
+              <mat-error>
+                Last Name is <strong>required</strong>
+              </mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-full-width">
+            <mat-icon [safeIcon]="'location_city'" matSuffix></mat-icon>
+            <mat-select i18n-placeholder="@@user.city" placeholder="City" formControlName="city">
+              <mat-option i18n="@@material.matoption.none">-- None --</mat-option>
+              @for (city of cities | sortCollectionBy: 'asc':'name'; track city.name) {
+                <mat-option [value]="city.name">
+                  {{ city.name }}
+                </mat-option>
+              }
+            </mat-select>
+            <mat-label i18n='@@user.city'>City</mat-label>
+            @if (registerForm.controls['city'].hasError('required')) {
+              <mat-error>
+                City is <strong>required</strong>
+              </mat-error>
+            }
+          </mat-form-field>
+        </fieldset>
+        <fieldset class="fieldset-register">
+          <legend i18n='@@user.loginInformations'>login Information</legend>
+          <mat-form-field appearance="outline" class="form-field-full-width" >
+            <mat-label i18n='@@user.userName'>UserName</mat-label>
+            @if (!registerForm.controls['userName'].pending) {
+              <mat-icon [safeIcon]="'person'" matSuffix></mat-icon>
+            }
+            @if (registerForm.controls['userName'].pending) {
+              <mat-icon matSuffix>
+                <averos-app-notification #appNotif
+                  [role]="'LocalInline'"
+                  [isLocal]="true"
+                  [color]="'accent'"
+                  [mode]="'indeterminate'"
+                  [isInlineLoadingOverride]="true">
+                </averos-app-notification>
+              </mat-icon>
+            }
+            <input matInput i18n-placeholder="@@user.userName.placeholder" placeholder="User Name" formControlName="userName" required [readonly]="registerForm.controls['userName'].pending">
+            @if (registerForm.controls['userName'].hasError('required')) {
+              <mat-error>
+                UserName is <strong>required</strong>
+              </mat-error>
+            }
+            @if (registerForm.controls['userName'].hasError('userNameNotAvailable')) {
+              <mat-error>
+                UserName <strong>already exists</strong>
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field-full-width" >
+            <mat-label i18n='@@user.email'>Email</mat-label>
+            @if (!registerForm.controls['email'].pending) {
+              <mat-icon [safeIcon]="'mail'" matSuffix></mat-icon>
+            }
+            @if (registerForm.controls['email'].pending) {
+              <mat-icon matSuffix>
+                <averos-app-notification #appNotif_email
+                  [role]="'LocalInline'"
+                  [isLocal]="true"
+                  [color]="'accent'"
+                  [mode]="'indeterminate'"
+                  [isInlineLoadingOverride]="true">
+                </averos-app-notification>
+              </mat-icon>
+            }
+            <input matInput i18n-placeholder="@@user.email.placeholder" placeholder="ex: me@me.com" formControlName="email"
+              required [readonly]="registerForm.controls['email'].pending">
+            @if (registerForm.controls['email'].hasError('required')) {
+              <mat-error i18n='@@user.email.validation.required'>
+                                email address is <strong>required</strong>
+                            </mat-error>
+            }
+            @if (registerForm.controls['email'].hasError('email')) {
+              <mat-error i18n='@@user.email.validation.email'>
+                                email not valid. ex: me&#64;me.com
+                            </mat-error>
+            }
+            @if (registerForm.controls['email'].hasError('emailNotAvailable')) {
+              <mat-error i18n='@@user.email.validation.emailNotAvailable'>
+                                Email <strong>already used</strong>
+                            </mat-error>
+            }
+
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field-full-width" >
+            <mat-label i18n='@@user.passwordmsg'>Enter your password</mat-label>
+            <mat-icon [safeIcon]="'lock'" matPrefix></mat-icon>
+            <input matInput i18n-placeholder="@@user.password" [type]="hidePassword ? 'password' : 'text'" placeholder="password" formControlName="password" required maxlength="32">
+            <mat-icon [safeIcon]="hidePassword ? 'visibility_off' : 'visibility'" matSuffix style="cursor: pointer;"
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword"></mat-icon>
+          <!-- </span> -->
+          <mat-hint i18n='@@app.password.hint'>Password must be 8-20 characters long with no spaces or emoji</mat-hint>
+          @if (registerForm.controls['password'].hasError('required')) {
+            <mat-error i18n='@@app.field.required'>
+                                password  is <strong>required</strong>
+                            </mat-error>
+          }
+          @if (registerForm.controls['password'].hasError('invalidPassword')) {
+            <mat-error i18n="@@user.invalidpassword">
+                                8-20 characters, letters, numbers and special characters, no spaces or emoji.
+                            </mat-error>
+          }
+        </mat-form-field>
+      </fieldset>
+    </mat-card-content>
+    <mat-card-actions class="justify-center">
+      <button style="width: 97%;" mat-raised-button [disabled]="registerForm.invalid" color="primary" type="submit">{{'Submit' | translate:'app.submit'}}</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+</div>

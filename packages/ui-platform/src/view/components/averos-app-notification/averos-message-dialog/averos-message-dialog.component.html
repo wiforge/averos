@@ -1,0 +1,26 @@
+        <mat-label [style.color]="data.message.type === AlertService.ERROR ? '#D32F2F' : (data.message.type === AlertService.WARNING ? '#FF5722' : '#43A047')" 
+                    mat-dialog-title style="font-weight: bold;">
+                    {{data.message.type | translate: (data.message.type==AlertService.SUCCESS ? 'app.notification.success' : 
+                                            (data.message.type==AlertService.WARNING ? 'app.notification.warning': 'app.notification.error'))}}
+                    <mat-icon [safeIcon]="data.message.type === AlertService.ERROR ? 'error' : (data.message.type === AlertService.WARNING ? 'warning' : 'task_alt')" 
+                              [ngClass]="{'animated_error': data.message.type !== AlertService.SUCCESS, 
+                                            'animated_success': data.message.type === AlertService.SUCCESS}" 
+                              [color]="data.message.type === AlertService.SUCCESS ? '#43A047' :'warn'">
+                    </mat-icon>
+        </mat-label>
+        <div mat-dialog-content>
+            <!-- Used this styling in order to keep \n (new line) character understandable and printable by Angular  -->
+            <!-- otherwise, no new line will be output even though the message to display contain new line (\n) -->
+            <p style="white-space:pre-wrap; text-align:left;">{{data.message.text}}</p>
+        </div>
+            @if(data.message.type === AlertService.WARNING){
+                <div mat-dialog-actions align="end">
+                    <button mat-raised-button (click)="onCancelClick()" color="primary"  mat-dialog-close>{{'Cancel' | translate:'app.cancel'}}</button>
+                    <button mat-raised-button (click)="onContinueClick()" [color]="'primary'"  [mat-dialog-close]="data" cdkFocusInitial>{{'Continue' | translate:'app.continue'}}</button>
+                </div>
+            }
+            @else{
+                 <div mat-dialog-actions align="start">
+                    <button mat-raised-button (click)="onContinueClick()" [color]="data.message.type === AlertService.SUCCESS ? 'primary' :'warn'" [mat-dialog-close]="data" cdkFocusInitial>{{'Ok' | translate:'app.ok'}}</button>
+                </div>
+            }

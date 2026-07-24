@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAddAverosCompositeMember",
+  "title": "Generates a new composite member named mname (or extracted from fename if memberName is null) depicting a relationship between parent Entity ename and child entity fename",
+  "type": "object",
+  "properties": {
+    "ename": {
+      "description": "The name of the entity.",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the source Entity to which you would like to add your new member?"
+    },
+    "fename": {
+      "description": "The field type/entity : the target entity in the relation.",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the target Entity that depicts the type of the member to be added ?"
+    },
+    "memberName": {
+      "description": "The member name ( field name).",
+      "type": "string",
+      "default": "",
+      "x-prompt": "What is the name of the member that you wish to add to your entity (create default)?"
+    },
+    "fieldRelationType": {
+      "description": "The type of the relation between the parent entity and the field you wish to add: OneToOne, OneToMany, ManyToOne",
+      "type": "string",
+      "minLength": 1,
+      "default": "OneToOne",
+      "enum": [
+                "OneToOne",
+                "OneToMany",
+                "ManyToOne"
+              ],
+      "x-prompt": {
+        "message": "Which is the type of the composite member you wish to add to your entity?",
+        "type": "list",
+        "items": [
+          { "value": "OneToOne", "label": "One To One relationship"},
+          { "value": "OneToMany", "label": "One To Many relationShip"},
+          { "value": "ManyToOne", "label": "Many To One relationship" }
+        ]
+      }
+    },
+    "deleteStrategy": {
+      "description": "The Entity relation delete strategy",
+      "type": "string",
+      "default": "KEEP_CHILDREN",
+      "enum": [
+                "KEEP_CHILDREN",
+                "DELETE_CHILDREN"
+              ],
+      "x-prompt": {
+        "message": "What is the delete strategy for this relatioship ?",
+        "type": "list",
+        "items": [
+          { "value": "KEEP_CHILDREN", "label": "Keep Children" },
+          { "value": "DELETE_CHILDREN", "label": "Delete Children" }
+        ]
+      }
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "ename", "fename", "fieldRelationType"
+  ]
+}

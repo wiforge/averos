@@ -1,0 +1,32 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@use "@angular/material" as mat;
+
+$swift-ease-out-duration: 400ms !default;
+$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+$fast-out-slow-in-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !default;
+
+
+@function swift-ease-out($property) {
+  // The Material default animation curves.
+  $transition: $property $swift-ease-out-duration $swift-ease-out-timing-function;
+
+  @return $transition;
+}
+
+@function fast-out-slow($property) {
+  // The Material default animation curves.
+  $transition: $property 225ms $fast-out-slow-in-timing-function;
+
+  @return $transition;
+}

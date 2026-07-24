@@ -1,0 +1,88 @@
+
+<form [formGroup]="reactiveForm" #formDir="ngForm" animate.enter="fade-enter">
+  <mat-card appearance="outlined">
+    @if (displayActions) {
+      <div class="flex-row justify-end items-center gap-4">
+        @if (editModeActivated) {
+          <button mat-raised-button color="primary" class="m-t-8" [disabled]="disableSave()" (click)="onSubmit()">
+            <mat-icon [safeIcon]="'save'"></mat-icon>
+          {{'Save' | translate:'app.save'}}</button>
+          @if (useCaseConfig.useCase===useCase.CREATE) {
+            <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="formDir.resetForm()">
+              <mat-icon [safeIcon]="'undo'"></mat-icon>
+            {{'Reset' | translate:'app.reset'}}</button>
+          }
+          <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="cancelUpdate()">
+            <mat-icon [safeIcon]="'cancel'"></mat-icon>
+          {{'Cancel' | translate:'app.cancel'}}</button>
+        } @else {
+          <button mat-raised-button color="primary" class="m-t-8" (click)="clone()">
+            <mat-icon [safeIcon]="'content_copy'"></mat-icon>
+          {{'Clone' | translate: 'app.clone'}}</button>
+          <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="edit()">
+            <mat-icon [safeIcon]="'edit'"></mat-icon>
+          {{'Edit' | translate: 'app.edit'}}</button>
+        }
+      </div>
+    }
+    <fieldset class="averos-fieldset">
+      <legend>
+        <span>
+          @if (useCaseConfig.useCase===useCase.VIEW) {
+            <mat-card-title>
+              {{!editModeActivated
+              ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+              : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+            </mat-card-title>
+          }
+
+          @if (useCaseConfig.useCase===useCase.EDIT || useCaseConfig.useCase===useCase.CREATE) {
+            <mat-card-title>
+              {{editModeActivated
+              ? ((entityUseCaseViewLayout$ | async)?.title! | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+              : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel! | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+            </mat-card-title>
+          }
+        </span>
+      </legend>
+
+      <averos-dynamic-composite-view [useCaseConfig]="useCaseConfig"
+        [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+        [editModeActivated]="editModeActivated"
+        [reactiveForm]="reactiveForm"
+        (isFormModified)="formModified($event)"
+        (isCompositeRelationModified)="compositeRelationModified($event)"
+        (updateRelationCollection)="updateRelationCollection($event)"
+        (onCompositeRelationActionEvent)="onCompositeRelationAction($event)">
+      </averos-dynamic-composite-view>
+    </fieldset>
+  </mat-card>
+</form>
+@if (searchCompositeEntity) {
+  <averos-search-entity [useCaseConfig]="getCompositeRelationEntityUseCaseConfig()"
+    [entityUseCaseViewLayout$]="getSearchCompositeRelationEntityUseCaseViewLayout()"
+    [searchInputFormGoup]="searchInputCompositeRelationEntityFormGoup()"
+    (executeSearch)="searchCompositeRelationEntities($event)"
+    #averosSearchChildEntity>
+  </averos-search-entity>
+  @if (showCompositeEntitySearchResult){
+    <averos-search-result
+      [searchCriteria]="compositeRelationsearchCriteria"
+      [data$]="compositeRelationEntitiesSearchResultValues$"
+      [showRowActions]="true"
+      [showFilterComponent]="true"
+      [selectable]="true"
+      [multipleSelection]="false"
+      [forInput]="true"
+      [filterComponentLabel]="'Search Filter'"
+      [filterComponentLabelTranslationID]="'app.filter'"
+      [filterKey]="'any key'"
+      [viewLayout]="getCompositeRelationEntityViewLayout()"
+      (search)="search($event)"
+      (pageChange)="onPageChange($event)"
+      (selectOne)="onSelectOne($any($event))"
+      #averosSearchResult>
+    </averos-search-result>
+  }
+
+}

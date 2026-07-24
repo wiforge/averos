@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsCreateApplication",
+  "title": "Creates a new averos application",
+  "type": "object",
+  "properties": {
+    "applicationName": {
+      "description": "The Name of the application.",
+      "type": "string",
+      "x-prompt": "What is the name of your application (ex. MyFancyApplication)?"
+    },
+    "enableAuthentication": {
+      "type": "boolean",
+      "description": "enables authentication support.",
+      "default": false
+    },
+    "enableExternalEntityMapping": {
+      "type": "boolean",
+      "description": "Enables entity external fields mapping.",
+      "default": false
+    },
+    "defaultLanguageCode": {
+      "description": "The default application language.",
+      "type": "string",
+      "default": "en",
+      "enum": [
+                "ar",
+                "cn",
+                "en",
+                "es",
+                "fr",
+                "de",
+                "jp",
+                "nl",
+                "no",
+                "ru",
+                "se"
+              ],
+      "x-prompt": {
+        "message": "What is your applications's main language? (english is default)",
+        "type": "list",
+        "items": [
+          { "value": "ar", "label": "Arabic     [ 🇹🇳 ]" },
+          { "value": "cn", "label": "Chinese    [ 🇨🇳 ]" },
+          { "value": "en", "label": "English    [ 🇺🇸 ]" },
+          { "value": "es", "label": "Spanish    [ 🇪🇸 ]" },
+          { "value": "fr", "label": "French     [ 🇫🇷 ]" },
+          { "value": "de", "label": "German     [ 🇩🇪 ]" },
+          { "value": "jp", "label": "Japanese   [ 🇯🇵 ]" },
+          { "value": "nl", "label": "Dutch      [ 🇳🇱 ]" },
+          { "value": "no", "label": "Norwegian  [ 🇳🇴 ]" },
+          { "value": "ru", "label": "Russian    [ 🇷🇺 ]" },
+          { "value": "se", "label": "Swedish    [ 🇸🇪 ]" }
+        ]
+      }
+    },
+    "addNewLanguage": {
+      "type": "boolean",
+      "description": "The additional language to support.",
+      "default": false
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "description": "whether to install packages or not.",
+      "default": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+   "required": []
+}

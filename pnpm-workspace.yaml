@@ -1,0 +1,108 @@
+packages:
+  - 'packages/*'
+  - 'apps/*'
+  - 'scripts'
+
+minimumReleaseAge: 0
+
+allowBuilds:
+  '@firebase/util': true
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+  less: true
+  lmdb: true
+  msgpackr-extract: true
+  nx: true
+  protobufjs: true
+  unrs-resolver: true
+
+# autoInstallPeers: true
+
+catalog:
+  # Averos core
+  '@averos/core': '2.0.0'
+  '@averos/dag-engine': '^2.0.0'
+  '@averos/executor': '^2.0.0'
+
+  # Averos tools
+  'firebase': '^12.8.0'
+  'file-saver': '2.0.5'
+  'keycloak-js': '^26.2.2'
+
+  # Angular runtime
+  zone.js: '~0.16.0'
+  '@angular/localize': '~22.0.6'
+  '@angular/material': '~22.0.4'
+  '@angular/cdk': '~22.0.4'
+  '@angular/common': '~22.0.6'
+  '@angular/compiler': '~22.0.6'
+  '@angular/core': '~22.0.6'
+  '@angular/forms': '~22.0.6'
+  '@angular/platform-browser': '~22.0.6'
+  '@angular/router': '~22.0.6'
+  '@angular/service-worker': '~22.0.6'
+  '@angular/pwa': '~22.0.6'
+
+  # Angular tooling
+  '@angular/build': '~22.0.6'
+  '@angular/cli': '~22.0.6'
+  '@angular/compiler-cli': '~22.0.6'
+  '@angular/language-service': '~22.0.6'
+  '@angular-devkit/core': '~22.0.6'
+  '@angular-devkit/schematics': '~22.0.6'
+  '@angular-devkit/schematics-cli': '~22.0.6'
+  '@schematics/angular': '^22.0.6'
+  'angular-eslint': '^22.1.0'
+  'ng-packagr': '~22.0.1' # Nx
+  nx: '23.1.0'
+  '@nx/angular': '23.1.0'
+  '@nx/eslint': '23.1.0'
+  '@nx/eslint-plugin': '23.1.0'
+  '@nx/jest': '23.1.0'
+  '@nx/js': '23.1.0'
+  '@nx/playwright': '23.1.0'
+  '@nx/plugin': '23.1.0'
+  '@nx/vitest': '23.1.0'
+  '@nx/web': '23.1.0'
+  '@nx/devkit': '23.1.0'
+
+  # Core
+  rxjs: '~7.8.0'
+  tslib: '^2.3.0'
+  typescript: '~6.0.2'
+  ts-node: '10.9.2'
+  tsx: '^4.0.0' # Testing
+  '@types/jest': '~30.0.0'
+  '@types/node': '26.1.1'
+  jest: '~30.4.2'
+  'jest-environment-node': '~30.4.1'
+  'jest-util': '~30.4.1'
+  'ts-jest': '^29.4.0'
+  jsdom: '^29.1.1'
+  vite: '^8.1.4'
+  vitest: '~4.1.10'
+  '@vitest/coverage-v8': '~4.1.10'
+  '@playwright/test': '^1.61.1'
+
+  # SWC
+  '@swc-node/register': '~1.11.1'
+  '@swc/cli': '~0.8.0'
+  '@swc/core': '~1.15.43'
+  '@swc/helpers': '~0.5.18'
+  '@swc/jest': '~0.2.38'
+
+  # ESLint
+  eslint: '^10.7.0'
+  'eslint-config-prettier': '^10.0.0'
+  'eslint-plugin-playwright': '^2.10.5'
+  '@eslint/js': '^10.0.1'
+  '@typescript-eslint/utils': '^8.63.0'
+  'typescript-eslint': '^8.63.0'
+  'jsonc-eslint-parser': '^3.1.0'
+
+  # Misc tooling
+  autoprefixer: '^10.5.2'
+  postcss: '^8.5.17'
+  prettier: '~3.9.5'
+  verdaccio: '^6.7.4'

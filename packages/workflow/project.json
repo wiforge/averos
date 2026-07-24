@@ -1,0 +1,79 @@
+{
+  "name": "@averos/workflow",
+  "tags": ["scope:averos", "type:workflow"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/packages/workflow/dist"],
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "commands": [
+                  "tsc --project packages/workflow/tsconfig.lib.json",
+                  "rsync -a --include='*.json' --include='*.template' --include='*.ico' --include='*.woff2' --include='*.woff' --include='*/' --exclude='*' --prune-empty-dirs packages/workflow/src/schematics/ packages/workflow/dist/schematics/",
+                  "cp LICENSE packages/workflow/LICENSE"
+                ],
+        "parallel": false,
+        "cwd": "{workspaceRoot}"
+      }
+    },
+      "build-dev": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/packages/workflow/dist"],
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "commands": [
+                  "tsc --project packages/workflow/tsconfig.lib.dev.json",
+                  "rsync -a --include='*.json' --include='*.template' --include='*.ico' --include='*.woff2' --include='*.woff' --include='*/' --exclude='*' --prune-empty-dirs packages/workflow/src/schematics/ packages/workflow/dist/schematics/",
+                  "cp LICENSE packages/workflow/LICENSE"
+                ],
+        "parallel": false,
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "rm -rf dist coverage out-tsc test-output *.tsbuildinfo LICENSE",
+        "cwd": "packages/workflow"
+      }
+    },
+
+    "pack": {
+        "executor": "nx:run-commands",
+        "dependsOn": ["build"],
+        "options": {
+            "command": "pnpm pack --pack-destination ../../release",
+            "cwd": "packages/workflow"
+        }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npm publish --access public",
+        "cwd": "packages/workflow"
+      },
+      "configurations": {
+        "dry-run": {
+          "command": "npm publish --access public --dry-run",
+          "cwd": "packages/workflow"
+        }
+      }
+    },
+    "unpublish-locally": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm unpublish @averos/workflow@$(node -p \"require('./package.json').version\") --registry http://localhost:4873 --force",
+        "cwd": "packages/workflow"
+      }
+    },
+    "publish-locally": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "pnpm publish --no-git-checks --registry http://localhost:4873",
+        "cwd": "packages/workflow"
+      }
+    }
+  }
+}

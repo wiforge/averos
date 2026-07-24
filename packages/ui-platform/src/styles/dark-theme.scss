@@ -1,0 +1,371 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+
+@use 'sass:math'; 
+@use '@angular/material' as mat;
+@use './app-custom-theme' as averostheme;
+@use './component/variables' as var;
+@use './fonts' as typography;
+
+// Define an alternate dark theme.
+// angular uses these values by default : $default: 500, $lighter: 100, $darker: 700.
+$darnet-dark-primary: mat.m2-define-palette(mat.$m2-blue-gray-palette, 700);
+$darnet-dark-accent:  mat.m2-define-palette(mat.$m2-amber-palette, A400, A100, A400);
+$darnet-dark-warn:    mat.m2-define-palette(mat.$m2-deep-orange-palette);
+$darnet-dark-theme:   mat.m2-define-dark-theme((
+  color: (
+      primary: $darnet-dark-primary,
+      accent: $darnet-dark-accent,
+      warn: $darnet-dark-warn,
+    ),
+    // typography: typography.$averos-typography
+    ));
+
+// Include the alternative theme styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.darnet-dark-theme` will be affected by this alternate dark theme instead of the default theme.
+.darnet-dark-theme {
+    // @include angular-material-theme($darnet-dark-theme);
+    @include mat.all-component-colors($darnet-dark-theme);
+    // @include mat.all-component-typographies(typography.$averos-typography);
+
+    // custom component theme
+    @include averostheme.averos-theme($darnet-dark-theme);
+
+    // these are custom dark theme components theme
+
+    //////////// Component Outline options & colors /////////////////
+
+    // ERROR message color
+    .mat-mdc-form-field-error {
+      color: mat.m2-get-color-from-palette($darnet-dark-warn, darker);
+    }
+
+    .forgot-password {
+      color: mat.m2-get-color-from-palette($darnet-dark-accent);
+      text-decoration: none;
+      white-space: nowrap;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .dont-have-account{
+      color: #ebe1c1;
+    }
+
+    //Card color
+    .mat-mdc-card{
+      color: #fff;
+      }
+    // cursor color
+    // .mat-mdc-input-element{
+    //   caret-color: mat.get-color-from-palette($darnet-dark-accent);
+    // }
+    .mdc-text-field__input{
+        caret-color: mat.m2-get-color-from-palette($darnet-dark-accent) !important; 
+      }
+    // input field floating label color
+    // .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+    //   color: mat.get-color-from-palette($darnet-dark-accent) ; 
+    // }
+    .mdc-text-field--focused:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid) .mdc-floating-label {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent) ; 
+    }
+
+    //// color when combo item selected
+    .mat-primary .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text{
+      color: mat.m2-get-color-from-palette($darnet-dark-accent, darker) !important;
+    }
+
+    /// color when operator selected within a searchinputfield
+    .search-input-operation-picker {
+      & .mat-mdc-select-value {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker) !important;
+      }
+    }
+
+    //// color of the label
+/*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.
+ */
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-label {
+  color: mat.m2-get-color-from-palette($darnet-dark-accent, darker) !important;
+  }
+
+  ////////////// Customize the global mat-tab-group /////////////
+  /// the active tab text label color
+  .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label, 
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+  color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+}
+
+////the active tab indicator
+.mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+  color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+  border-color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+}
+
+  ///
+  
+  
+  //// grid even/odd rows colors
+  .averos_grid_odd {
+    background-color: inherit;
+  }
+  
+  .averos_grid_even {
+    background-color: inherit;
+  }
+
+/// Field outline on hover
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline__notch, 
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline__trailing,
+.mdc-text-field--outlined {
+  border-color: mat.m2-get-color-from-palette($darnet-dark-accent, darker) !important;
+  > * .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: mat.m2-get-color-from-palette($darnet-dark-accent) ; 
+  }
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid).mdc-text-field--focused .mdc-notched-outline__leading, 
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid).mdc-text-field--focused .mdc-notched-outline__notch, 
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--invalid).mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: mat.m2-get-color-from-palette($darnet-dark-accent, darker) !important;
+}
+
+
+// .averos-container-wrap,
+// .averos-container, .averos-content {
+//   // background-color: #303030;
+//   background-color: #161f24;
+// }
+
+
+
+///////////////////////////////
+
+    // Side nav items when clicked
+    .list-item-active {
+        font-weight: bold;
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker) !important;
+        background-color: mat.m2-get-color-from-palette($darnet-dark-accent, 50, 0.1) !important;
+      }
+
+      .mat-expansion-panel-header {
+        border-left: 10px solid mat.m2-get-color-from-palette($darnet-dark-accent, darker) !important;
+         // border-radius: 0px 0px 0px 15px !important;
+      }
+
+
+  ///////// styling the fieldset/////////
+  fieldset {
+    // @include mat.elevation(8);
+    display: inline-block;
+    // margin-top:20px;
+    // width: auto;
+    width: -webkit-fill-available;
+    border-color: mat.m2-get-color-from-palette($darnet-dark-accent, 100, 0.3) !important;
+    // border-color: mat.get-color-from-palette($darnet-dark-accent, 100, 0.4) !important;
+    border-radius: 4px;
+    min-width: -webkit-fill-available;
+    margin: 15px;
+  }
+
+  .fieldset-register {
+    @include mat.elevation(8);
+    @include mat.elevation-transition;
+    display: inline-block;
+    margin-top:20px;
+    width: -webkit-fill-available;
+    border-color: mat.m2-get-color-from-palette($darnet-dark-accent, 100, 0.1) !important;
+    border-radius: 4px;
+
+      // add a transition
+    &:hover  {@include mat.elevation(24);}
+
+  }
+
+  .averos-fieldset {
+    @include mat.elevation(8);
+    display: inline-block;
+    margin-top:20px;
+    width: -webkit-fill-available;
+    // border-color: mat.get-color-from-palette($darnet-dark-accent, 100, 0.1) !important;
+    border-color: mat.m2-get-color-from-palette($darnet-dark-primary, 100, 0.1) !important;
+    border-radius: 4px;
+
+  }
+
+      // fieldset > * {
+      //   display: inline-block;
+      //   // width:auto;
+      // }
+
+      legend {
+        // @include mat.elevation(24);
+        // @include mat.elevation(16, black, 0.8);
+        @include mat.elevation(4, black, 0.2);
+        background-color: mat.m2-get-color-from-palette($darnet-dark-accent, darker) !important;
+        color: black;
+        line-height: inherit; //normal;
+        padding: 3px 6px;
+        border-radius: 4px;
+        margin: 10px 0;
+        // & mat-card-title{
+        //   margin: math.div(var.$gutter, 2);
+        // }
+        display: flex;
+      }
+      /////////////////////////////////////
+
+    ////////////////////////////////// Adds a vertical bar within the span ////////////
+
+    .v-bar-title {
+      width: 5px;
+      background-color: mat.m2-get-color-from-palette($darnet-dark-accent);
+      border-radius: 99px;
+      margin-right: 5px;
+    }
+      
+    .v-bar-subtitle {
+      width: 5px;
+      background-color: mat.m2-get-color-from-palette($darnet-dark-primary);
+      border-radius: 99px;
+      margin-right: 5px;
+    }
+
+    .v-bar-label {
+      width: 3px;
+      background-color: #53c331;//mat.get-color-from-palette($darnet-dark-primary);
+      border-radius: 99px;
+      margin-right: 5px;
+    }
+
+      //// Styling all mat-icons under fieldset for registerForm (example : register form)
+      fieldset.fieldset-register > * .mat-icon {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+      }
+      fieldset.fieldset-register > * .mat-mdc-icon-button {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+      }
+       //// Styling all fields inputs under fieldset
+       fieldset.fieldset-register > * input {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+      }
+
+////////////////// Styling all generic fieldset /////////////
+
+      fieldset.averos-fieldset > * .mat-icon {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+      }
+      fieldset.averos-fieldset > * .mat-mdc-icon-button {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+      }
+
+      //// Styling all mat-hint
+      fieldset.fieldset-register>*.mat-mdc-form-field-hint,
+      fieldset.fieldset-register>*mat-hint,
+      fieldset.averos-fieldset>*.mat-mdc-form-field-hint,
+      fieldset.averos-fieldset>*mat-hint,
+      *>mat-hint { 
+        color: #ffffffb3; 
+      }
+      
+//////////////////////////////////////////////////////////////
+
+      // Styling all Input prefixes color
+      mat-icon[matPrefix], mat-datepicker-toggle[matPrefix] {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+      }
+      // Field Outline color
+      /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.
+ */
+      .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+        color: mat.m2-get-color-from-palette($darnet-dark-accent, darker);
+    }
+
+    .averos-dialog {
+      & [mat-dialog-title], & h1[mat-dialog-title] {
+        background: #369;
+        color: #fff;
+        cursor: move;
+      }
+      & [mat-dialog-content] {
+        max-height: 70vh;
+      }
+      & [mat-dialog-actions] {
+        justify-content: center;
+      }    
+      & .averos-dialog-title {
+        background: #369;
+        color: #fff;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        & .averos-dialog-header-button {
+          display: inline;
+            & mat-icon {
+                color: white;
+            }
+          }
+        .mat-mdc-icon-button.mat-mdc-button-base {
+          width: 30px;
+          height: 30px;
+          padding: 0px;
+      }
+      .mat-mdc-icon-button .mat-mdc-button-touch-target{
+        width: auto;
+        height: auto;
+      }
+      .averos-dialog-header-actions {
+        padding-right: 12px;
+      }
+
+    }
+  }
+
+/// application background for dar mode//////
+  .averos-content {
+    background-image: url("../assets/images/wiforge/bg/dark_bg0.png");
+    color: white;
+    
+app-login, app-register, averos-request-password-reset {
+  background-color: transparent;
+}
+
+
+  }
+
+  mat-sidenav-content {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url("../assets/images/wiforge/bg/dark_bg0.png");
+    color: white;
+  }
+
+.averos-component{
+  background-color: transparent;
+  color: whitesmoke;;
+}
+ 
+.averos-component-device{
+  background-color: transparent;
+  color: whitesmoke;;
+}
+
+}

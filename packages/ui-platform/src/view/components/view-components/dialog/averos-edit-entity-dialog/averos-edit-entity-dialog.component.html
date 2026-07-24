@@ -1,0 +1,44 @@
+<div class="averos-dialog">
+    <div class="averos-dialog-title">
+        <h1 class="flex-auto" mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle> {{editModeActivated 
+          ? (((entityUseCaseViewLayout$ | async)?.title) ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID) 
+          : (((entityUseCaseViewLayout$ | async)?.parentEntityLabel) ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+        </h1>
+        <div class="averos-dialog-header-actions">
+          <button mat-icon-button class="averos-dialog-header-button" [mat-dialog-close]="true">
+            <mat-icon [safeIcon]="'close'" class="icon-18 rotate-icon"></mat-icon>
+          </button>
+          <button mat-icon-button class="averos-dialog-header-button" (click)="expandDialog()">
+            <mat-icon [safeIcon]="'fullscreen'" class="icon-18 rotate-icon"></mat-icon>
+          </button>
+      </div>
+    </div>
+    <div mat-dialog-content>
+        <averos-edit-entity #averosEditEntityComponent 
+                              [useCaseConfig]="useCaseConfig"
+                              [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+                              [reactiveForm]="reactiveForm"
+                              [editModeActivated]="editModeActivated"
+                              [displayActions]="false"
+                              (submitForm)="submitToParentForm($event)"
+                              (updateEditMode)="updateEditModeInParent($event)">
+        </averos-edit-entity>
+    </div>
+    @if (editModeActivated){
+        <div mat-dialog-actions>
+            <button mat-raised-button color="primary" class="m-t-8" [disabled]="disableSave()" (click)="onSubmit()">
+              <mat-icon [safeIcon]="'save'"></mat-icon>
+              {{'Save' | translate:'app.save'}}</button>
+            <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="onCancel()">
+              <mat-icon [safeIcon]="'cancel'"></mat-icon>
+              {{'Cancel' | translate:'app.cancel'}}</button>
+        </div>
+    }
+    @if (!editModeActivated){
+        <div mat-dialog-actions>
+          <button mat-raised-button color="primary" class="m-t-8" (click)="edit()">
+            <mat-icon [safeIcon]="'edit'"></mat-icon>
+            {{'Edit' | translate: 'app.edit'}}</button>
+        </div>
+    }
+  </div>

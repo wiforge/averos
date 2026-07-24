@@ -1,0 +1,81 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+
+@use './component/variables' as var;
+
+body {
+    margin: 0;
+    line-height: normal;
+    box-sizing: border-box;
+    // -webkit-font-smoothing: antialiased;
+    // -webkit-text-size-adjust: 100%;
+    // -webkit-tap-highlight-color: transparent;
+    // -webkit-touch-callout: none;
+  }
+  
+  html,
+  body {
+    // position: relative;
+    height: 100%;
+    /* Disables pull-to-refresh and overscroll glow effect.
+      Still keeps swipe navigations. */
+    overscroll-behavior-y: none;
+  }
+
+  html {
+    overflow: auto;
+  }
+  
+  *,
+  ::after,
+  ::before {
+    box-sizing: border-box;
+  }
+  
+  dl,
+  ol,
+  ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  a {
+    color: var.$link-color;
+    text-decoration: var.$link-decoration;
+  }
+  
+  input,
+  button,
+  select,
+  optgroup,
+  textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  
+//   code,
+//   kbd,
+//   pre,
+//   samp {
+//     font-family: $font-family;
+//   }
+  
+  code {
+    padding: 3px;
+    font-size: var.$code-font-size;
+    background-color: var.$code-color;
+    word-break: break-word;
+  }
+  

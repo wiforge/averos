@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAverosServiceConfig",
+  "title": "Generates an averos Service Configuration",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The identifier of the configuration (i.e. the angular service name for type=service)",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the ID of the configuration you would like to create (your angular service name) ? "
+    },
+    "type": {
+      "description": "The configuration type",
+      "type": "string",
+      "minLength": 1,
+      "default": "service"
+    },
+    "apiHost": {
+      "description": "The target api host",
+      "type": "string",
+      "default": "localhost",
+      "x-prompt": "Where is the api hosted (default = localhost) ? "
+    },
+    "apiPort": {
+      "description": "The api port",
+      "type": "number",
+      "default": "80",
+      "x-prompt": "On which port is the api listening (default = 80) ? "
+    },
+    "apiProtocol": {
+      "description": "The api access protocol",
+      "type": "string",
+      "default": "http",
+      "enum": [
+        "http",
+        "https"
+      ],
+      "x-prompt": {
+        "message": "How is your api accessed (http/https) ? ",
+        "type": "list",
+        "items": [
+          { "value": "http", "label": "HTTP" },
+          { "value": "https", "label": "HTTPS" }
+        ]
+      }
+    },
+    "apiHTTPQueryBuilder": {
+      "description": "The HTTP Query Builder ",
+      "type": "string",
+      "default": "mongodb",
+      "enum": [
+        "mongodb",
+        "json-server",
+        "custom"
+      ],
+      "x-prompt": {
+        "message": "Which HTTP query builder would you like to use for your API ? ",
+        "type": "list",
+        "items": [
+          { "value": "mongodb", "label": "mongodb" },
+          { "value": "json-server", "label": "json-server" },
+          { "value": "custom", "label": "custom" },
+          { "value": "regular", "label": "custom" }
+        ]
+      }
+    },
+    "apiEndPoint": {
+      "description": "The api endpoint",
+      "type": "string",
+      "x-prompt": "Where is your api located (url) ?"
+    },
+    "externalEntityId": {
+      "description": "The entity id as configured in the exteral api/service.",
+      "type": "string",
+      "default": "_id",
+      "x-prompt": "What is the name of the identifier that is used by the external service to identify and manage the entity [_id] ?"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "id"
+  ]
+}

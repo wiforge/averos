@@ -1,0 +1,369 @@
+@if(!!viewLayout){
+  <div class="averos-table">
+    <!-- TABLE SEARCH FILTER  -->
+     @if(showFilterComponent){
+      <div class="table-filter">
+        <form novalidate [formGroup]="filtertableFormGoup">
+            <div class="table-search-filter" >
+                <input #filterComponent matInput formControlName="filter" type="search-filter" name="filter" [placeholder]="' Search...' | translate: 'app.search'">
+                <button mat-icon-button [matTooltip]="'filter'| translate: 'app.filter'" (click)="openSearch()">
+                    <mat-icon [safeIcon]="'filter_alt'" class="icon-18"></mat-icon>
+                </button>
+            </div>
+        </form>
+      </div>
+      }
+    <!-- PROGRESS BAR -->
+    <div class="mtx-grid-progress">
+      <averos-app-notification #appinlineloading
+                                [role]="'LocalInline'"
+                                [color]="'accent'"
+                                [mode]="'indeterminate'"
+                                [grid]="true"
+                                [isLocal]="true"
+                                [isInlineLoadingOverride]="isGridLoading">
+      </averos-app-notification>
+    </div>
+    <!-- AVEROS TABLE -->
+    <div class="mtx-grid mat-elevation-z8">
+      <div class="mtx-grid-main mtx-grid-layout">
+          <!-- Table Content -->
+        <div class="mtx-grid-content mtx-grid-layout mat-table-hover">
+          <table #dynamicTable mat-table [dataSource]="dataSource"
+                    matSort [trackBy]="trackByField"
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="drop($event)"
+                    [ngClass]="{'mat-table-hover': true}">
+          
+            
+              <!-- Master Checkbox Column -->
+              <ng-container matColumnDef="select" sticky>
+                
+                <th mat-header-cell *matHeaderCellDef>
+                  @if(multipleSelection){
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                  [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                  }
+                </th>
+              
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? changeCheckBox($event, row) : null"
+                                [checked]="selection.isSelected(row)"
+                                [aria-label]="checkboxLabel(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+            
+              @for (fieldViewFormat of ucVLayout.ucViewLayout; track fieldViewFormat.entityFieldName) {
+                  @if(fieldViewFormat.visible){
+                    <ng-container matColumnDef="{{fieldViewFormat.entityFieldName}}">
+                        <th mat-header-cell *matHeaderCellDef cdkDrag mat-sort-header>
+                          {{fieldViewFormat.label | translate: fieldViewFormat.labelTranslationID}}
+                        </th>
+                  
+                        @switch (fieldViewFormat.type) {
+                          <!-- date -->
+                            @case (FieldType.date){
+                              <td mat-cell *matCellDef="let element">
+                                @let expressionEvaluation = evaluateExpression(element,fieldViewFormat.entityFieldName, fieldViewFormat.defaultValue);
+                                {{fieldViewFormat.format != null ? (expressionEvaluation | date: fieldViewFormat.format) : expressionEvaluation}}
+                              </td>
+                            }
+                            <!-- collection -->
+                            @case (FieldType.collection){
+                              <td mat-cell *matCellDef="let element">
+                                @let expressionEvaluation = evaluateExpression(element,fieldViewFormat.entityFieldName);
+                                @if(expressionEvaluation!==undefined && expressionEvaluation!==null){
+                                  <button mat-flat-button class="mat-cell-collection" (click)="viewCompositeEntity({compositeEntityNavigationKey: fieldViewFormat.entityFieldName, value: expressionEvaluation, type: fieldViewFormat.typeName!, compositeType: fieldViewFormat.type})"> 
+                                          {{expressionEvaluation?.length || '0'}}
+                                  </button>
+                                }
+                              </td>
+                            }
+                            <!-- combo (~ collection) -->
+                            @case (FieldType.combo){
+                              <td mat-cell *matCellDef="let element">
+                                  {{evaluateExpression(element,fieldViewFormat.entityFieldName)?.length}}
+                              </td>
+                            }
+                                <!-- image -->
+                            @case (FieldType.image){
+                              <td mat-cell *matCellDef="let element">
+                                @let expressionEvaluation = evaluateExpression(element,fieldViewFormat.entityFieldName);
+                                @if(expressionEvaluation!==undefined && expressionEvaluation!==null){
+                                <img class="mat-cell-img" [src]="expressionEvaluation" (click)="_onPreviewImage(expressionEvaluation)">
+                                  }
+                              </td>
+                            }
+                            <!-- composite relation -->
+                            @case (FieldType.composite){
+                              <td mat-cell *matCellDef="let element">
+                                @let expressionEvaluation = evaluateExpression(element,fieldViewFormat.entityFieldName);
+                                @if(expressionEvaluation!==undefined && expressionEvaluation!==null){
+                                  <button mat-flat-button class="mat-cell-composite" 
+                                              (click)="viewCompositeEntity({compositeEntityNavigationKey: fieldViewFormat.entityFieldName, value: expressionEvaluation,type: fieldViewFormat.typeName!})"> 
+                                              {{evaluateCompositeRelationValue(element, fieldViewFormat.entityFieldName) || '--'}}
+                                  </button>
+                                  }
+                              </td>
+                            }
+                            <!-- boolean -->
+                            @case (FieldType.boolean){
+                              <td mat-cell *matCellDef="let element">
+                                @let expressionEvaluation = evaluateExpression(element,fieldViewFormat.entityFieldName, fieldViewFormat.defaultValue);
+                                @if(expressionEvaluation!==undefined && expressionEvaluation!==null){
+                                  <div>
+                                      <mat-icon [safeIcon]="(expressionEvaluation | toBoolean) ? 'check_circle' : 'cancel'" 
+                                                class="mat-cell-boolean"
+                                                [style.color]="(expressionEvaluation | toBoolean) ? '#43A047' : '#E8382A'">
+                                    </mat-icon>
+                                  </div>
+                                  }
+                                @if(expressionEvaluation===undefined || expressionEvaluation===null){
+                                  <div>
+                                    <mat-icon [safeIcon]="'help'" [style.color]="'#F28C1E'">
+                                    </mat-icon>
+                                  </div>
+                                }
+                            </td>
+                            }
+                            <!-- textarea -->
+                            @case (FieldType.textarea){
+                              <td mat-cell *matCellDef="let element">
+                                @let expressionEvaluation = evaluateExpression(element,fieldViewFormat.entityFieldName);
+                                @if(expressionEvaluation !== null && expressionEvaluation !== undefined){
+                                  <button mat-flat-button class="mat-cell-action" 
+                                              (click)="displayTextArea(expressionEvaluation, fieldViewFormat.label, fieldViewFormat.labelTranslationID ?? '')"> 
+                                              {{ (expressionEvaluation !== null && expressionEvaluation !== undefined) ? ('view' | translate: 'app.view') : '--'}}
+                                  </button>
+                                  }
+                              </td>
+                            }
+                            <!-- file -->
+                            @case (FieldType.file){
+                              <td mat-cell *matCellDef="let element">
+                                @let expressionEvaluation = evaluateExpression(element,fieldViewFormat.entityFieldName);
+                                @if(expressionEvaluation !== null && expressionEvaluation !== undefined){
+                                <button mat-flat-button class="mat-cell-action" 
+                                            (click)="getFile(element, fieldViewFormat, (!!fieldViewFormat.format ? fieldViewFormat.format : 'json'))"> 
+                                            {{ (evaluateExpression(element,fieldViewFormat.entityFieldName)!== null || evaluateExpression(element,fieldViewFormat.entityFieldName) !== undefined) ? ('get' | translate: 'app.get') : '--'}}
+                                </button>
+                              }
+                              </td>
+                            }
+                            <!-- Default -->
+                            @default {
+                              <td mat-cell *matCellDef="let element">
+                                @let expressionEvaluation = evaluateExpression(element,fieldViewFormat.entityFieldName, fieldViewFormat.defaultValue);
+                                  {{expressionEvaluation || '--'}}
+                              </td>
+                            }
+                          }
+                    </ng-container>
+                  }
+              }
+
+            <!-- Header & Row actions buttons-->
+              @if (showRowActions && useCaseConfig.useCase !== usecase.VIEW){
+                <ng-container matColumnDef="actions" stickyEnd>
+                      <!-- HEADER ACTIONS -->
+                    <th mat-header-cell *matHeaderCellDef>
+
+                          <!-- Desktop layout -->
+                        @if (!(isHandset$|async) && !shrinkedLayout){
+
+                            <!-- ADD -->
+                          @if(useCaseConfig.useCase !== usecase.SELECTABLE_SEARCH_RESULT_TABLE && !forInput){
+                              <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Add' | translate: 'app.add'" (click)="onAddObject($event)">
+                                <mat-icon [safeIcon]="'add'" class="icon-18"></mat-icon>
+                              </button>
+                            }
+
+                            <!-- RELOAD -->
+                          @if(useCaseConfig.useCase === usecase.SEARCH_RESULT_TABLE && !forInput){
+                              <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Reload' | translate: 'app.reload'"  (click)="onReload($event)">
+                                <mat-icon [safeIcon]="'refresh'" class="icon-18"></mat-icon>
+                              </button>
+                            }
+
+                            <!-- EXPORT button only available in SearchResultTable-->
+                          @if(useCaseConfig.useCase === usecase.SEARCH_RESULT_TABLE && !forInput){
+                                <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'export' | translate: 'app.export'" (click)="openBottomSheetExportTypes()">
+                                  <mat-icon [safeIcon]="'download'" class="icon-18"></mat-icon>
+                                </button>
+                            }
+
+                            <!-- SELECTMANY -->
+                          @if(selectable && (useCaseConfig.useCase === usecase.SELECTABLE_SEARCH_RESULT_TABLE)){
+                                <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Select many' | translate: 'app.select.many'" (click)="onSelectMany()">
+                                  <mat-icon [safeIcon]="'done_all'" class="icon-18"></mat-icon>
+                                </button>
+                            }
+
+                            <!-- DELETE -->
+                          @if(selectable && (useCaseConfig.useCase !== usecase.SELECTABLE_SEARCH_RESULT_TABLE && !forInput)){
+                                <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Delete' | translate: 'app.delete'" (click)="onDeleteMany()">
+                                  <mat-icon [safeIcon]="'delete'" class="icon-18"></mat-icon>
+                                </button>
+                            }
+                        }
+                            <!-- mobile Layout -->
+                        @if ((isHandset$|async) || shrinkedLayout){
+                              <!-- MORE -->
+                              <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Table Actions'"
+                                      [matMenuTriggerFor]="TableMenu" aria-label="Table Menu">
+                                      <mat-icon [safeIcon]="'more_vert'" class="icon-18"></mat-icon>
+                              </button>
+                              <!-- HEADER ACTION MENU -->
+                              <mat-menu #TableMenu="matMenu">
+                                  <!-- HEADER ACTION: ADD -->
+                                  @if(useCaseConfig.useCase !== usecase.SELECTABLE_SEARCH_RESULT_TABLE && !forInput){
+                                    <button class="grid-mat-button" mat-menu-item (click)="onAddObject($event)">
+                                      <mat-icon [safeIcon]="'add'" class="icon-18"></mat-icon>
+                                      <span>{{'Add' | translate: 'app.add'}}</span>
+                                    </button>
+                                  }
+                                  <!-- HEADER ACTION: RELOAD -->
+                                  @if(useCaseConfig.useCase === usecase.SEARCH_RESULT_TABLE && !useCaseConfig.isRelationView && !forInput){
+                                    <button class="grid-mat-button" mat-menu-item (click)="onReload($event)">
+                                      <mat-icon [safeIcon]="'refresh'" class="icon-18"></mat-icon>
+                                      <span>{{'Reload' | translate: 'app.reload'}}</span>
+                                    </button>
+                                  }
+                                  <!-- HEADER ACTION: EXPORT -->
+                                  @if(useCaseConfig.useCase === usecase.SEARCH_RESULT_TABLE && !useCaseConfig.isRelationView && !forInput){
+                                    <button class="grid-mat-button" mat-menu-item (click)="openBottomSheetExportTypes()">
+                                      <mat-icon [safeIcon]="'publish'" class="icon-18"></mat-icon>
+                                      <span>{{'Export' | translate: 'app.export'}}</span>
+                                    </button>
+                                  }
+                                  <!-- HEADER ACTION: SELECTMANY -->
+                                  @if(selectable && useCaseConfig.useCase === usecase.SELECTABLE_SEARCH_RESULT_TABLE){
+                                    <button class="grid-mat-button" mat-menu-item (click)="onSelectMany()">
+                                      <mat-icon [safeIcon]="'done_all'" class="icon-18"></mat-icon>
+                                      <span>{{'Select many' | translate: 'app.select.many'}}</span>
+                                    </button>
+                                  }
+                                  <!-- HEADER ACTION: DELETE -->
+                                  @if(selectable && (useCaseConfig.useCase !== usecase.SELECTABLE_SEARCH_RESULT_TABLE && !forInput)){
+                                    <button class="grid-mat-button" mat-menu-item (click)="onDeleteMany()">
+                                      <mat-icon [safeIcon]="'delete'" class="icon-18"></mat-icon>
+                                      <span>{{'Delete' | translate: 'app.delete'}}</span>
+                                    </button>
+                                  }
+                              </mat-menu>
+                          }
+                    </th>
+
+                    <!-- ROW ELEMENT ACTIONS -->
+                    <td mat-cell *matCellDef="let element">
+                        <!-- Desktop layout: row element actions -->
+                        @if (!(isHandset$|async) && !shrinkedLayout){
+                                <!-- ROW ELEMENT ACTION: view -->
+                              @if(useCaseConfig.useCase === usecase.SEARCH_RESULT_TABLE && !forInput){
+                                  <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'View' | translate: 'app.view'" (click)="onViewObject(element)">
+                                    <mat-icon [safeIcon]="'visibility'" class="icon-18"></mat-icon>
+                                  </button>
+                                }
+                                <!-- ROW ELEMENT ACTION: edit -->
+                              @if(useCaseConfig.useCase === usecase.SEARCH_RESULT_TABLE && !forInput){
+                                  <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Edit' | translate: 'app.edit'" (click)="onEditObject(element)">
+                                    <mat-icon [safeIcon]="'edit'" class="icon-18"></mat-icon>
+                                  </button>
+                                }
+                                <!-- ROW ELEMENT ACTION: delete -->
+                              @if(useCaseConfig.useCase !== usecase.SELECTABLE_SEARCH_RESULT_TABLE && !forInput){
+                                  <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Delete' | translate: 'app.delete'" (click)="onDeleteObject(element)">
+                                    <mat-icon [safeIcon]="'delete'" class="icon-18"></mat-icon>
+                                  </button>
+                                }
+                                <!-- ROW ELEMENT ACTION: Select Single Object -->
+                              @if(selectable && (useCaseConfig.useCase === usecase.SELECTABLE_SEARCH_RESULT_TABLE || forInput)){
+                                  <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Select' | translate: 'app.select.one'" (click)="onSelectOne(element)">
+                                    <mat-icon [safeIcon]="'check'" class="icon-18"></mat-icon>
+                                  </button>
+                                }
+                        }
+                        <!-- Mobile Layout: : row element actions -->
+                        @if ((isHandset$|async) || shrinkedLayout){
+                            <button class="mat-cell-action-button" mat-icon-button [matTooltip]="'Row Actions'"
+                                    [matMenuTriggerFor]="TableRowMenu" aria-label="Table Row Menu">
+                                    <mat-icon [safeIcon]="'more_vert'" class="icon-18"></mat-icon>
+                            </button>
+                            <!-- ROW ELEMENT ACTIONS MENU : Mobile layout  -->
+                            <mat-menu #TableRowMenu="matMenu">
+                                <!-- ROW ACTION: VIEW -->
+                                @if(useCaseConfig.useCase === usecase.SEARCH_RESULT_TABLE && !forInput){
+                                  <button class="grid-mat-button" mat-menu-item (click)="onViewObject(element)">
+                                      <mat-icon [safeIcon]="'visibility'"></mat-icon>
+                                      <span>{{'View' | translate: 'app.view'}}</span>
+                                  </button>
+                                  }
+                                  <!-- ROW ACTION: EDIT -->
+                                @if(useCaseConfig.useCase === usecase.SEARCH_RESULT_TABLE && !forInput){
+                                  <button class="grid-mat-button" mat-menu-item (click)="onEditObject(element)">
+                                        <mat-icon [safeIcon]="'edit'"></mat-icon>
+                                        <span>{{'Edit' | translate: 'app.edit'}}</span>
+                                  </button>
+                                }
+                                  <!-- ROW ACTION: DELETE -->
+                                @if(useCaseConfig.useCase !== usecase.SELECTABLE_SEARCH_RESULT_TABLE && !forInput){
+                                  <button class="grid-mat-button" mat-menu-item (click)="onDeleteObject(element)">
+                                        <mat-icon [safeIcon]="'delete'"></mat-icon>
+                                        <span>{{'Delete' | translate: 'app.delete'}}</span>
+                                  </button>
+                                }
+                                  <!-- ROW ACTION: SELECT ONE -->
+                                @if(selectable && (useCaseConfig.useCase === usecase.SELECTABLE_SEARCH_RESULT_TABLE || forInput)){
+                                  <button class="grid-mat-button" mat-menu-item [matTooltip]="'Select' | translate: 'app.select.one'" (click)="onSelectOne(element)">
+                                    <mat-icon [safeIcon]="'check'"></mat-icon>
+                                    <span>{{'Select' | translate: 'app.select.one'}}</span>
+                                  </button>
+                                }
+                            </mat-menu>
+                        }
+                    </td>
+
+                </ng-container>
+              }
+
+              <!-- Custom Row actions buttons -->
+              @if (showCustomRowActions && customRowActions.length > 0 && useCaseConfig.useCase !== usecase.VIEW && useCaseConfig.useCase !== usecase.SELECTABLE_SEARCH_RESULT_TABLE){
+                <ng-container matColumnDef="custom-actions" stickyEnd>
+                    @for (customRowAction of customRowActions; track customRowAction.actionID) {
+                      <th mat-header-cell *matHeaderCellDef></th>
+                      <td mat-cell *matCellDef="let element">
+                        @if (customRowAction?.isActive(element)){
+                          <button mat-button class="mat-cell-action" (click)="executeCustomAction({rowActionID: customRowAction.actionID, rowData: element})"> 
+                                {{customRowAction.actionID | translate: customRowAction.actionTranslationID}}
+                          </button>
+                        }
+                      </td>
+                    }
+                </ng-container>
+              }
+              <!-- define the header row for the given columns -->
+              <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+              <!-- define the rows and columns for each row in the data source -->
+              <tr mat-row *matRowDef="let row; columns: columns; let even = even; let odd = odd" [ngClass]="{ averos_grid_odd: odd, averos_grid_even: even }"></tr>
+          </table>
+        </div>
+      </div>
+      <!-- TABLE PAGINATOR -->
+      <mat-paginator 
+                    [pageSize]="getPageSize()"
+                    [pageSizeOptions]="[5, 10, 15, 25, 50, 100]"
+                    [showFirstLastButtons]="true"
+                    [length]="getTotalItemsCount()"
+                    [pageIndex]="getPageIndex()"
+                    (page)="onPageChange($event)"
+                    #paginator>
+      </mat-paginator>
+    </div>
+  </div>
+}

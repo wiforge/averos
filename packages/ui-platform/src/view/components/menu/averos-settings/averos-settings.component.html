@@ -1,0 +1,11 @@
+<div class="averos-settings"
+     [matTooltip]="'Drag me some where' | translate: 'app.settings.drag'"
+     cdkDrag
+     (cdkDragStarted)="handleDragStart($event)">
+  <button mat-fab onclick="this.blur()" (click)="openPanel($event)" color="accent">
+      <mat-icon [safeIcon]="'edit_note'"
+                class="icon-24" 
+                aria-label="averos notes floatable icon">
+      </mat-icon>
+  </button>
+</div>

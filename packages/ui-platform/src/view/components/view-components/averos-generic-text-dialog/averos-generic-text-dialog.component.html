@@ -1,0 +1,158 @@
+
+<div [ngClass]="{'': useCaseConfig.useCase!==useCase.DISPLAY_SIMPLE_TEXT, 'a-resizable': useCaseConfig.useCase===useCase.DISPLAY_SIMPLE_TEXT}">
+  <div class="averos-dialog">
+    <div class="averos-dialog-title">
+      @if (useCaseConfig.useCase===useCase.VIEW) {
+        <h1 class="flex-auto"
+          mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle> {{!editModeActivated
+          ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+          : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+        </h1>
+      }
+
+      @if (useCaseConfig.useCase===useCase.EDIT || useCaseConfig.useCase===useCase.CREATE) {
+        <h1 class="flex-auto"
+          mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle> {{editModeActivated
+          ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+          : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+        </h1>
+      }
+      @if (useCaseConfig.useCase===useCase.DISPLAY_SIMPLE_TEXT) {
+        <h1 class="flex-auto"
+          mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+          {{useCaseConfig.customUseCaseMetaData.title | translate:useCaseConfig.customUseCaseMetaData.titleTranslationID}}
+        </h1>
+      }
+
+      <div class="averos-dialog-header-actions">
+        @if (useCaseConfig.useCase!==useCase.DISPLAY_SIMPLE_TEXT) {
+          <button mat-icon-button class="averos-dialog-header-button" (click)="expandDialog()">
+            <mat-icon [safeIcon]="'fullscreen'" class="icon-18"></mat-icon>
+          </button>
+        }
+        <button mat-icon-button class="averos-dialog-header-button" [mat-dialog-close]="true" >
+          <mat-icon [safeIcon]="'close'" class="icon-18"></mat-icon>
+        </button>
+      </div>
+    </div>
+    <div mat-dialog-content>
+      @if (useCaseConfig.useCase!==useCase.SEARCH_RESULT_TABLE
+        && useCaseConfig.useCase!==useCase.SELECTABLE_SEARCH_RESULT_TABLE
+        && useCaseConfig.useCase!==useCase.DISPLAY_SIMPLE_TEXT) {
+        <form [formGroup]="reactiveForm" #formDir="ngForm">
+          <mat-card appearance="outlined">
+            <fieldset class="averos-fieldset">
+              <legend>
+                <span>
+                  @if (useCaseConfig.useCase===useCase.VIEW) {
+                    <mat-card-title>
+                      {{!editModeActivated
+                      ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+                      : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+                    </mat-card-title>
+                  }
+                  @if (useCaseConfig.useCase===useCase.EDIT || useCaseConfig.useCase===useCase.CREATE) {
+                    <mat-card-title>
+                      {{editModeActivated
+                      ? ((entityUseCaseViewLayout$ | async)?.title ?? '' | translate:(entityUseCaseViewLayout$ | async)?.titleTranslationID)
+                      : ((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+                    </mat-card-title>
+                  }
+                </span>
+              </legend>
+                        <ng-container *ngTemplateOutlet="((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable | toCompositeViewLayout | async)?.containerType ==='COMPOSITE' 
+                                    ? compositeView: simpeView ">
+              </ng-container>
+              <!-- SIMPLE VIEW -->
+              <ng-template #simpeView>
+                <div animationDuration="300ms">
+                  <averos-dynamic-simple-view [useCaseConfig]="useCaseConfig"
+                    [editModeActivated]="editModeActivated"
+                    [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+                    [reactiveForm]="reactiveForm"
+                    (isFormModified)="formModified($event)">
+                  </averos-dynamic-simple-view>
+                </div>
+              </ng-template>
+              <!-- COMPOSITE VIEW -->
+              <ng-template #compositeView>
+                            <ng-container *ngTemplateOutlet="((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable | toCompositeViewLayout | async)?.viewLayout ==='tab' 
+                                                        ? tabbedCompositeView: simpleCompositeView ">
+                </ng-container>
+                <ng-template #tabbedCompositeView>
+                  <mat-tab-group dynamicHeight animationDuration="300ms" style="min-height: 50px;" mat-stretch-tabs="false" mat-align-tabs="start">
+                    @for (compositeViewLayoutGroup of ((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable
+                      | toCompositeViewLayout | async)?.transformedCompositeViewLayoutGroups ?? [] | sortCollectionBy: 'asc':'order'; track $index) {
+                      <ng-template mat-tab-label>
+                        <mat-icon [safeIcon]="'tag'"></mat-icon>
+                        {{((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+                      </ng-template>
+                      <averos-dynamic-simple-view [useCaseConfig]="useCaseConfig"
+                        [editModeActivated]="editModeActivated"
+                        [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+                        [reactiveForm]="reactiveForm"
+                        (isFormModified)="formModified($event)">
+                      </averos-dynamic-simple-view>
+                    }
+                  </mat-tab-group>
+                </ng-template>
+                <ng-template #simpleCompositeView>
+                </ng-template>
+              </ng-template>
+            </fieldset>
+            @if (displayActions) {
+              <div class="flex-row justify-end items-center">
+                @if (editModeActivated) {
+                  <button mat-raised-button color="primary" class="m-t-8" [disabled]="disableSave()" (click)="onSubmit()">
+                    <mat-icon [safeIcon]="'save'"></mat-icon>
+                  {{'Save' | translate:'app.save'}}</button>
+                  @if (useCaseConfig.useCase===useCase.CREATE) {
+                    <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="formDir.resetForm()">
+                      <mat-icon [safeIcon]="'undo'"></mat-icon>
+                    {{'Reset' | translate:'app.reset'}}</button>
+                  }
+                  <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="cancelUpdate()">
+                    <mat-icon [safeIcon]="'cancel'"></mat-icon>
+                  {{'Cancel' | translate:'app.cancel'}}</button>
+                } @else {
+                  <button mat-raised-button color="primary" class="m-t-8" type="button" (click)="edit()">{{'Edit' | translate: 'app.edit'}}</button>
+                }
+              </div>
+            }
+          </mat-card>
+        </form>
+      }
+
+      @if (useCaseConfig.useCase===useCase.DISPLAY_SIMPLE_TEXT) {
+        <div class="text-displayer mat-typography">
+          <p>{{useCaseConfig.customUseCaseMetaData.data}}</p>
+        </div>
+      }
+    </div>
+    @if (useCaseConfig.useCase!==useCase.SEARCH_RESULT_TABLE
+      && useCaseConfig.useCase!==useCase.SELECTABLE_SEARCH_RESULT_TABLE
+      && useCaseConfig.useCase!==useCase.DISPLAY_SIMPLE_TEXT
+      && useCaseConfig.useCase!==useCase.EVENT_ACTION) {
+      @if (editModeActivated) {
+        <div class="mat-dialog-footer flex-row justify-end items-center" mat-dialog-actions>
+          <button mat-raised-button color="primary" class="m-t-8" [disabled]="disableSave()" (click)="onSubmit()">
+            <mat-icon [safeIcon]="'save'"></mat-icon>
+          {{'Save' | translate:'app.save'}}</button>
+          <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" (click)="resetForm()">
+            <mat-icon [safeIcon]="'undo'"></mat-icon>
+          {{'Reset' | translate:'app.reset'}}</button>
+          <button mat-raised-button color="primary" class="m-t-8 m-l-8" type="button" cdkFocusInitial (click)="onCancel()">
+            <mat-icon [safeIcon]="'cancel'"></mat-icon>
+          {{'Cancel' | translate:'app.cancel'}}</button>
+        </div>
+      }
+      @if (!editModeActivated && canActivateEditMode) {
+        <div class="mat-dialog-footer flex-row justify-end items-center" mat-dialog-actions>
+          <button mat-raised-button color="primary" class="m-t-8" cdkFocusInitial (click)="edit()">
+            <mat-icon [safeIcon]="'edit'"></mat-icon>
+          {{'Edit' | translate: 'app.edit'}}</button>
+        </div>
+      }
+    }
+  </div>
+</div>

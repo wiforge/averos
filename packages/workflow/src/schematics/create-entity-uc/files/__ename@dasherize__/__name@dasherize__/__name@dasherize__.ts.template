@@ -1,0 +1,218 @@
+/**
+ * This source code was generated using the AVEROS CODE GENERATION WORKFLOW tool.
+ * 
+ * The Averos Code Generation platform automates the creation of boilerplate
+ * code and standard structures, streamlining the development process. 
+ * This class adheres to the predefined architecture and coding standards 
+ * specified during the generation process. 
+ * 
+ * Please note:
+ * - While the generated code provides a solid foundation, manual customization 
+ *   may be required to meet specific project requirements.
+ * - Generated methods and attributes are structured to ensure maintainability 
+ *   and compatibility with the existing codebase.
+ * 
+ * It is recommended to review and test the generated code thoroughly to ensure 
+ * it aligns with the intended functionality of the application.
+ * 
+ * For more details on the code generation process, refer to the Averos 
+ * documentation https://www.wiforge.com or contact the development team.
+ */
+
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy} from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import {
+  AlertService,
+  CreateViewEditUseCase,
+  EntityAlteredRelationEventData,
+  FormControlService,
+  Indexable,
+  IndexableType,
+  TypeScriptTypeMetaDatatHandler,
+  UseCase,
+  UseCaseAction,
+  UseCaseConfig,
+  UseCaseViewLayout,
+} from '@averos/core';
+import { Observable, Subscription } from 'rxjs';
+
+<% if (ename!== 'any') { %>
+import { <%= classify(ename) %> } from '<%= getRelatedEntityPath(path) %>/<%= dasherize(ename) %>';<% } %>
+
+<% if (sname) { %>
+import { <%= classify(sname) %> } from '<%= getRelatedEntityServicePath(path) %>/<%= dasherize(sname) %>';<% } %>
+
+
+@Component({
+	selector: 'app-<%= dasherize(name) %>',
+	templateUrl: './<%= dasherize(name) %>.html',
+	styleUrls: ['./<%= dasherize(name) %>.scss'],
+	standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class <%= classify(name) %> implements CreateViewEditUseCase<<%= classify(ename) %>>, OnInit, OnDestroy {
+
+useCaseViewLayout!: Observable<UseCaseViewLayout<<%= classify(ename) %>>|null>;
+  componentNewValue: IndexableType<<%= classify(ename) %>> =  new <%= classify(ename) %>();
+  reactiveForm!: FormGroup;
+  useCaseConfig: UseCaseConfig<<%= classify(ename) %>> = {
+                                          componentAppearance: 'outline',
+                                          iconLayout: 'component',
+                                          entity: this.componentNewValue,
+                                          entityType: <%= classify(ename) %>,
+                                          useCase: UseCase.CREATE
+                                       };
+  editModeActivated = true;// true for Create UseCases
+
+  createEntitySubscription!: Subscription;
+  updateEntitySubscription!: Subscription;
+  addRelationSubscription!: Subscription;
+  deleteRelationSubscription!: Subscription;
+
+
+
+  
+  constructor(private entityService: <%= classify(sname) %>,
+              private alertService: AlertService,
+              private formControlService: FormControlService) {
+               }
+
+  ngOnDestroy(): void {
+    this.addRelationSubscription?.unsubscribe();
+    this.deleteRelationSubscription?.unsubscribe();
+    this.createEntitySubscription?.unsubscribe();
+    this.updateEntitySubscription?.unsubscribe();
+  }
+  
+  /**
+   * This method will be called in a create entity use case if you happen to have a One To Many relationship 
+   * with another composite entity and you wish to include child enties addition/removal when you create a parent entity instance
+   * The method wont be called if no composite OneToMany relationship is configured in the parent's CreateUCViewLayout
+   * @param entityAlteredRelationEventData 
+   */
+  updateRelationCollection(entityAlteredRelationEventData: EntityAlteredRelationEventData) {
+     
+    let  idName = TypeScriptTypeMetaDatatHandler.instance.getIdName(this.useCaseConfig.entityType)
+    if (entityAlteredRelationEventData.actionEventData.formattedIdsSubjectToAction.length > 0){
+      // handle the relation collection data by action
+      switch(entityAlteredRelationEventData.action) {
+        case UseCaseAction.DELETE:
+          this.deleteRelationSubscription = this.entityService.deleteRelationCollection((this.useCaseConfig.entity as Indexable)[idName], this.useCaseConfig.entity as <%= classify(ename) %> | Partial<<%= classify(ename) %>>,
+                entityAlteredRelationEventData.actionEventData.relationName,
+                entityAlteredRelationEventData.actionEventData.formattedIdsSubjectToAction).subscribe({
+                  next: (updates: any) => {
+                    this.alertService.success($localize`:@@uc.update.entity:Entity 
+                    ${this.useCaseConfig.entity!==null && this.useCaseConfig.entity!==undefined 
+                    ? (this.useCaseConfig.entity as Indexable)[TypeScriptTypeMetaDatatHandler.instance.getBusinessIdName(this.useCaseConfig.entityType)]
+                    : ''}:entity:
+                      has been updated successfully`); 
+                    this.deleteRelationSubscription?.unsubscribe();                                                    
+                  },
+                  error: (err: Error) => {
+                    console.log(err);
+                    this.alertService.error($localize`:@@uc.update.entity.error:Entity 
+                    ${this.useCaseConfig.entity!==null && this.useCaseConfig.entity!==undefined 
+                    ? (this.useCaseConfig.entity as Indexable)[TypeScriptTypeMetaDatatHandler.instance.getBusinessIdName(this.useCaseConfig.entityType)]
+                    : ''}:entity:
+                      cannot be updated`);
+                    this.deleteRelationSubscription?.unsubscribe();                                                    
+                  }
+                });
+          break;
+        case UseCaseAction.ADD:
+          this.addRelationSubscription = this.entityService.addRelationCollection((this.useCaseConfig.entity as Indexable)[idName], this.useCaseConfig.entity as <%= classify(ename) %> | Partial<<%= classify(ename) %>>,  
+                entityAlteredRelationEventData.actionEventData.relationName,
+                entityAlteredRelationEventData.actionEventData.formattedIdsSubjectToAction).subscribe({
+                  next: (updates: any) => {
+                    this.alertService.success($localize`:@@uc.update.entity:Entity 
+                    ${this.useCaseConfig.entity!==null && this.useCaseConfig.entity!==undefined 
+                    ? (this.useCaseConfig.entity as Indexable)[TypeScriptTypeMetaDatatHandler.instance.getBusinessIdName(this.useCaseConfig.entityType)]
+                    : ''}:entity:
+                      has been updated successfully`);     
+                    this.addRelationSubscription?.unsubscribe();                                                 
+                  },
+                  error: (err: Error) => {
+                    console.log(err);
+                    this.alertService.error($localize`:@@uc.update.entity.error:Entity 
+                    ${this.useCaseConfig.entity!==null && this.useCaseConfig.entity!==undefined 
+                    ? (this.useCaseConfig.entity as Indexable)[TypeScriptTypeMetaDatatHandler.instance.getBusinessIdName(this.useCaseConfig.entityType)]
+                    : ''}:entity:
+                      cannot be updated`);     
+                      this.addRelationSubscription?.unsubscribe();                                                
+                  }
+                });
+            
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  clone(){
+    this.editModeActivated = !this.editModeActivated;
+    this.useCaseConfig.useCase = UseCase.CREATE;
+  }
+
+  updateEditMode(event: boolean) {
+    this.editModeActivated = event;
+    if (!this.editModeActivated){
+      this.useCaseConfig.useCase = UseCase.VIEW;
+    }
+  }
+
+  edit() {
+    this.editModeActivated = !this.editModeActivated;
+    this.useCaseConfig.useCase = UseCase.EDIT;
+  }
+
+  ngOnInit(): void {
+    this.useCaseViewLayout = <%= classify(ename) %>.getUseCaseViewLayout(UseCase.CREATE);
+    this.reactiveForm = this.formControlService.buildUseCaseFormFromEntityType(
+      <%= classify(ename) %>, UseCase.CREATE
+      );
+  }
+
+  onSubmit(submittedValue: IndexableType<<%= classify(ename) %>>){
+    this.componentNewValue = submittedValue;
+    if (this.useCaseConfig.useCase === UseCase.CREATE){
+      this.createEntitySubscription = this.entityService.createEntity(this.componentNewValue).subscribe({
+        next: (submittedEntity: <%= classify(ename) %> | null) => {
+          if (!submittedEntity){
+            return;
+          }
+          this.alertService.success($localize`:@@uc.create.entity:Entity ${(submittedEntity as Indexable)[TypeScriptTypeMetaDatatHandler.instance.getBusinessIdName(this.useCaseConfig.entityType)]}:entity:
+           has been created successfully`);
+          this.reactiveForm.reset(submittedEntity);
+          this.editModeActivated = false;
+          this.useCaseConfig.entity = submittedEntity;
+          this.useCaseConfig.useCase = UseCase.VIEW;
+          
+          this.createEntitySubscription?.unsubscribe();
+        },
+        error: (err: Error) => {
+          console.log(err); 
+          this.createEntitySubscription?.unsubscribe();
+        }}); 
+    } else if (this.useCaseConfig.useCase === UseCase.EDIT){
+        let entityId = TypeScriptTypeMetaDatatHandler.instance.getIdName(this.useCaseConfig.entityType);
+        this.componentNewValue[entityId as keyof <%= classify(ename) %>] = (this.useCaseConfig.entity as any)[entityId];
+        this.updateEntitySubscription = this.entityService.updateEntity(this.componentNewValue).subscribe({
+          next: (submittedEntity: <%= classify(ename) %> | null) => {
+            this.alertService.success($localize`:@@uc.update.entity:Entity ${(submittedEntity as Indexable)[TypeScriptTypeMetaDatatHandler.instance.getBusinessIdName(this.useCaseConfig.entityType)]}:entity:
+            has been updated successfully`);
+            this.editModeActivated = false;
+            this.reactiveForm.reset(this.componentNewValue);
+            this.useCaseConfig.entity = submittedEntity;
+            this.useCaseConfig.useCase = UseCase.VIEW;
+            
+            this.updateEntitySubscription?.unsubscribe();
+          },
+          error: (err: Error) => {
+            console.log(err); 
+            this.updateEntitySubscription?.unsubscribe();
+          }}); 
+    }
+  }
+
+}

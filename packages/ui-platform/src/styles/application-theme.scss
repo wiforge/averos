@@ -1,0 +1,516 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+ @use "@angular/material" as mat;
+ 
+@use './helpers';
+@use './init-theme';
+@use './fonts' as typography;
+@use './light-theme';
+@use './dark-theme';
+@use './icons';
+@use './averos-view';
+@use './animations.scss';
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('/assets/fonts/Cairo-Regular.woff2') format('woff2'),
+      url('/assets/fonts/Cairo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+ @font-face {
+  font-family: 'Cairo';
+  src: url('/assets/fonts/Cairo-SemiBold.woff2') format('woff2'),
+      url('/assets/fonts/Cairo-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('/assets/fonts/Cairo-Bold.woff2') format('woff2'),
+      url('/assets/fonts/Cairo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cairo';
+  src: url('/assets/fonts/Cairo-Black.woff2') format('woff2'),
+      url('/assets/fonts/Cairo-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+// @include mat-core(typography.$averos-typography);
+// @include mat-core();
+
+// // Include theme styles for core and each component used in your app.
+// // Alternatively, you can import and @include the theme mixins for each component
+// // that you are using.
+// @include angular-material-theme($darnet-app-theme);//the default theme is LIGHT theme
+
+/******Global Styles ***********/
+
+/******** **********/
+// .mat-display-4, .mat-display-3,	          
+// .mat-display-2,	.mat-display-1,	
+// .mat-h1, .mat-headline, 
+// .mat-h2, .mat-title, .mat-h3, 
+// .mat-subheading-2, .mat-h4, 
+// .mat-subheading-1 {
+// margin: 0 }
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  white-space: normal !important;
+}
+
+.mat-accordion .mat-expansion-panel {
+  border-radius: 4px !important;
+}
+.mat-expansion-panel-header{
+  border-radius: 0px !important;
+}
+
+mat-panel-title > * {
+  margin: 0px !important;
+}
+/*************************************/
+
+mat-card {
+  padding: 16px
+}
+
+.mat-mdc-form-field {
+  padding-top: 5px;
+}
+
+.app-brand {
+    cursor: pointer;
+  }
+
+/// tab indicator
+.mdc-tab-indicator .mdc-tab-indicator__content--underline {
+  border-top-width: 6px !important;
+  border-radius: 100% !important; 
+}
+
+.mat-mdc-tab-header {
+  margin-bottom: 20px;
+}
+  /// form fields ////
+  .full-width-input {
+    width: 100%;
+  }
+
+  .form-field-full-width {
+    width: 100%;
+  }
+
+  
+    // Style on a browser
+@media only screen and (min-width: 600px) {
+  .login-card {
+    min-width: 50%;
+    max-width: 50%;
+    margin: 20px auto;
+  }
+}
+
+/// Style on handset
+@media only screen and (max-width: 500px) {
+  .login-card {
+    min-width: auto;
+    margin: 20px auto;
+  }
+}  
+
+.forgot-password {
+  padding-left: 16px;
+}
+
+.dont-have-account{
+  padding-top: 5px; 
+  margin-left: 5px; 
+  cursor: pointer;
+   text-align: right;
+  line-height: 1.4;
+  
+  &:hover:not(.disabled) {
+    text-decoration: underline;
+  }
+  
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+  // .form-field-default-width {
+  //   width: 50%;
+  //   margin-right: 10%;
+  // }
+
+  .search-input-form {
+     // @include mat.elevation(16);
+    // @include mat.elevation(6, black, 0.8);
+    min-width: auto;
+    // margin: 20px auto;
+    margin: 0px auto;
+    display: block;
+  }
+
+  /////////////////// Success error Dialog box styling /////////////////////////////
+
+  .close-button{
+    float: right;
+    // top:-24px;
+    // right:-24px;
+  }
+  
+  .close-icon {
+    transition: 0.5s ease-in-out;
+  }
+  
+  .close-icon:hover {
+    transform: rotate(180deg);
+  }
+
+  .rotate-icon {
+    transition: 0.5s ease-in-out;
+  }
+  
+  .rotate-icon:hover {
+    transform: rotate(180deg);
+  }
+
+  .full-rotate-icon {
+    transition: 0.5s ease-in-out;
+  }
+  
+  .full-rotate-icon:hover {
+    transform: rotate(360deg);
+  }
+
+
+  // Success icon animation ///// 
+  @keyframes spin {
+    0%   {transform: rotate(0deg)}
+    100% {transform: rotate(360deg)}
+}
+
+  .animated_success {
+    // transition:  1s ease-in-out;
+    // transform: rotate(360deg);
+    animation: spin 0.8s ease-in-out;
+  }
+
+   // Error icon animation ///// 
+   @keyframes scale {
+    0%   {transform: scaleY(0)}
+    100% {transform: scaleY(5px)}
+}
+
+  .animated_error {
+    // animation: scale 0.3s ease-in-out;
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+/// Shake Animation ///////////
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+  //////////// Bounce Animation /////////////
+.bounce-7 {
+    animation-name: bounce-7;
+    animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    animation-duration: 2s;
+}
+@keyframes bounce-7 {
+    0%   { transform: scale(1,1)      translateY(0); }
+    10%  { transform: scale(1.1,.9)   translateY(0); }
+    30%  { transform: scale(.9,1.1)   translateY(-100px); }
+    50%  { transform: scale(1.05,.95) translateY(0); }
+    57%  { transform: scale(1,1)      translateY(-7px); }
+    64%  { transform: scale(1,1)      translateY(0); }
+    100% { transform: scale(1,1)      translateY(0); }
+}
+/////////////////////////////////////// END Success error dialog box ///////////////////////////
+
+///######## Home / public space styles ###########
+.bg {
+  background-image: url("../assets/images/wiforge/bg/averos.svg");
+  height: 100%;
+  position: relative;
+  width: 100%;
+  // opacity: 0.90;
+  opacity: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0px ;
+  background-attachment: fixed;
+
+}
+
+.standalone-designer .a-canvas-grid {
+  position: absolute;
+}
+
+.designer-within-app .a-canvas-grid{
+  position: relative;
+}
+
+.standalone-designer .a-canvas{
+  position: absolute;
+}
+
+.designer-within-app .a-canvas{
+  position: relative;
+}
+
+////////////////// LOADER STYLING ///////////////////
+
+$bg-color: #697c9e3f;
+
+
+.loader-container {
+  height: 100%;
+  background: $bg-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+.loader {
+  position: relative;
+  width: 75px;
+  height: 100px;
+  
+  .bar {
+    position: absolute;
+    bottom: 0;
+    width: 10px;
+    height: 50%;
+    transform-origin: center bottom;
+    // box-shadow: 1px 1px 0 rgba(0,0,0,.2);
+    box-shadow: 0px 60px 0 rgba(0,0,0,.2);
+    border-radius: 30% 30% 50% 50%;
+    
+    @for $i from 1 through 5 { 
+       &:nth-child(#{$i}) {
+         left: ($i - 1) * 15px;
+         transform: scale(1,$i*.2);
+         animation: stretchbar#{$i} 4s infinite;
+        }
+    }
+    
+  }
+
+  .red {
+    // background: #E8382A;
+    background: linear-gradient(60deg,#ef5350,#E8382A)    
+  }
+
+  .blue {
+    // background: #3D8DD8;
+    background: linear-gradient(60deg,#3D8DD8,#2a6ead);
+  }
+  .green {
+    // background: #96C331;
+    background: linear-gradient(60deg,#96C331,#7da128);
+  }
+  .yellow {
+    // background: #FCDF12;
+    background: linear-gradient(60deg,#FCDF12,#e2ca10);
+  }
+  .orange {
+    // background: #F28C1E;
+    background: linear-gradient(60deg,#F28C1E,#fb8c00);
+  }
+
+  .bouncing_ball {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    background: #945671;
+    border-radius: 50%;
+    animation: bounce 4s infinite;
+  }
+}
+}
+
+@keyframes bounce {
+  0% {
+    transform: translate(0, 0);
+  }
+  5% {
+    transform: translate(8px, -14px);
+  }
+  10% {
+    transform: translate(15px, -10px)
+  }
+  17% {
+    transform: translate(23px, -24px)
+  }
+  20% {
+    transform: translate(30px, -20px)
+  }
+  27% {
+    transform: translate(38px, -34px)
+  }
+  30% {
+    transform: translate(45px, -30px)
+  }
+  37% {
+    transform: translate(53px, -44px)
+  }
+  40% {
+    transform: translate(60px, -40px)
+  }
+  50% {
+    transform: translate(60px, 0)
+  }
+  57% {
+    transform: translate(53px, -14px)
+  }
+  60% {
+    transform: translate(45px, -10px)
+  }
+  67% {
+    transform: translate(37px, -24px)
+  }
+  70% {
+    transform: translate(30px, -20px)
+  }
+  77% {
+    transform: translate(22px, -34px)
+  }
+  80% {
+    transform: translate(15px, -30px)
+  }
+  87% {
+    transform: translate(7px, -44px)
+  }
+  90% {
+    transform: translate(0, -40px)
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes stretchbar1 { 
+  0% {
+    transform: scale(1, .2);
+  }
+  40%{
+    transform: scale(1, .2);
+  }
+  50% {
+    transform: scale(1, 1);
+  }
+  90% {
+    transform: scale(1,1);
+  }
+  100% {
+    transform: scale(1,.2);
+  }
+}
+@keyframes stretchbar2 { 
+  0% {
+    transform: scale(1, .4);
+  }
+  40% {
+    transform: scale(1, .4);
+  }
+  50% {
+    transform: scale(1, .8);
+  }
+  90% {
+    transform: scale(1, .8);
+  }
+  100% {
+    transform: scale(1, .4);
+  }
+}
+@keyframes stretchbar3 { 
+  0% {
+    transform: scale(1, .6);
+  }
+  100% {
+    transform: scale(1, .6);
+  }
+}
+@keyframes stretchbar4 { 
+  0% {
+    transform: scale(1, .8);
+  }
+  40% {
+    transform: scale(1, .8);
+  }
+  50% {
+    transform: scale(1, .4);
+  }
+  90% {
+    transform: scale(1, .4);
+  }
+  100% {
+    transform: scale(1, .8);
+  }
+}
+@keyframes stretchbar5 { 
+  0% {
+    transform: scale(1, 1);
+  }
+  40% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1, .2);
+  }
+  90% {
+    transform: scale(1, .2);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+////////////////// LOADER STYLING END /////////////////////////////

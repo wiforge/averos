@@ -1,0 +1,36 @@
+/**
+ * This source code was generated using the AVEROS CODE GENERATION WORKFLOW tool.
+ * 
+ * The Averos Code Generation platform automates the creation of boilerplate
+ * code and standard structures, streamlining the development process. 
+ * This class adheres to the predefined architecture and coding standards 
+ * specified during the generation process. 
+ * 
+ * Please note:
+ * - While the generated code provides a solid foundation, manual customization 
+ *   may be required to meet specific project requirements.
+ * - Generated methods and attributes are structured to ensure maintainability 
+ *   and compatibility with the existing codebase.
+ * 
+ * It is recommended to review and test the generated code thoroughly to ensure 
+ * it aligns with the intended functionality of the application.
+ * 
+ * For more details on the code generation process, refer to the Averos 
+ * documentation https://www.wiforge.com or contact the development team.
+ */
+
+import { ChangeDetectionStrategy, Component} from '@angular/core';
+
+@Component({
+	selector: 'app-<%= dasherize(name) %>',
+	templateUrl: './<%= dasherize(name) %>.html',
+	styleUrls: ['./<%= dasherize(name) %>.scss'],
+	standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class <%= classifyPreserveTrailingIndex(name) %> {
+  
+  constructor() {}
+
+
+}

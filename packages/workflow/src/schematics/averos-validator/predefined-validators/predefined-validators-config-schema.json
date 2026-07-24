@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsPredefinedValidator",
+  "title": "Configures a predefined validator for a specific entity field",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The Predefined Validator name ",
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "GlobalCustomValidationService",
+        "Validators"
+      ],
+      "x-prompt": {
+        "message": "please choose one of the predefined validator to be used..",
+        "type": "list",
+        "items": [
+          { "value": "GlobalCustomValidationService", "label": "GlobalCustomValidationService" },
+          { "value": "Validators", "label": "Validators" }
+        ]
+      }
+    },
+    "entityName": {
+      "description": "The target entity name.",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the target entity?"
+    },
+    "fieldName": {
+      "minLength": 1,
+      "description": "The target entity field name.",
+      "type": "string",
+      "x-prompt": "What is the name of the entity field , subject to the validation ?"
+    },
+    "validationDefaultMessage": {
+      "description": "The default validation message.",
+      "type": "string",
+      "x-prompt": "What is the default message you want to display for your validation ?"
+    },
+    "validationMessageTranslationId": {
+      "description": "The translation id related to the validation message.",
+      "type": "string",
+      "x-prompt": "Please define a translation identifier for your message if you want to include it in the multi-language support ?"
+    }
+   },
+  "required": [
+    "name",
+    "entityName",
+    "fieldName"
+
+  ]
+}

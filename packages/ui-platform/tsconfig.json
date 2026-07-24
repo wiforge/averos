@@ -1,0 +1,50 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "noPropertyAccessFromIndexSignature": false,
+    "module": "preserve",
+    "sourceMap": true,
+    "declaration": false,
+    "importHelpers": true,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "target": "ES2022",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "useDefineForClassFields": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+
+    "paths": {
+      "@averos/ui-platform/*": ["./src/*"],
+      "@averos/ui-platform": ["./dist/averos-ui-platform", "./dist"],
+      "@averos/ui-platform/core/*": ["./src/averos-core/*"],
+      "@averos/ui-platform/shared/*": ["./src/averos-shared/*"],
+      "@averos/ui-platform/view/*": ["./src/view/*"],
+      "@averos/ui-platform/referential/*": ["./src/referential/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

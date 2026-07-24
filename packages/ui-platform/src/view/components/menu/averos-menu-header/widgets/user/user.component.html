@@ -1,0 +1,20 @@
+<button mat-button
+        class="averos-toolbar-button averos-avatar-button"
+        href="javascript:void(0)"
+        [matMenuTriggerFor]="menu">
+<img class="averos-avatar" [src]="userPicture()"
+                                  onerror="this.onerror=null; this.src='assets/images/avatars/default_avatar.svg'" 
+                                  width="32" alt="avatar" />
+<div class="averos-username hide-on-small-devices" > 
+  <span>{{currentLoggedUserProfile.username}}</span>
+</div>
+
+</button>
+
+<mat-menu #menu="matMenu">
+<mat-divider></mat-divider>
+<button mat-menu-item (click)="logout()">
+  <mat-icon [safeIcon]="'exit_to_app'"></mat-icon>
+  <span i18n="@@user.profile.logout">logout</span>
+</button>
+</mat-menu>

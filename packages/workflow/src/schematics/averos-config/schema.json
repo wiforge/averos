@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAverosConfig",
+  "title": "Generates an Averos Configuration",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The configuration type",
+      "type": "string",
+      "minLength": 1,
+      "default": "service",
+      "enum": [
+                "service",
+                "gateway"
+              ],
+      "x-prompt": {
+        "message": "What is the type of your configuration ?",
+        "type": "list",
+        "items": [
+          { "value": "service", "label": "Service Configuration" },
+          { "value": "gateway", "label": "Gateway Configuration" }
+        ]
+      }
+    },
+    "id": {
+      "description": "The identifier of the configuration (i.e. the angular service name for type=service)",
+      "type": "string"
+    },
+    "host": {
+      "description": "The target service host",
+      "type": "string"
+    },
+    "port": {
+      "description": "The target service port",
+      "type": "number"
+    },
+    "protocol": {
+      "description": "The target service protocol",
+      "type": "string"
+    },
+    "endPoint": {
+      "description": "The target service EndPoint ex. /test/v1/endpoint",
+      "type": "string"
+    },
+    "endPointId": {
+      "description": "The target averos service EndPoint. Relevant for averos-gateway type",
+      "type": "string"
+    },
+    "httpQueryBuilder": {
+      "description": "The HTTP Query Builder",
+      "type": "string",
+      "default": "mongodb",
+      "enum": [
+        "mongodb",
+        "json-server",
+        "custom"
+      ]
+    },
+    "externalEntityId": {
+      "description": "The entity id as configured in the exteral api/service.",
+      "type": "string",
+      "default": "_id",
+      "x-prompt": "What is the name of the identifier that is used by the external service to identify and manage the entity [_id] ?"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "type"
+  ]
+}

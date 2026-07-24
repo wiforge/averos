@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <svg xmlns="http://www.w3.org/2000/svg" 
+            width="119.87191772460938" 
+            height="50" 
+            viewBox="0 0 119.87191772460938 50">
+            <style>
+                text {
+                font-family: Cairo, sans-serif;
+                }
+            </style>
+        <g xmlns="http://www.w3.org/2000/svg" model-id="46dbdd14-b79d-4487-868c-26fd32443688" data-type="averos.usecase" id="j_5" class="joint-cell joint-type-averos joint-type-averos-usecase joint-element joint-theme-default"><rect joint-selector="body" id="v-386" width="119.87191772460938" height="50" stroke-width="1" rx="2" ry="2" fill="#D5F5E3" stroke="#27AE60"/><rect joint-selector="header" id="v-387" width="119.87191772460938" height="35" stroke-width="1" fill="#ABEBC6" stroke="#1E8449"/><text joint-selector="tagLabel" id="v-388" font-size="11" xml:space="preserve" text-anchor="middle" fill="#000" text="&lt;&lt;UseCase&gt;&gt;" transform="matrix(1,0,0,1,59.9,10.5)"><tspan dy="0.3em" class="v-line">&lt;&lt;UseCase&gt;&gt;</tspan></text><text joint-selector="nameLabel" id="v-389" font-weight="bold" font-size="13" xml:space="preserve" text-anchor="middle" fill="#000" text="MyUseCase" transform="matrix(1,0,0,1,59.9,24.5)"><tspan dy="0.3em" class="v-line">MyUseCase</tspan></text></g>
+        </svg>

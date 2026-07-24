@@ -1,0 +1,96 @@
+{
+  "name": "@averos/mcp",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/mcp/src",
+  "projectType": "library",
+  "tags": ["scope:averos", "type:mcp"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/packages/mcp/dist"],
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "commands": [
+          "tsc --project packages/mcp/tsconfig.lib.json",
+          "cp LICENSE packages/mcp/LICENSE"
+        ],
+        "parallel": false,
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/packages/mcp/test-output/jest/coverage"],
+      "options": {
+        "jestConfig": "packages/mcp/jest.config.cts",
+        "passWithNoTests": false
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit --project tsconfig.json",
+        "cwd": "packages/mcp"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/mcp/**/*.ts"
+        ]
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "rm -rf dist coverage out-tsc test-output *.tsbuildinfo LICENSE",
+        "cwd": "packages/mcp"
+      }
+    },
+    "pack": {
+        "executor": "nx:run-commands",
+        "dependsOn": ["build"],
+        "options": {
+            "command": "pnpm pack --pack-destination ../../release",
+            "cwd": "packages/mcp"
+        }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npm publish --access public --no-git-checks",
+        "cwd": "packages/mcp"
+      },
+      "configurations": {
+        "dry-run": {
+          "command": "npm publish --access public --no-git-checks --dry-run",
+          "cwd": "packages/mcp"
+        }
+      }
+    },
+    "unpublish-locally": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm unpublish @averos/mcp@$(node -p \"require('./package.json').version\") --registry http://localhost:4873 --force",
+        "cwd": "packages/mcp"
+      }
+    },
+    "publish-locally": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "pnpm publish --no-git-checks --registry http://localhost:4873",
+        "cwd": "packages/mcp"
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "@averos/cli",
+  "version": "2.0.0",
+  "description": "Command-line interface for validating, planning, executing, and generating applications from Averos manifests.",
+  "keywords": [
+    "averos",
+    "cli",
+    "code-generation",
+    "application-generation",
+    "manifest",
+    "software-generation",
+    "workflow",
+    "orchestration",
+    "automation",
+    "dag",
+    "planning",
+    "execution",
+    "developer-tools",
+    "ai-native",
+    "enterprise"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wiforge/averos.git",
+    "directory": "packages/cli"
+  },
+  "author": "averos-io<averos.tech@gmail.com>",
+  "bugs": "https://github.com/wiforge/averos/issues",
+  "homepage": "https://github.com/wiforge/averos#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types":   "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": { "averos": "./dist/bin/averos.js" },
+  "files": [
+    "dist/**/*",
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@averos/dag-engine": "catalog:",
+    "@averos/executor":   "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.4.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "optionalDependencies": {
+    "@averos/ai": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/jest":        "catalog:",
+    "@types/node":        "catalog:",
+    "jest":               "catalog:",
+    "typescript":         "catalog:"
+  }
+}

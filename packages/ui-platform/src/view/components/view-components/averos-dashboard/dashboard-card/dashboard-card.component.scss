@@ -1,0 +1,120 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ *
+ */
+
+.dashboard-card {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 15px;
+
+    .mat-mdc-card-header {
+      padding: 0px;
+    }
+  }
+
+
+  
+  .header-more {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+  }
+
+  .arrow-up{
+    transform: rotate(45deg);
+    color: #38C45D;
+  }
+
+  .arrow-down{
+    transform: rotate(135deg);
+    color: #E8382A;
+  }
+
+  .dashboard-card-content {
+    text-align: center;
+    // display: flex;
+    // align-items: center;
+  }
+  
+  .dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 16px;
+  }
+
+  .dashboard-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0px !important;
+  }
+
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
+  .mat-mtc-card-header-text {
+    margin: 0px !important;
+  }
+
+  .dashboard-card-title-text{
+    color: #999;
+  }
+
+  .dc-simple-content {
+    display: flex;
+  }
+
+  .db-content-icon {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 12px;
+  }
+
+  .dc-value {
+    margin-top: 8px;
+  }
+
+  .dc-value-description{
+    color: #d1d2db; 
+    line-height: 8px;
+  }
+
+  .dashboard-card-value {
+    font-size: 3em;
+    margin-bottom: 8px;
+  }
+
+  .rotate-icon {
+    animation: rotating 3s linear infinite;
+    -webkit-animation: rotating 3s linear infinite;
+  }
+
+  @-webkit-keyframes rotating {
+    0%{
+      transform:rotate(0deg)
+      }
+    to{
+      transform:rotate(1turn)
+      }
+  
+  }
+  
+  @keyframes rotating{
+    0%{
+      transform:rotate(0deg)
+      }
+    to{
+      transform:rotate(1turn)
+      }
+  }

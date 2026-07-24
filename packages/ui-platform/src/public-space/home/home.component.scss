@@ -1,0 +1,101 @@
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    // min-width: 100%;
+    // min-height: 100%;
+  }
+  
+  /* Add some content at the bottom of the video/page */
+  .content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  /* Style the button used to pause/play the video */
+  #myBtn {
+    width: 200px;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  #myBtn:hover {
+    background: #ddd;
+    color: black;
+  }
+
+  img {
+    display: block;
+    width: 265px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .caption {
+    position: absolute;
+    left: 0;
+    // top: 30%;
+    top: 47%;
+    width: 100%;
+    text-align: center;
+  }
+
+  .caption span.border {
+    color: #3d8dd8;
+    padding: 18px;
+    font-size: 25px;
+    letter-spacing: 10px;
+  }
+  .caption span.border1 {
+    color: #f28c1e;
+    padding: 24px;	
+    font-size: 17px;
+    letter-spacing: 4px;
+    display: inline-block;
+  }
+
+  span.desc {
+    // color: #3d8dd8;
+    font-size: 24px;
+    letter-spacing: 2px;
+    // font-display: unquote($string: "");
+  }
+  span mark {
+    background: linear-gradient(60deg,#ffa726,#fb8c00);
+    // background: transparent;
+    border-radius: 30%;
+    box-shadow: 0 4px 20px 0 rgb(0, 0, 0, 0.14), 0 7px 10px -5px rgb(255, 152, 0, 0.40);
+  }
+  .caption span.border2 {
+    // color: #e8382a;
+    color:  #ddd;
+    padding: 18px;	
+    font-size: 15px;
+    // letter-spacing: 2px;
+  }
+
+  .caption span.border3 {
+    // color: #e8382a;
+    color:  #ddd;
+    padding: 18px;	
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+  .mailto{
+          // color: #009a29;
+          color:  #ddd;
+          width:100px;
+          height:20px;
+          text-decoration: none;
+        }
+
+

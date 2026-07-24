@@ -1,0 +1,191 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ *
+ */
+ 
+@use "@angular/material" as mat;
+
+:host {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 450px;
+  margin: 2rem auto;
+  padding: 1rem; 
+  
+  mat-card {
+    border-radius: 12px;
+    padding: 8px;
+  }
+
+  // Center the header and title
+  mat-card-header {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
+    
+    mat-card-title {
+      text-align: center;
+      margin: 0;
+    }
+  }
+
+  // Add spacing after divider
+  mat-card-content {
+    margin-top: 24px;
+  }
+
+  button[type="submit"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    position: relative; // Important for spinner positioning
+  }
+
+  // Fix inline spinner in submit button
+  ::ng-deep {
+    button[type="submit"] {
+      .inline-spinner {
+        width: 24px !important;
+        height: 24px !important;
+        
+        // Override Material's internal CSS variables
+        circle {
+          stroke-width: 10% !important;
+        }
+        
+        svg {
+          width: 24px !important;
+          height: 24px !important;
+        }
+      }
+    }
+  }
+}
+
+/// Style on handset
+@media only screen and (max-width: 500px) {
+  .login-form {
+    margin-top: 35%;
+  }
+}
+
+// SOCIAL LOGIN STYLING
+.full-width { width: 100%; }
+.gap-16 { gap: 16px; }
+
+.divider-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 16px 0;
+  color: rgba(0, 0, 0, 0.54);
+  
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.12);
+  }
+  
+  .divider-text {
+    padding: 0 16px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+}
+
+// LARGE ICON BUTTON OVERRIDE
+.social-login-container {
+  margin-top: 16px;
+  
+  .mat-mdc-icon-button {
+    --mdc-icon-button-state-layer-size: 48px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; // Important for spinner positioning
+  }
+  
+  .social-icon {
+    line-height: 30px !important;
+    border-radius: 50%;
+    transition: transform 0.2s ease-in-out;
+    
+    &:hover {
+      transform: scale(1.3);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  // Fix spinner positioning in social buttons
+  button.loading {
+    mat-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  // Override Material spinner sizing for social buttons
+  ::ng-deep {
+    .mat-mdc-icon-button {
+      mat-spinner {
+        width: 32px !important;
+        height: 32px !important;
+        
+        svg {
+          width: 32px !important;
+          height: 32px !important;
+        }
+        
+        circle {
+          stroke-width: 10% !important;
+        }
+      }
+    }
+  }
+}
+
+// DARK MODE OVERRIDES
+:host-context(.darnet-dark-theme) {
+  .divider-container {
+    color: rgba(255, 255, 255, 0.7);
+    
+    .divider-line { 
+      background: rgba(255, 255, 255, 0.12); 
+    }
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+button {
+  transition: all 0.3s ease;
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

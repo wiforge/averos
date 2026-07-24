@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "SchematicsUpdatePageRouteMenu",
+    "title": "Updates the route and the menu of an averos page/component",
+    "type": "object",
+    "properties": {
+      "name": {
+        "description": "The name of the page.",
+        "type": "string"
+      },
+      "targetMenu": {
+        "description": "The target place into which the menu entries will be placed",
+        "type": "string",
+        "minLength": 1,
+        "enum": [
+                  "side",
+                  "top",
+                  "both"
+                ],
+        "x-prompt": {
+          "message": "In which part of the menu you would like to place your component ? (side)",
+          "type": "list",
+          "items": [
+            { "value": "side", "label": "Side menu" },
+            { "value": "top", "label": "Top menu" },
+            { "value": "both", "label": "Top & Side menu" }
+          ]
+        }
+      },
+      "space": {
+        "description": "The target space into which the menu entries will be available",
+        "type": "string",
+        "minLength": 1,
+        "enum": [
+                  "logged",
+                  "public"
+                ],
+        "x-prompt": {
+          "message": "In which space you would like to make your component available (logged)?",
+          "type": "list",
+          "items": [
+            { "value": "logged", "label": "Logged Space" },
+            { "value": "public", "label": "Public Space" }
+          ]
+        }
+      },
+      "path": {
+        "type": "string",
+        "format": "path",
+        "description": "The path to sources.",
+        "visible": false,
+        "$default": {
+          "$source": "workingDirectory"
+         }
+      },
+      "project": {
+        "type": "string",
+        "description": "The name of the project.",
+        "$default": {
+          "$source": "projectName"
+        }
+      }
+     },
+    "required": [
+      "name"
+    ]
+  }
+  

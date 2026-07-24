@@ -1,0 +1,13 @@
+{
+    "themes": ["filled", "outlined"],
+    "icons": ["label_important","unfold_more","build_circle","grid_on","close","category_search","task_alt","search","account_circle","grid_off","edit_note","language","add","dataset","arrow_back_ios_new","tune","view_list","history","translate","qr_code","chevron_right","tag","home","open_in_new","search_off","refresh","mail","unfold_less","upload","publish","assignment","design_services","close_small","palette/language","palette/service_configuration","palette/entity","palette/gateway_configuration","palette/usecase","palette/blankpage","palette/service","remove","location_city","content_copy","arrow_drop_down","local_library","exit_to_app","more_vert","location_on","error","download_2","menu","visibility","dashboard","no-icon/warning","cancel","arrow_forward_ios","undo","add_box","alternate_email","arrow_forward","interests","download","calendar_month","flag","download_done","fullscreen","broken_image","warning","keyboard_arrow_up","visibility_off","map","label","flags/es","flags/cn","flags/tn","flags/ar","flags/jp","flags/nl","flags/de","flags/no","flags/ru","flags/se","flags/gb","flags/fr","dark_mode","done_all","aspect_ratio","person","settings","check","file_json","file_save","badge","light_mode","router","folder_open","redo","save","lock","insert_drive_file","filter_alt","keyboard_arrow_down","content_paste","check_circle","delete","star","upload_file","help","drag_indicator","edit","track_changes","info","description","menu_open", "account_tree",
+                "auth-provider/auth0", 
+                "auth-provider/firebase", 
+                "auth-provider/github", 
+                "auth-provider/google", 
+                "auth-provider/microsoft", 
+                "auth-provider/keycloak"],
+    "customIcons":{
+        "filled": ["custom-icons/star"]
+    }    
+}

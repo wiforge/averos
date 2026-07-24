@@ -1,0 +1,331 @@
+{
+    "defaultUCViewLayout": {},
+    "searchInputUCViewLayout": {
+        "orderedView": true,
+        "title": "Search ToDoArea",
+        "titleTranslationID": "uc.search.todoarea.title",
+        "parentEntityLabel": "Search Criteria",
+        "parentEntityLabelTranslationId": "uc.search.todoarea.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "areaname",
+                "label": "name",
+                "labelTranslationID": "todoarea.name",
+                "visible": true,
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "visible": true,
+                "label": "Creation Date",
+                "labelTranslationID": "todoarea.createdat",
+                "placeholder": "ex. 01/01/2001 10:00",
+                "placeholderTranslationID": "",
+                "format": "dd-MM-yyyy HH:mm",
+                "type": "date",
+                "icon": "calendar_month",
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            }
+        ]
+    },
+    "tableUCViewLayout": {
+        "orderedView": false,
+        "title": "ToDoArea Search Result",
+        "titleTranslationID": "app.search.result",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "areaname",
+                "label": "name",
+                "labelTranslationID": "todoarea.name",
+                "visible": true,
+                "order": 1
+            },
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "label": "Creation Date",
+                "labelTranslationID": "todoarea.createdat",
+                "type": "date",
+                "format": "dd-MM-yyyy HH:mm:sss",
+                "visible": true,
+                "order": 2
+            },
+            {
+                "entityFieldName": "_entityUpdatedAt",
+                "label": "Update Date",
+                "labelTranslationID": "todoarea.updatedat",
+                "type": "date",
+                "format": "dd-MM-yyyy HH:mm:sss",
+                "visible": true,
+                "order": 3
+            },
+            {
+                "entityFieldName": "toDoTasks",
+                "label": "To Do Tasks",
+                "labelTranslationID": "todoarea.todotasks",
+                "visible": true,
+                "type": "collection",
+                "typeName": "ToDoTask",
+                "order": 4
+            },
+            {
+                "entityFieldName": "compositeTestEntity",
+                "label": "First CompEnt",
+                "type": "composite",
+                "typeName": "CompositeTestEntity",
+                "visible": true,
+                "order": 5
+            }
+        ]
+    },
+    "selectableInputTableUCViewLayout": {
+        "orderedView": false,
+        "title": "ToDoArea Search Result",
+        "titleTranslationID": "app.search.result",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "areaname",
+                "label": "name",
+                "labelTranslationID": "todoarea.name",
+                "visible": true,
+                "order": 1
+            }
+        ]
+    },
+    "viewUCViewLayout": {
+        "orderedView": true,
+        "title": "View ToDoArea",
+        "titleTranslationID": "uc.view.todoarea.title",
+        "parentEntityLabel": "ToDoArea Details",
+        "parentEntityLabelTranslationId": "uc.view.todoarea.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "areaname",
+                "visible": true,
+                "label": "ToDoArea Name",
+                "labelTranslationID": "todoarea.name",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "badge",
+                "required": true,
+                "disabled": true,
+                "validators": {
+                    "syncValidators": [
+                        {
+                            "validatorID": "required",
+                            "validatorKey": "required",
+                            "type": "Validators",
+                            "nature": "sync",
+                            "validationDefaultMessage": "Please enter a name",
+                            "validationMessageTranslationID": "app.uc.field.mandatory"
+                        }
+                    ]
+                },
+                "defaultValue": "",
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "label": "Creation Date",
+                "labelTranslationID": "todoarea.createdat",
+                "visible": true,
+                "format": "dd-MM-yyyy HH:mm:sss",
+                "type": "date",
+                "icon": "calendar_month",
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "compositeTestEntity",
+                "label": "First Comp Ent",
+                "type": "composite",
+                "typeName": "CompositeTestEntity",
+                "visible": true,
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": 2,
+                    "layout": "inline",
+                    "groupLabel": "First Comp Label",
+                    "groupLabelTranslationID": "",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "toDoTasks",
+                "label": "To Do Tasks",
+                "labelTranslationID": "todoarea.todotasks",
+                "visible": true,
+                "type": "collection",
+                "typeName": "ToDoTask",
+                "order": 4,
+                "fieldGroup": {
+                    "groupId": 4,
+                    "layout": "tab",
+                    "groupLabel": "To Do Tasks",
+                    "groupLabelTranslationID": "todoarea.todotasks",
+                    "groupOrder": 1
+                }
+            }
+        ]
+    },
+    "createUCViewLayout": {
+        "orderedView": true,
+        "title": "Create ToDoArea",
+        "titleTranslationID": "uc.create.todoarea.title",
+        "parentEntityLabel": "ToDoArea Details",
+        "parentEntityLabelTranslationId": "uc.create.todoarea.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "areaname",
+                "visible": true,
+                "label": "ToDoArea Name",
+                "labelTranslationID": "todoarea.name",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "badge",
+                "required": true,
+                "disabled": false,
+                "validators": {
+                    "syncValidators": [
+                        {
+                            "validatorID": "required",
+                            "validatorKey": "required",
+                            "type": "Validators",
+                            "nature": "sync",
+                            "validationDefaultMessage": "Please enter a name",
+                            "validationMessageTranslationID": "app.uc.field.mandatory"
+                        }
+                    ]
+                },
+                "defaultValue": "",
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "toDoTasks",
+                "label": "To Do Tasks",
+                "labelTranslationID": "todoarea.todotasks",
+                "visible": true,
+                "type": "collection",
+                "typeName": "ToDoTask",
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": 3,
+                    "layout": "tab",
+                    "groupLabel": "To Do Tasks",
+                    "groupLabelTranslationID": "todoarea.todotasks",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "compositeTestEntity",
+                "label": "First Comp Ent",
+                "type": "composite",
+                "typeName": "CompositeTestEntity",
+                "visible": true,
+                "order": 4,
+                "fieldGroup": {
+                    "groupId": 2,
+                    "layout": "inline",
+                    "groupLabel": "First Comp Label",
+                    "groupLabelTranslationID": "",
+                    "groupOrder": 1
+                }
+            }
+        ]
+    },
+    "editUCViewLayout": {
+        "orderedView": true,
+        "title": "Edit ToDoArea",
+        "titleTranslationID": "uc.edit.todoarea.title",
+        "parentEntityLabel": "ToDoArea Details",
+        "parentEntityLabelTranslationId": "uc.edit.todoarea.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "areaname",
+                "visible": true,
+                "label": "ToDoArea Name",
+                "labelTranslationID": "todoarea.name",
+                "placeholder": "",
+                "placeholderTranslationID": "",
+                "type": "string",
+                "icon": "badge",
+                "required": true,
+                "disabled": true,
+                "validators": {
+                    "syncValidators": [
+                        {
+                            "validatorID": "required",
+                            "validatorKey": "required",
+                            "type": "Validators",
+                            "nature": "sync",
+                            "validationDefaultMessage": "Please enter a name",
+                            "validationMessageTranslationID": "app.uc.field.mandatory"
+                        }
+                    ]
+                },
+                "defaultValue": "",
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "toDoTasks",
+                "label": "To Do Tasks",
+                "labelTranslationID": "todoarea.todotasks",
+                "visible": true,
+                "type": "collection",
+                "typeName": "ToDoTask",
+                "order": 3,
+                "fieldGroup": {
+                    "groupId": 3,
+                    "layout": "tab",
+                    "groupLabel": "To Do Tasks",
+                    "groupLabelTranslationID": "todoarea.todotasks",
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "compositeTestEntity",
+                "label": "First Comp Ent",
+                "type": "composite",
+                "typeName": "CompositeTestEntity",
+                "visible": true,
+                "order": 4,
+                "fieldGroup": {
+                    "groupId": 2,
+                    "layout": "inline",
+                    "groupLabel": "First Comp Label",
+                    "groupLabelTranslationID": "",
+                    "groupOrder": 1
+                }
+            }
+        ]
+    }
+}

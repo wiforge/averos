@@ -1,0 +1,85 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@use "@angular/material" as mat;
+@use "sass:map";
+
+// Layout
+$gutter: 16px !default;
+
+// Sidenav
+$sidenav-width: auto !default;
+$sidenav-collapsed-width: 50px !default;
+$sidenav-width-mobile: 280px !default;
+
+// Toolbar
+$toolbar-height-desktop: 64px !default;
+$toolbar-height-mobile: 56px !default;
+
+// Topmenu
+$topmenu-sticky-position-desktop: $toolbar-height-desktop;
+$topmenu-sticky-position-mobile: $toolbar-height-mobile;
+
+// Typography
+$font-size-base: 1rem !default;
+$small-font-size: .875em !default;
+
+
+// Links
+$link-color: map.get(mat.$m2-indigo-palette, 500) !default;
+$link-decoration: none !default;
+
+// Code
+$code-color: rgba(0, 0, 0, .03);
+$code-font-size: 90% !default;
+
+// Border
+$boder-color: rgba(0, 0, 0, .12) !default;
+
+// Breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+$breakpoints: (
+  xsmall: 0,
+  small:  600px,
+  medium: 960px,
+  large:  1280px,
+  xlarge: 1920px
+) !default;
+
+// Material colors
+$mat-colors: (
+  red: mat.$m2-red-palette,
+  pink: mat.$m2-pink-palette,
+  purple: mat.$m2-purple-palette,
+  deep-purple: mat.$m2-deep-purple-palette,
+  indigo: mat.$m2-indigo-palette,
+  blue: mat.$m2-blue-palette,
+  light-blue: mat.$m2-light-blue-palette,
+  cyan: mat.$m2-cyan-palette,
+  teal: mat.$m2-teal-palette,
+  green: mat.$m2-green-palette,
+  light-green: mat.$m2-light-green-palette,
+  lime: mat.$m2-lime-palette,
+  yellow: mat.$m2-yellow-palette,
+  amber: mat.$m2-amber-palette,
+  orange: mat.$m2-orange-palette,
+  deep-orange: mat.$m2-deep-orange-palette,
+  brown: mat.$m2-brown-palette,
+  gray: mat.$m2-gray-palette,
+  blue-gray: mat.$m2-blue-gray-palette,
+  white: white,
+  black: black,
+  // light: mat.$light-primary-text,
+  // dark: mat.$dark-primary-text,
+);

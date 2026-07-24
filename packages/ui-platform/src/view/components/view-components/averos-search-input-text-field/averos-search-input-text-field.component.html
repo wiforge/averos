@@ -1,0 +1,57 @@
+<mat-form-field class="form-field-default-width"
+  [appearance]="appearance">
+  <mat-label>{{label | translate: labelTranslationID}}</mat-label>
+  <mat-icon [safeIcon]="'search'" class="icon-18" matPrefix></mat-icon>
+  @if (operationSelect.value &&
+    (operationSelect.value?.symbol ==='[]'
+    || operationSelect.value?.symbol ==='![]')) {
+    <mat-chip-grid #matChipList
+      aria-label="Search Input Selection"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)">
+      @for (chip of searchChip; track $index) {
+        <mat-chip-row cdkDrag
+          [highlighted]="selectable"
+          [removable]="removable"
+          (removed)="remove(chip)">
+          {{chip.name}}
+          @if (removable) {
+            <mat-icon [safeIcon]="'cancel'" matChipRemove></mat-icon>
+          }
+        </mat-chip-row>
+      }
+      <input [placeholder]="placeholder"
+        [required]="required"
+        [maxLength]="maxLength"
+        [matChipInputFor]="matChipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)"
+        [formControl]="$any(formControlName.control)"
+        [(value)]="value">
+    </mat-chip-grid>
+  }
+  @if (!operationSelect.value ||
+    (operationSelect.value.symbol !=='[]'
+    && operationSelect.value.symbol !=='![]')) {
+    <input matInput
+      [value]="value"
+      [placeholder]="placeholder | translate: placeholderTranslationID"
+      [required]="required"
+      [maxLength]="maxLength"
+      [formControl]="$any(formControlName.control)"
+      (input)="changeInputValue($event.target.value)"
+      (blur)="onTouched()" #matInputComponent>
+  }
+  <span matSuffix>
+    <mat-select #operationSelect class="search-input-operation-picker" (selectionChange)="operationChange($event)">
+      <!-- <mat-option>-- None --</mat-option> -->
+      @for (operation of operations; track operation) {
+        <mat-option [value]="operation">
+          {{ operation.description | translate: operation.translationID }}
+        </mat-option>
+      }
+    </mat-select>
+  </span>
+</mat-form-field>

@@ -1,0 +1,183 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+
+@use "sass:map";
+@use "@angular/material" as mat;
+@use './component/toolbar-theme' as toolbar;
+@use './component/sidemenu-theme' as sidemenu;
+@use './component/topmenu-theme' as topmenu;
+@use './component/sidebar-theme' as sidebar;
+@use './component/table-theme' as table;
+@use './component/customizer-theme' as customizer;
+@use './component/scrollbar-theme' as scrollbar;
+@use './component/colors' as colors;
+
+// Styles for the app that are based on the current theme.
+@mixin averos-theme($theme) {
+  @include toolbar.averos-toolbar-theme($theme);
+  @include sidemenu.averos-sidenav-theme($theme);
+  @include sidebar.averos-sidebar-theme($theme);
+  @include topmenu.averos-topnav-theme($theme);
+  @include customizer.averos-settings-panel-theme($theme);
+  @include table.averos-grid-theme($theme);
+  @include scrollbar.averos-scrollbar-theme($theme);
+
+  $color-config: mat.m2-get-color-config($theme);
+  $is-dark-theme: map.get($theme, is-dark);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $background: map.get($color-config, background);
+  $foreground: map.get($color-config, foreground);
+
+  $is-dark-theme: map.get($theme, is-dark);
+  $primary: map.get($theme, primary);
+  $accent: map.get($theme, accent);
+  $warn: map.get($theme, warn);
+  $background: mat.m2-get-color-from-palette($theme, background);
+  $foreground: mat.m2-get-color-from-palette($theme, foreground);
+  
+.user-ticker-item {
+  @if $is-dark-theme {
+    color: mat.m2-get-color-from-palette($accent, darker);
+    
+    .mat-icon {
+      color: mat.m2-get-color-from-palette($accent, darker);
+    }
+  } @else {
+    color: whitesmoke;
+    
+    .mat-icon {
+      color: whitesmoke;
+    }
+  }
+}
+
+.system-ticker-item {
+  @if $is-dark-theme {
+    color: mat.m2-get-color-from-palette($warn, lighter);
+    
+    .mat-icon {
+      color: mat.m2-get-color-from-palette($warn, lighter);
+    }
+  } @else {
+    color: #6aff45;
+    
+    .mat-icon {
+      color: #6aff45;
+    }
+  }
+}
+
+.ticker-move {
+  .mat-icon {
+    font-size: 10px;
+    height: 10px;
+    width: 10px;
+    &:hover {
+      animation: spin 0.8s ease-in-out;
+    }
+  }
+}
+
+.search-container input {
+  @if $is-dark-theme {
+    background-color: mat.m2-get-color-from-palette($accent) !important;
+    color: #263238 !important;
+  } @else {
+    background-color: #264293 !important;
+    color: #fff !important;
+  }
+  font-weight: 600;
+}
+
+.search-container input::placeholder {
+  @if $is-dark-theme {
+    color: rgb(32, 32, 32) !important;
+  } @else {
+    color: whitesmoke !important;
+  }
+}
+
+.table-search-filter input {
+  @if $is-dark-theme {
+    background-color: mat.m2-get-color-from-palette($accent) !important;
+    color: #263238 !important;
+  } @else {
+    background-color: #264293 !important;
+    color: #fff !important;
+  }
+  font-weight: 600;
+}
+
+.table-search-filter input::placeholder {
+  @if $is-dark-theme {
+    color: rgb(32, 32, 32);
+  } @else {
+    color: whitesmoke;
+  }
+}
+
+#averos-designer-contextual-menu {
+  background-color: white;
+}
+
+/// customize components background in dark-mode-theme
+.darnet-dark-theme {
+
+  mat-card, .mat-mdc-card, mat-expansion-panel, .mat-expansion-panel {
+    background-color: #263238 !important;
+  }
+ .mat-mdc-card-outlined {
+    box-shadow: 0px 0px 0px 0px rgb(19 44 56 / 20%), 0px 0px 0px 0px rgb(19 44 56 / 14%), 0px 0px 0px 0px rgb(19 44 56 / 12%) !important;
+    --mat-card-outlined-outline-color: #132c38 !important;
+  }
+
+ .mat-mdc-dialog-container {
+  --mat-dialog-container-color: #263238 !important;
+ }
+
+ .mat-mdc-table, .mat-mdc-paginator {
+  background: #2b3033 !important;
+  }
+  .mdc-menu-surface {
+    background-color: #263238 !important;
+  }
+
+  #averos-designer-contextual-menu {
+    background-color: #263238 !important;
+  }
+}
+
+.button-composite {
+  font-size: smaller !important;
+  height: auto !important;
+  border-radius: 20px !important;
+  line-height: 25px !important;
+  cursor: pointer !important;
+  margin-top: 5px !important;
+  min-width: fit-content !important;
+  @if $is-dark-theme {
+    background-color: #2c3d46 !important;
+  } @else {
+    background-color: #daf0fb !important;
+  }
+}
+
+.composite-action-icon-remove {
+  line-height: 34px !important;
+  cursor: pointer !important;
+}
+.composite-action-icon {
+  cursor: pointer !important;
+}
+}

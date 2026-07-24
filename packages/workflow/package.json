@@ -1,0 +1,62 @@
+{
+  "name": "@averos/workflow",
+  "version": "2.0.0",
+  "description": "Execution runtime adapters for the Averos workflow platform. Bridges the Averos DAG execution engine with concrete workflow implementations, including Angular Schematics, enabling extensible, pluggable execution of application generation, project transformation, and automation pipelines.",
+  "keywords": [
+    "averos",
+    "workflow",
+    "workflow-runtime",
+    "workflow-engine",
+    "dag",
+    "dag-engine",
+    "executor",
+    "angular",
+    "angular-devkit",
+    "schematics",
+    "code-generation",
+    "project-scaffolding",
+    "automation",
+    "orchestration",
+    "execution",
+    "adapter",
+    "plugin",
+    "pipeline",
+    "developer-tools",
+    "ai-native"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wiforge/averos.git",
+    "directory": "packages/workflow"
+  },
+  "author": "averos-io<averos.tech@gmail.com>",
+  "bugs": "https://github.com/wiforge/averos/issues",
+  "homepage": "https://github.com/wiforge/averos#readme",
+  "license": "MIT",
+  "schematics": "./dist/schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
+  "sideEffects": false,
+
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+    "peerDependencies": {
+      "@angular-devkit/schematics": "catalog:",
+      "@angular-devkit/core":       "catalog:",
+      "@schematics/angular":        "catalog:",
+      "rxjs":                       "catalog:",
+      "typescript":                 "catalog:"
+    },
+    "peerDependenciesMeta": {
+    "typescript": { "optional": true }
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

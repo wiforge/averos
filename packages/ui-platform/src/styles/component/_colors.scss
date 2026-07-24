@@ -1,0 +1,53 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@use "./variables" as vars;
+@use 'sass:meta';
+
+@mixin generate-color($prefix, $property) {
+  @each $name, $value in vars.$mat-colors {
+    // If the value is a map, continue to each
+    @if meta.type-of($value) == 'map' {
+      @each $hue, $color in $value {
+        @if ($hue != 'contrast') {
+          .#{$prefix + '-' + $name + '-' + $hue} {
+            #{$property}: $color !important;
+          }
+        }
+        // alias
+        @if ($name == 'gray') {
+          .#{$prefix + '-grey-' + $hue} {
+            @extend .#{$prefix + '-gray-' + $hue} !optional;
+          }
+        }
+
+        @if ($name == 'blue-gray') {
+          .#{$prefix + '-blue-grey-' + $hue} {
+            @extend .#{$prefix + '-blue-gray-' + $hue} !optional;
+          }
+        }
+      }
+    }
+
+    @if meta.type-of($value) == 'color' {
+      .#{$prefix + '-' + $name} {
+        #{$property}: $value !important;
+      }
+    }
+  }
+}
+
+// Generate text color helpers
+@include generate-color('text', 'color');
+
+// Generate background color helpers
+@include generate-color('bg', 'background-color');

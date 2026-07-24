@@ -1,0 +1,129 @@
+<averos-app-notification [role]="'GlobalLoading'"></averos-app-notification>
+<div class="averos-header averos-toolbar averos-main-toolbar" >
+  <mat-toolbar class="flex-row items-center">
+    <!-- <mat-toolbar-row> -->
+    <app-brand></app-brand>
+    @if (!isHandset || isHandset === null || isHandset === undefined) {
+      <!-- <div><span class="mat-h2">Averos <span class="mat-small">{{appVersion}}</span></span></div> -->
+      @for (item of navItems; track $index) {
+        <!-- handle logged space items -->
+        <!-- items that are bound to be shown in a logged space are only displayed in a logged sesion-->
+        @if (isLoggedSpace(item.loggedSpace) || !enableAuthentication) {
+          <!-- Handle branch node buttons here -->
+          @if ((logged || !enableAuthentication) && item.children && item.children.length > 0) {
+            <button mat-button [matMenuTriggerFor]="menu.childMenu"
+              [disabled]="item.disabled" class="averos-toolbar-button">
+              <mat-icon [safeIcon]="item.iconName ?? ''"> </mat-icon>
+              <span class="mat-h3">{{item.displayName  ?? '' | translate: item.translationID }}</span>
+            </button>
+            <averos-menu-item #menu [logged]="(logged || !enableAuthentication)" [items]="item.children"></averos-menu-item>
+          }
+          <!-- Leaf node buttons here -->
+          @if ((logged || !enableAuthentication) && (!item.children || item.children === undefined || item.children.length === 0)) {
+            <button mat-button [routerLink]="item.route" [disabled]="item.disabled" class="averos-toolbar-button">
+              <mat-icon [safeIcon]="item.iconName  ?? ''"> </mat-icon>
+              <span class="mat-h3" >{{(item.displayName ?? '') | translate: item.translationID }}</span>
+            </button>
+          }
+        }
+        @if ((!isLoggedSpace(item.loggedSpace) && atLeastOneChildIsInPublicSpace(item) && enableAuthentication)) {
+          <!-- Handle branch node buttons here -->
+          @if (item.children && item.children.length > 0) {
+            <button mat-button [matMenuTriggerFor]="menu.childMenu"
+              [disabled]="item.disabled" class="averos-toolbar-button">
+              <mat-icon [safeIcon]="item.iconName  ?? ''"> </mat-icon>
+              <span class="mat-h3">{{(item.displayName  ?? '') | translate: item.translationID }}</span>
+            </button>
+            <averos-menu-item #menu [logged]="logged" [items]="item.children"></averos-menu-item>
+          }
+          <!-- Leaf node buttons here -->
+          @if ((!item.children || item.children === undefined || item.children.length === 0)) {
+            <button mat-button [routerLink]="item.route" [disabled]="item.disabled" class="averos-toolbar-button">
+              <mat-icon [safeIcon]="item.iconName  ?? ''"> </mat-icon>
+              <span class="mat-h3" >{{(item.displayName  ?? '') | translate: item.translationID }}</span>
+            </button>
+          }
+        }
+      }
+    }
+
+    <span style="margin-left: auto;"></span>
+
+    <!-- SEARCH COMPONENT -->
+    @if (activateGlobalSearchWidget) {
+      <averos-search class="hide-on-small-devices"></averos-search>
+    }
+    @if (logged || !enableAuthentication) {
+      <div><span class="mat-h3 hide-on-small-devices" i18n="@@user.today"> 📅 today is : {{currentDate | date: 'dd/MM/yyyy'}}</span></div>
+    }
+
+    <!-- GITHUB COMPONENT -->
+    @if (activateDefaultGitWidget) {
+      <app-github class="hide-on-small-devices">
+      </app-github>
+      } <!-- fxHide.lt-sm : hides the component on smaller device, eg. phone / replaces *ngIf="!isHandset" -->
+
+      <!-- AVEROS DESIGNER COMPONENT-->
+      @if (activateAverosDesigner) {
+        <button  mat-icon-button [routerLink]="['/averosdesigner']"
+          class="averos-toolbar-button"
+          (click)="handleEvent({open: true, eventType: 'openDesigner'})"
+          [matTooltip]="'Open designer'| translate: 'app.opendesigner'">
+          <mat-icon [safeIcon]="'design_services'"></mat-icon>
+        </button>
+      }
+      <!-- Switch FULLSCREEN COMPONENT-->
+      @if (!isHandset || isHandset === null || isHandset === undefined) {
+        <button
+          mat-icon-button
+          class="averos-toolbar-button"
+          (click)="handleEvent({event: $event, eventType: 'goFullScreen'})"
+          [matTooltip]="'Switch to/from fullscreen mode'| translate: 'app.switchfullscreen'">
+          <mat-icon [safeIcon]="'fullscreen'"> </mat-icon>
+        </button>
+      }
+      <!-- Dark/Light mode-->
+      <button mat-icon-button
+        class="averos-toolbar-button"
+        [matTooltip]="'Switch to/from dark mode'| translate: 'app.switchdarkmode'"
+        (click)="handleEvent({activateDarkMode: !isDarkThemeActive, eventType: 'changeTheme'})">
+        <mat-icon [safeIcon]="(isDarkThemeActive ? 'light_mode' : 'dark_mode')"
+        [color]="isDarkThemeActive ? 'accent' : 'basic'"></mat-icon>
+      </button>
+
+      <!-- ICON THEME COMPONENT -->
+      <averos-icon-theme
+        (changeIconTheme)="handleEvent({event: $event, eventType: 'changeIconsTheme'})">
+      </averos-icon-theme>
+
+      <!-- TRANSLATOR COMPONENT-->
+      <averos-translator [languageProfileSet$]="languageProfileSet$!"
+        (changeLanguage)="handleEvent({event: $event, eventType: 'changeLanguage'})">
+      </averos-translator>
+      <!-- USER COMPONENT-->
+      @if (logged && enableAuthentication) {
+        <app-user
+          [currentLoggedUserProfile]="currentLoggedUserProfile!">
+        </app-user>
+      }
+      <!-- HELP COMPONENT-->
+      <averos-about></averos-about>
+      <!-- SIGNIN / SIGNOUT COMPONENTS-->
+      @if (!logged && enableAuthentication) {
+        <button i18n="@@user.login" mat-raised-button
+          color="basic"
+          style="margin-right: 10px;"
+          [routerLink]="['/login']"
+        routerLinkActive="active"> SignIn </button>
+        <!-- Use a div as a container for the button and apply hide-on-small-devices on it-->
+        <!-- It does not work if applied directly to button-->
+        <div class="hide-on-small-devices">
+          <button i18n="@@user.register" mat-raised-button
+            color="accent"
+            [routerLink]="['/register']"
+          routerLinkActive="active"> SignUp </button>
+        </div>
+      }
+
+    </mat-toolbar>
+  </div>

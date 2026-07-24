@@ -1,0 +1,54 @@
+{
+    "configurationItems": [
+        {
+            "id": "APIServiceGateway",
+            "type": "gateway",
+            "gatewayHost": "${GATEWAY_HOST}",
+            "gatewayPort": "${GATEWAY_PORT}",
+            "gatewayProtocol": "${GATEWAY_PROTOCOL}",
+            "apiEndpoints": [
+                {
+                    "endpointId": "${AUTH_SERVICE_ID}",
+                    "endpoint": "${AUTH_SERVICE_END_POINT}"
+                },
+                {
+                    "endpointId": "${USER_SERVICE_ID}",
+                    "endpoint": "${USER_SERVICE_END_POINT}"
+                }
+            ]
+        },
+         {
+            "id": "${REFERENTIAL_SERVICE_ID}",
+            "type": "${REFERENTIAL_SERVICE_TYPE}",
+            "apiHost": "${REFERENTIAL_SERVICE_HOST}",
+            "apiPort": "${REFERENTIAL_SERVICE_PORT}",
+            "apiProtocol": "${REFERENTIAL_SERVICE_PROTOCOL}",
+            "apiEndPoint": "${REFERENTIAL_SERVICE_END_POINT}"
+        },
+        {
+            "id": "${MY_AVEROS_APPLICATION_SERVICE_ID}",
+            "type": "${MY_AVEROS_APPLICATION_SERVICE_TYPE}",
+            "apiHost": "${MY_AVEROS_APPLICATION_SERVICE_HOST}",
+            "apiPort": "${MY_AVEROS_APPLICATION_SERVICE_PORT}",
+            "apiProtocol": "${MY_AVEROS_APPLICATION_SERVICE_PROTOCOL}",
+            "apiEndPoint": "${MY_AVEROS_APPLICATION_SERVICE_END_POINT}"
+        },
+        {
+            "id": "${DASHBOARD_SERVICE_ID}",
+            "type": "${DASHBOARD_SERVICE_TYPE}",
+            "apiHost": "${DASHBOARD_SERVICE_HOST}",
+            "apiPort": "${DASHBOARD_SERVICE_PORT}",
+            "apiProtocol": "${DASHBOARD_SERVICE_PROTOCOL}",
+            "apiEndPoint": "${DASHBOARD_SERVICE_END_POINT}"
+        },
+        {
+            "id": "${AVEROS_CODE_GEN_SERVICE_ID}",
+            "type": "${AVEROS_CODE_GEN_SERVICE_TYPE}",
+            "apiHost": "${AVEROS_CODE_GEN_SERVICE_HOST}",
+            "apiPort": "${AVEROS_CODE_GEN_SERVICE_PORT}",
+            "apiProtocol": "${AVEROS_CODE_GEN_SERVICE_PROTOCOL}",
+            "apiEndPoint": "${AVEROS_CODE_GEN_SERVICE_END_POINT}"
+        }
+    ]
+
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <svg xmlns="http://www.w3.org/2000/svg" 
+            width="123.84185791015625" 
+            height="50" 
+            viewBox="0 0 123.84185791015625 50">
+            <style>
+                text {
+                font-family: Cairo, sans-serif;
+                }
+            </style>
+        <g xmlns="http://www.w3.org/2000/svg" model-id="7e446b47-ddb9-4974-acc1-30cd90e4c4f5" data-type="averos.entity" id="j_5" class="joint-cell joint-type-averos joint-type-averos-entity joint-element joint-theme-default"><rect joint-selector="body" id="v-60" width="123.84185791015625" height="50" stroke-width="1" rx="2" ry="2" fill="#FDEBD0" stroke="#E67E22"/><rect joint-selector="header" id="v-61" width="123.84185791015625" height="35" stroke-width="1" fill="#F5CBA7" stroke="#A84300"/><text joint-selector="tagLabel" id="v-62" font-size="11" xml:space="preserve" text-anchor="middle" fill="#000" text="&lt;&lt;AverosEntity&gt;&gt;" transform="matrix(1,0,0,1,61.9,10.5)"><tspan dy="0.3em" class="v-line">&lt;&lt;AverosEntity&gt;&gt;</tspan></text><text joint-selector="nameLabel" id="v-63" font-weight="bold" font-size="13" xml:space="preserve" text-anchor="middle" fill="#000" text="MyEntity" transform="matrix(1,0,0,1,61.9,24.5)"><tspan dy="0.3em" class="v-line">MyEntity</tspan></text><path pointer-events="none" fill="none" class="joint-highlight-stroke joint-theme-default" stroke-width="3" stroke="#FEB663" d="M 0 2 v 46 a 2 2 0 0 0 2 2 h 119.84185791015625 a 2 2 0 0 0 2 -2 v -46 a 2 2 0 0 0 -2 -2 h -119.84185791015625 a 2 2 0 0 0 -2 2 Z" transform="matrix(1.0242244427742389,0,0,1.06,-1.5,-1.5)"/></g>
+        </svg>

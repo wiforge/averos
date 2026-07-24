@@ -1,0 +1,12 @@
+<averos-view-edit-entity  *ngIf="reactiveForm" 
+                          [useCaseConfig]="useCaseConfig"
+                          [entityUseCaseViewLayout$]="useCaseViewLayout"
+                          [reactiveForm]="reactiveForm"
+                          [editModeActivated]="editModeActivated"
+                          [displayActions]="true"
+                          (submitForm)="onSubmit($event)"
+                          (updateEditMode)="updateEditMode($event)"
+                          (cloneEvent)="clone()"
+                          (editEvent)="edit()"
+                          (updateRelationCollectionEvent)="updateRelationCollection($event)">
+</averos-view-edit-entity>

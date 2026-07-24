@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAverosGatewayConfig",
+  "title": "Generates an Averos Gateway Configuration",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The identifier of the configuration (i.e. the for type=gateway id = APIServiceGateway",
+      "type": "string",
+      "minLength": 1,
+      "default": "APIServiceGateway"
+    },
+    "type": {
+      "description": "The configuration type",
+      "type": "string",
+      "minLength": 1,
+      "default": "gateway"
+    },
+    "gatewayHost": {
+      "description": "The gateway host",
+      "type": "string",
+      "minLength": 1,
+      "default": "localhost",
+      "x-prompt": "Where is the api hosted (default = localhost) ? "
+    },
+    "gatewayPort": {
+      "description": "The gateway port",
+      "type": "number",
+      "minLength": 1,
+      "default": "80",
+      "x-prompt": "On which port is the api listening (default = 80) ? "
+    },
+    "gatewayProtocol": {
+      "description": "The gateway access protocol",
+      "type": "string",
+      "minLength": 1,
+      "default": "http",
+      "enum": [
+        "http",
+        "https"
+      ],
+      "x-prompt": {
+        "message": "How is your api accessed (http/https) ? ",
+        "type": "list",
+        "items": [
+          { "value": "http", "label": "HTTP" },
+          { "value": "https", "label": "HTTPS" }
+        ]
+      }
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "id"
+  ]
+}

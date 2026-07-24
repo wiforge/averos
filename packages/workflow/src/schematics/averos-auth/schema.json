@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAverosAuth",
+  "title": "Activate authentication feature for averos application",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "description": "The authentication provider",
+      "type": "string",
+      "default": "dummy",
+      "enum": [
+                "dummy",
+                "custom",
+                "keycloak",
+                "firebase",
+                "google",
+                "github"
+              ],
+      "x-prompt": {
+        "message": "Which authentication provider you would like to use (Averos Authentication) ?",
+        "type": "list",
+        "items": [
+          { "value": "dummy", "label": "Dummy Auth Provider" },
+          { "value": "keycloak", "label": "KeyCloak Auth Provider" },
+          { "value": "firebase", "label": "KeyCloak Auth Provider" },
+          { "value": "google", "label": "Google Auth Provider" },
+          { "value": "github", "label": "Github Auth Provider" },
+          { "value": "custom", "label": "Custom Auth Provider" }
+        ]
+      }
+    },
+    "forUpdate": {
+      "type": "boolean",
+      "default": false,
+      "description": "true if you want to update the provider as default (set --set-as-defult as well to take effect)"
+    },
+    "setAsDefault": {
+      "type": "boolean",
+      "default": false,
+      "description": "set the auth provider as default provider"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the configuration.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   }
+}

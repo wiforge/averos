@@ -1,0 +1,31 @@
+<div class="averos-sidebar-header averos-sidemenu-toolbar">
+  <div class="sidenav-header-element">
+    <button mat-icon-button (click)="drawer.close()">
+      <mat-icon [safeIcon]="'close'"
+      class="mat-side-nav-action-button"></mat-icon>
+    </button>
+  </div>
+  @if (logged && enableAuthentication) {
+    <div i18n="@@user.welcome"><span class="mat-h3">Welcome <b> {{currentLoggedUserProfile.username}}</b>!</span></div>
+  }
+  <div class="sidenav-header-element">
+    @if (!isHandset) {
+      <mat-slide-toggle class="mat-small"  (change)="toggleCollapsed.emit()" [checked]="toggleChecked">
+      </mat-slide-toggle>
+    }
+  </div>
+<!-- </mat-toolbar>  -->
+</div>
+
+<div class="averos-sidebar-main scrollbar-none">
+  @if (logged && enableAuthentication) {
+    <averos-sidemenu-userpanel
+      [currentLoggedUserProfile]="currentLoggedUserProfile">
+    </averos-sidemenu-userpanel>
+  }
+  <averos-sidemenu-menu [logged]="logged"
+    [sideNavItems$]="sideNavItems$"
+    (menuItemClicked)="menuItemClicked()">
+
+  </averos-sidemenu-menu>
+</div>

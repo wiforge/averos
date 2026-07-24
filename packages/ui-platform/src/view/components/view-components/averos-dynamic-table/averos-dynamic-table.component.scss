@@ -1,0 +1,220 @@
+.mat-mdc-table-sticky:last-child {
+  padding-right: 0;
+  text-align: right;
+}
+
+// // align the cell text content to the center
+// .mat-header-cell, .mat-cell, .mat-footer-cell {
+//   text-align: center;
+// }
+
+// th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+//   padding: 5px;
+// }
+
+.mat-mdc-table-sticky:last-child {
+  padding-right: 0;
+  text-align: right;
+}
+  //////////////////////////// MTX GRID ///////////
+.mtx-grid {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  .mtx-grid-progress {
+    position: absolute;
+    top: 0;
+    z-index: 109;
+  }
+
+
+  .mtx-grid-layout {
+    display: flex;
+    flex: 1 1 auto;
+    overflow: auto;
+    max-height: 500px; // this parameter will activate the sticky aspect of the header beyond 500 pixels
+  }
+
+  .mtx-grid-content {
+    width: 0;
+  }
+
+  .mat-mdc-table:not(.mat-column-resize-table) {
+    flex: none;
+    min-width: 100%;
+    border-collapse: separate;
+
+    .mat-mdc-header-cell,
+    .mat-mdc-footer-cell,
+    .mat-mdc-cell {
+      min-width: 80px;
+    }
+  }
+
+  .mat-mdc-footer-row,
+  .mat-mdc-header-row,
+  .mat-mdc-row {
+    align-items: stretch;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-footer-cell,
+  .mat-mdc-cell {
+    padding: 4px 10px;
+    box-sizing: border-box;
+  }
+
+  .mat-mdc-cell:first-of-type,
+  .mat-mdc-footer-cell:first-of-type,
+  .mat-mdc-header-cell:first-of-type {
+    padding-left: 24px;
+
+    &.mtx-grid-checkbox-cell {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    [dir='rtl'] & {
+      padding-left: 4px;
+      padding-right: 24px;
+
+      &.mtx-grid-checkbox-cell {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
+
+  .mat-mdc-cell:last-of-type,
+  .mat-mdc-footer-cell:last-of-type,
+  .mat-mdc-header-cell:last-of-type {
+    padding-right: 9px;
+
+    [dir='rtl'] & {
+      padding-left: 24px;
+      padding-right: 4px;
+    }
+  }
+
+  .mat-mdc-table-sticky-left,
+  .mat-table-sticky-right {
+    flex: none;
+  }
+
+  // .mtx-grid-expansion {
+  //   height: 0;
+  //   overflow: hidden;
+
+  //   .mat-cell {
+  //     padding-top: 0;
+  //     padding-bottom: 0;
+  //   }
+
+  //   &.collapsed {
+  //     .mat-cell {
+  //       border-bottom-width: 0;
+  //     }
+  //   }
+  // }
+
+  // .mtx-grid-expansion-detail {
+  //   display: flex;
+  //   align-items: center;
+  //   min-height: 48px;
+  //   overflow: hidden;
+  // }
+
+  // .mtx-grid-expansion-placeholder {
+  //   display: inline-block;
+  //   width: 40px;
+  //   height: 40px;
+  //   vertical-align: middle;
+  // }
+
+  .mat-mdc-row {
+    &:last-of-type {
+      .mat-mdc-cell {
+        border-bottom-width: 0;
+      }
+    }
+  }
+
+
+  // .mat-paginator-hidden {
+  //   display: none;
+  // }
+
+  // .mtx-grid-checkbox-cell {
+  //   flex: none;
+  //   justify-content: center;
+  //   width: 40px;
+  //   min-width: 40px;
+
+  //   // Fix checkbox height
+  //   .mat-checkbox {
+  //     display: flex;
+  //   }
+
+  //   // Fix RTL checkbox margin
+  //   .mat-checkbox-inner-container {
+  //     margin-left: 0;
+  //   }
+  // }
+
+  .mtx-grid-no-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+  }
+
+  .mat-sort-header-icon {
+    width: 18px;
+    height: 18px;
+    margin: 0 4px;
+    font-size: 18px;
+  }
+
+  .mat-header-cell-inner {
+    display: flex;
+    align-items: center;
+  }
+
+
+}
+
+input[type=search-filter] {
+  width: 5px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=search-filter]:focus {
+  width: 100%;
+  box-sizing: border-box;
+  outline: 0px;
+}
+
+
+.table-search-filter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 250px;
+  height: 100%;
+  margin-right: 16px;
+}
+
+.table-search-filter input {
+color: #444;
+border: none;
+border-radius: 100px;
+height: 50%;
+-webkit-appearance: none;
+appearance: none;
+font-size: 14px;
+}
+

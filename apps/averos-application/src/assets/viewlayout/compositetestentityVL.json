@@ -1,0 +1,170 @@
+{
+    "defaultUCViewLayout": {},
+    "searchInputUCViewLayout": {
+        "orderedView": true,
+        "title": "Search CompositeTestEntity",
+        "titleTranslationID": "uc.search.compositetestentity.title",
+        "parentEntityLabel": "Search Criteria",
+        "parentEntityLabelTranslationId": "uc.search.compositetestentity.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "label": "Name",
+                "labelTranslationID": "compositetestentity.name",
+                "visible": true,
+                "type": "string",
+                "icon": "label",
+                "order": 1,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "visible": true,
+                "label": "Creation Date",
+                "labelTranslationID": "compositetestentity.createdat",
+                "placeholder": "ex. 01/01/2001 10:00",
+                "placeholderTranslationID": "",
+                "format": "dd-MM-yyyy HH:mm",
+                "type": "date",
+                "icon": "calendar_month",
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            }
+        ]
+    },
+    "tableUCViewLayout": {
+        "orderedView": false,
+        "title": "CompositeTestEntity Search Result",
+        "titleTranslationID": "app.search.result",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "label": "Creation Date",
+                "labelTranslationID": "compositetestentity.createdat",
+                "type": "date",
+                "format": "dd-MM-yyyy HH:mm:sss",
+                "visible": true,
+                "order": 5
+            },
+            {
+                "entityFieldName": "_entityUpdatedAt",
+                "label": "Update Date",
+                "labelTranslationID": "compositetestentity.updatedat",
+                "type": "date",
+                "format": "dd-MM-yyyy HH:mm:sss",
+                "visible": true,
+                "order": 6
+            },
+            {
+                "entityFieldName": "name",
+                "label": "Name",
+                "labelTranslationID": "compositetestentity.name",
+                "visible": true,
+                "type": "string",
+                "order": 3
+            }
+        ]
+    },
+    "selectableInputTableUCViewLayout": {
+        "orderedView": false,
+        "title": "CompositeTestEntity Search Result",
+        "titleTranslationID": "app.search.result",
+        "ucViewLayout": []
+    },
+    "viewUCViewLayout": {
+        "orderedView": true,
+        "title": "View CompositeTestEntity",
+        "titleTranslationID": "uc.view.compositetestentity.title",
+        "parentEntityLabel": "CompositeTestEntity Details",
+        "parentEntityLabelTranslationId": "uc.view.compositetestentity.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "_entityCreatedAt",
+                "label": "Creation Date",
+                "labelTranslationID": "compositetestentity.createdat",
+                "visible": true,
+                "format": "dd-MM-yyyy HH:mm:sss",
+                "type": "date",
+                "icon": "calendar_month",
+                "order": 4,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            },
+            {
+                "entityFieldName": "name",
+                "label": "Name",
+                "labelTranslationID": "compositetestentity.name",
+                "visible": true,
+                "type": "string",
+                "icon": "label",
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            }
+        ]
+    },
+    "createUCViewLayout": {
+        "orderedView": true,
+        "title": "Create CompositeTestEntity",
+        "titleTranslationID": "uc.create.compositetestentity.title",
+        "parentEntityLabel": "CompositeTestEntity Details",
+        "parentEntityLabelTranslationId": "uc.create.compositetestentity.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "label": "Name",
+                "labelTranslationID": "compositetestentity.name",
+                "visible": true,
+                "type": "string",
+                "icon": "label",
+                "required": false,
+                "disabled": false,
+                "defaultValue": "",
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            }
+        ]
+    },
+    "editUCViewLayout": {
+        "orderedView": true,
+        "title": "Edit CompositeTestEntity",
+        "titleTranslationID": "uc.edit.compositetestentity.title",
+        "parentEntityLabel": "CompositeTestEntity Details",
+        "parentEntityLabelTranslationId": "uc.edit.compositetestentity.label",
+        "iconOrientation": "SUFFIX",
+        "ucViewLayout": [
+            {
+                "entityFieldName": "name",
+                "label": "Name",
+                "labelTranslationID": "compositetestentity.name",
+                "visible": true,
+                "type": "string",
+                "icon": "label",
+                "required": false,
+                "disabled": false,
+                "defaultValue": "",
+                "order": 2,
+                "fieldGroup": {
+                    "groupId": 1,
+                    "groupOrder": 1
+                }
+            }
+        ]
+    }
+}

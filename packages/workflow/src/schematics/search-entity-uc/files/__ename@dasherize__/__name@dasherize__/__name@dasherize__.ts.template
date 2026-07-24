@@ -1,0 +1,302 @@
+/**
+ * This source code was generated using the AVEROS CODE GENERATION WORKFLOW tool.
+ * 
+ * The Averos Code Generation platform automates the creation of boilerplate
+ * code and standard structures, streamlining the development process. 
+ * This class adheres to the predefined architecture and coding standards 
+ * specified during the generation process. 
+ * 
+ * Please note:
+ * - While the generated code provides a solid foundation, manual customization 
+ *   may be required to meet specific project requirements.
+ * - Generated methods and attributes are structured to ensure maintainability 
+ *   and compatibility with the existing codebase.
+ * 
+ * It is recommended to review and test the generated code thoroughly to ensure 
+ * it aligns with the intended functionality of the application.
+ * 
+ * For more details on the code generation process, refer to the Averos 
+ * documentation https://www.wiforge.com or contact the development team.
+ */
+
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
+import {
+  AlertService,
+  AverosDialogViewConfig,
+  AverosViewConfig,
+  EntityMetaData,
+  FormControlService,
+  Indexable,
+  IndexableType,
+  PaginatedData,
+  SearchInputCriteria,
+  SearchUseCase,
+  TypeScriptTypeMetaDatatHandler,
+  UseCase,
+  UseCaseConfig,
+  ViewLayoutService,
+} from '@averos/core';
+import {  AverosDynamicDialogComponent, AverosSearchEntityComponent } from '@averos/ui-platform';
+import { Observable, of, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+<% if (ename!== 'any') { %>import { <%= classifyPreserveTrailingIndex(ename) %> } from '<%= getRelatedEntityPath(path) %>/<%= dasherize(ename) %>';<% } %>
+<% if (sname) { %>import { <%= classifyPreserveTrailingIndex(sname) %> } from '<%= getRelatedEntityServicePath(path) %>/<%= dasherize(sname) %>';<% } %>
+
+
+@Component({
+	selector: 'app-<%= dasherize(name) %>',
+	templateUrl: './<%= dasherize(name) %>.html',
+	styleUrls: ['./<%= dasherize(name) %>.scss'],
+  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class <%= classifyPreserveTrailingIndex(name) %> extends SearchUseCase<<%= classifyPreserveTrailingIndex(ename) %>> implements OnInit, OnDestroy {
+
+@ViewChild(AverosSearchEntityComponent, {static: true}) averosSearchEntity!: AverosSearchEntityComponent<<%= classifyPreserveTrailingIndex(ename) %>>;
+  
+ entityViewLayout = <%= classifyPreserveTrailingIndex(ename) %>.getEntityViewLayout();
+ searchInputFormGoup: FormGroup;
+
+ searchUseCaseViewLayout = <%= classifyPreserveTrailingIndex(ename) %>.getUseCaseViewLayout(UseCase.SEARCH_INPUT);
+ useCaseConfig: UseCaseConfig<<%= classifyPreserveTrailingIndex(ename) %>> = {
+                                                  componentAppearance: 'outline',
+                                                  iconLayout: 'component',
+                                                  entityType: <%= classifyPreserveTrailingIndex(ename) %>,
+                                                  entity: undefined
+                                                };
+  showSearchResult = false;
+  searchCriteria!: SearchInputCriteria;
+  tableValues$!: Observable<<%= classifyPreserveTrailingIndex(ename) %>[]|PaginatedData<<%= classifyPreserveTrailingIndex(ename) %>> | null> ;
+  private genericDialog = new MatDialogConfig();
+  private deleteSubscription!: Subscription;
+
+
+  /**
+   * 
+   * @param objectSubjectToAction 
+   * @param avConfig 
+   * @returns the new object
+   * This function defines the business logic to perform when when updating an existing object or submitting
+   *  a new object
+   */
+  onAddOrUpateCallback = (objectSubjectToAction: <%= classifyPreserveTrailingIndex(ename) %>, avConfig: AverosViewConfig): Observable<<%= classifyPreserveTrailingIndex(ename) %>  | null> => {
+    if (avConfig.useCaseConfig?.useCase===UseCase.CREATE){
+      return this.entityService.createEntity(objectSubjectToAction);
+
+    } else if (avConfig.useCaseConfig?.useCase===UseCase.EDIT ||
+                avConfig.useCaseConfig?.useCase===UseCase.UPDATE ){
+     return this.entityService.updateEntity(avConfig.value);
+    }
+    return of();
+    
+  }
+  constructor(private entityService: <%= classifyPreserveTrailingIndex(sname) %>,
+              private formControlService: FormControlService,
+              private alertService: AlertService,
+              public dialog: MatDialog,
+              private router: Router,
+              private viewLayoutService: ViewLayoutService,
+              private route: ActivatedRoute) {
+                 super();
+                this.searchInputFormGoup = this.formControlService.buildUseCaseFormFromEntityType(<%= classifyPreserveTrailingIndex(ename) %>, UseCase.SEARCH_INPUT);
+               }
+
+  ngOnDestroy(): void {
+
+    this.deleteSubscription?.unsubscribe();
+  }
+  
+  trackBy(entity: any) {
+    return entity[TypeScriptTypeMetaDatatHandler.instance.getIdName(this.useCaseConfig.entityType)];
+  }
+
+  edit(entity: any) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        usecase: UseCase.EDIT,
+      }
+    };
+
+    const {idKey, idValue} = this.getEntityIdentifier(entity, this.useCaseConfig.entityType);
+    let uri = `/<%= toLowerCase(ename) %>s/edit`;
+    this.router.navigate([uri, idValue], navigationExtras);
+  }
+
+  delete(valueToBeDeleted: IndexableType<<%= classifyPreserveTrailingIndex(ename) %>>) {
+    const idName = TypeScriptTypeMetaDatatHandler.instance.getIdName(this.useCaseConfig.entityType);
+        this.deleteSubscription = this.entityService.deleteEntity(valueToBeDeleted[idName] as string | <%= classifyPreserveTrailingIndex(ename) %> | Partial<<%= classifyPreserveTrailingIndex(ename) %>>)
+            .subscribe({
+              next: (deletedEntity: <%= classifyPreserveTrailingIndex(ename) %> | null) => {
+                if (!deletedEntity){
+                  return;
+                }
+                this.alertService.success($localize`:@@uc.delete.entity:Entity ${valueToBeDeleted[TypeScriptTypeMetaDatatHandler.instance.getBusinessIdName(this.useCaseConfig.entityType)]}:entity:
+                has been deleted successfully`);
+                this.tableValues$ = this.tableValues$.pipe(map(e=>{
+                  if (e instanceof Array){
+                    return e.filter(el=> (el as any)[idName] !== (valueToBeDeleted as any)[idName]);
+                  } else {
+                    let paginatedData = e as PaginatedData<<%= classifyPreserveTrailingIndex(ename) %>>;
+                    paginatedData.data = paginatedData.data.filter(el=> (el as Indexable)[idName] !== valueToBeDeleted[idName]);
+                    return paginatedData;
+                  }
+                }
+                ));
+                this.deleteSubscription?.unsubscribe();
+              },
+              error: (err: Error) => {
+                console.log(err);
+                this.deleteSubscription?.unsubscribe();
+        }});
+  }
+
+  deleteMany(valuesToBeDeleted: (<%= classifyPreserveTrailingIndex(ename) %>|undefined)[]) {
+    if (valuesToBeDeleted===undefined){
+      return;
+    }
+    const idName = TypeScriptTypeMetaDatatHandler.instance.getIdName(this.useCaseConfig.entityType);
+        this.deleteSubscription = this.entityService.deleteMany(valuesToBeDeleted as <%= classifyPreserveTrailingIndex(ename) %>[])
+            .subscribe({
+              next: (deletedEntities: <%= classifyPreserveTrailingIndex(ename) %>[] | null) => {
+                if (!deletedEntities){
+                  return;
+                }
+                this.alertService.success($localize`:@@uc.delete.many:All records has been deleted successfully`);
+                this.tableValues$ = this.tableValues$.pipe(
+                          map(e=>{
+                                  if (e instanceof Array){
+                                    return  e.filter(el=> deletedEntities.findIndex(e=>(e as Indexable)[idName]===(el as Indexable)[idName])<0);
+                                  } else {
+                                    let paginatedData = e as PaginatedData<<%= classifyPreserveTrailingIndex(ename) %>>;
+                                    paginatedData.data = paginatedData.data.filter(el=> deletedEntities.findIndex(e=>(e as Indexable)[idName]===(el as Indexable)[idName])<0);
+                                    return paginatedData; 
+                                  }
+                                }));
+                this.deleteSubscription?.unsubscribe();
+              },
+              error: (err: Error) => {
+                console.log(err);
+                this.deleteSubscription?.unsubscribe();
+        }});
+  }
+
+  reloadData(t: any) {
+    this.tableValues$ = this.entityService.getAllEntities();
+  }
+
+  search(event: any) {
+    this.tableValues$ = this.entityService.getEntitiesByCriteria(event);
+  }
+
+  add(entity: any) {
+
+    let averosDialogViewConfig: AverosDialogViewConfig = {
+                              objectClass: <%= classifyPreserveTrailingIndex(ename) %>.instanceMetadata(), 
+                              compositeObject: {value: <%= classifyPreserveTrailingIndex(ename) %>.instanceMetadata(), type: '<%= classifyPreserveTrailingIndex(ename) %>'},
+                              onSubmitCallback: this.onAddOrUpateCallback,
+                              onLoadCallback: undefined,
+                              viewLayout : { 
+                                            useCase: UseCase.CREATE,
+                                            editMode: true,
+                                            canActivateEditMode: true
+                                          }
+                            };
+
+    const viewConfig = this.viewLayoutService.buildAverosDialogViewConfig(averosDialogViewConfig);
+    this.genericDialog.data = viewConfig;
+    this.dialog.open(AverosDynamicDialogComponent, this.genericDialog);
+  
+  }
+
+  view(entity: any) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        usecase: UseCase.VIEW,
+      }
+    };
+    const {idKey, idValue} = this.getEntityIdentifier(entity, this.useCaseConfig.entityType);
+    let uri = `/<%= toLowerCase(ename) %>s/view/`;
+    this.router.navigate([uri, idValue], navigationExtras);
+  }
+
+/**
+* This function handles a one-to-one and one-to-many relationships in a view composite relation use case
+* Please do not modify or update the function structure since it's is auto-updated when including additional entity members
+*/
+  viewCompositeObject(compositeObjectMetaData: EntityMetaData) {
+    let averosDialogViewConfig: AverosDialogViewConfig =
+    
+    {
+                                  objectClass: null,
+                                  compositeObject: compositeObjectMetaData,
+                                  onSubmitCallback: (a: any,b: any)=>{},
+                                  onLoadCallback:  undefined,
+                                  viewLayout : { useCase: null,
+                                                 editMode: false,
+                                                 canActivateEditMode: false
+                                               }
+    };
+
+    // retrieve and set the Child class
+    averosDialogViewConfig.objectClass = (this.entityService.MANAGED_ENTITY as any)[`get${compositeObjectMetaData.compositeEntityNavigationKey}Type`]();
+    // initialize the target use case to view for simple one object
+    averosDialogViewConfig.viewLayout.useCase = UseCase.VIEW;
+
+    // handles composite collection objects
+    if (compositeObjectMetaData?.compositeType === 'collection'){
+      // Update the target use case view to a table for multiple composite objects
+      averosDialogViewConfig.viewLayout.useCase = UseCase.SEARCH_RESULT_TABLE;    
+      averosDialogViewConfig.onLoadCallback = this.collectionRelationEntitiesCallBack(averosDialogViewConfig.objectClass);
+    }
+
+    const viewConfig = this.viewLayoutService.buildAverosDialogViewConfig(averosDialogViewConfig);
+    this.genericDialog.data = viewConfig;
+    this.dialog.open(AverosDynamicDialogComponent, this.genericDialog);
+  }
+
+  ngOnInit(): void {
+
+    this.initializeEntityDialogs();
+     /**
+     * get back to the previous search criterias history
+     */
+      if (window.history.state.searchInputCriteria){
+        this.averosSearchEntity.matExpansionPanel.close();
+        this.searchCriteria = new SearchInputCriteria(new Map(JSON.parse(window.history.state?.searchInputCriteria?.searchCriteria)));
+        this.showSearchResult = true;
+      }
+  }
+
+  searchEntities(searchInputCriteria: SearchInputCriteria) {
+    this.showSearchResult = true;
+    this.searchCriteria = searchInputCriteria;
+    
+    const queryParams: Params = { searchCriteria: JSON.stringify([...this.searchCriteria.getCriteriaMap()]) };
+    this.router.navigate([], 
+                          {
+                            relativeTo: this.route,
+                            state: {
+                              searchInputCriteria: queryParams
+                            }
+                          }
+                      );
+  }
+
+  initializeEntityDialogs(){
+    this.genericDialog.disableClose = true;
+    this.genericDialog.autoFocus = false;
+    this.genericDialog.width = '90%';
+    this.genericDialog.height = 'auto';
+    this.genericDialog.maxWidth = '100vw';
+    this.genericDialog.maxHeight = '100vh';
+  }
+
+  onPageChange(pageEvent: PageEvent){
+       this.tableValues$ = this.entityService.getEntitiesByCriteria(this.searchCriteria, true);
+  }
+
+}

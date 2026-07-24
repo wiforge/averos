@@ -1,0 +1,72 @@
+{
+  "name": "@averos/ai",
+  "version": "2.0.0",
+  "description": "LLM-powered manifest generation for Averos. Translates natural language application intent into validated JSON IR via cloud and local LLM providers — with automatic retry, validation feedback injection, multi-turn conversation, and seamless handoff to the Averos execution pipeline.",
+  "keywords": [
+    "averos",
+    "llm",
+    "ai",
+    "manifest-generation",
+    "code-generation",
+    "angular",
+    "schematics",
+    "anthropic",
+    "claude",
+    "gemini",
+    "openai",
+    "ollama",
+    "local-llm",
+    "natural-language",
+    "intent-to-code",
+    "json-ir",
+    "structured-output",
+    "prompt-engineering",
+    "retry-loop",
+    "conversation",
+    "multi-turn"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wiforge/averos.git",
+    "directory": "packages/ai"
+  },
+  "author": "averos-io<averos.tech@gmail.com>",
+  "homepage": "https://github.com/wiforge/averos#readme",
+  "bugs": "https://github.com/wiforge/averos/issues",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types":   "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@averos/dag-engine": "catalog:",
+    "@averos/executor":   "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.4.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/jest":        "catalog:",
+    "@types/node":        "catalog:",
+    "jest":               "catalog:",
+    "typescript":         "catalog:"
+  }
+}

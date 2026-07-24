@@ -1,0 +1,2 @@
+<p> This is your new raw Page <%= labelize(name) %> </p>
+<p> You may want to go ahead and replace this content by your custom page implementation. </p>

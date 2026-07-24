@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "types": ["node", "@angular/localize"],
+    "paths": {
+      "@averos/ui-platform": ["../../packages/ui-platform/src/public-api.ts"],
+      "@averos/ui-platform/*": ["../../packages/ui-platform/src/*"],
+      "@averos/ui-platform/core/*": ["../../packages/ui-platform/src/averos-core/*"],
+      "@averos/ui-platform/shared/*": ["../../packages/ui-platform/src/averos-shared/*"],
+      "@averos/ui-platform/view/*": ["../../packages/ui-platform/src/view/*"],
+      "@averos/ui-platform/referential/*": ["../../packages/ui-platform/src/referential/*"]
+    }
+  },
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
+}

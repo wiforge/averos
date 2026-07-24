@@ -1,0 +1,83 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use './variables';
+
+@mixin averos-sidenav-theme($theme) {
+  $color-config: mat.m2-get-color-config($theme);
+  $is-dark-theme: map.get($theme, is-dark);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $background: map.get($color-config, background);
+
+  // $foreground: mat-color($theme, foreground);
+  $foreground: map.get($color-config, foreground);
+
+
+  // $averos-sidemenu-bg-dark: mat-color(mat-palette($mat-blue-grey, 900));
+  $averos-sidemenu-bg-dark: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, 900);
+  // $averos-sidemenu-bg-light: mat-color(mat-palette($mat-blue-grey, 900));
+  $averos-sidemenu-bg-light: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, 900);
+
+
+  .averos-sidemenu {
+  @if $is-dark-theme {
+    background-color: $averos-sidemenu-bg-dark;
+  } @else {
+    background-color: $averos-sidemenu-bg-light;
+  }
+  
+  > .averos-sidemenu-item {
+    > a {
+      // color: mat-color($foreground, text);
+      color: white;
+      &:hover {
+        background: mat.m2-get-color-from-palette($background, hover);
+      }
+    }
+    &.active {
+      > a {
+        background-color: rgba(mat.m2-get-color-from-palette($primary), .15);
+        @if $is-dark-theme {
+          color: mat.m2-get-color-from-palette($accent);
+        } @else {
+          color: mat.m2-get-color-from-palette($primary, lighter);
+        }
+        font-weight: bold;
+        &:hover {
+          background: mat.m2-get-color-from-palette($background, hover);
+        }
+      }
+    }
+    &.open {
+      background: mat.m2-get-color-from-palette($background, hover);
+    }
+  }
+  &.submenu {
+    > .averos-sidemenu-item {
+      &.active {
+        > a {
+          background-color: transparent;
+          &:hover {
+            background: mat.m2-get-color-from-palette($background, hover);
+          }
+        }
+      }
+      &.open {
+        background: transparent;
+      }
+    }
+  }
+}
+}

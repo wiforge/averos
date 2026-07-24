@@ -1,0 +1,24 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "strict": true,
+    "noEmit": true,
+    "types": ["node"],
+    "paths": {
+      "@averos/ui-platform":    ["../packages/ui-platform/src/index.ts"],
+      "@averos/ui-platform/*":  ["../packages/ui-platform/src/*"],
+      "@averos/mcp":            ["../packages/mcp/src/index.ts"],
+      "@averos/mcp/*":          ["../packages/mcp/src/*"],
+      "@averos/cli":            ["../packages/cli/src/index.ts"],
+      "@averos/cli/*":          ["../packages/cli/src/*"],
+      "@averos/ai":             ["../packages/ai/src/index.ts"],
+      "@averos/ai/*":           ["../packages/ai/src/*"],
+      "@averos/workflow":       ["../packages/workflow/src/index.ts"],
+      "@averos/workflow/*":     ["../packages/workflow/src/*"]
+    }
+  }
+}

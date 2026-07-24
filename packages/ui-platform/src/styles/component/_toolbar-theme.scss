@@ -1,0 +1,91 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin averos-toolbar-theme($theme) {
+
+  $color-config: mat.m2-get-color-config($theme);
+  $is-dark-theme: map.get($theme, is-dark);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $background: map.get($color-config, background);
+  $foreground: map.get($color-config, foreground);
+
+  // main application toolbar background 
+  // $averos-main-toolbar-bg-dark: mat-color(mat-palette($mat-blue-grey, 900));
+  $averos-main-toolbar-bg-dark: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, 900);
+  $averos-main-toolbar-bg-light: /*mat-color($primary, darker)*/whitesmoke; // replaced by whitesmoke
+  $averos-main-toolbar-color-light: black; // main toolbar text color light mode
+  $averos-main-toolbar-color-dark: white; // main toolbar text color dark mode
+
+  // body main content toolbar background
+  // $averos-main-content-toolbar-bg-dark: mat-color(mat-palette($mat-blue-grey, 500));
+  $averos-main-content-toolbar-bg-dark: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, 500);
+  // $averos-main-content-toolbar-bg-light: mat-color(mat-palette($mat-light-blue, 600));
+  $averos-main-content-toolbar-bg-light: #264293;
+
+  // side menu toolbar background
+  // $averos-sidemenu-toolbar-bg-dark: mat-color(mat-palette($mat-blue-grey, 900));
+  // $averos-sidemenu-toolbar-bg-light: mat-color(mat-palette($mat-blue-grey, 900));
+  $averos-sidemenu-toolbar-bg-dark: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, 900);
+  $averos-sidemenu-toolbar-bg-light: mat.m2-get-color-from-palette(mat.$m2-blue-grey-palette, 900);
+
+  .averos-toolbar-button {
+    &.mat-mdc-icon-button {
+      &:hover {
+        // background-color: mat-color($background, hover);
+        background-color: mat.m2-get-color-from-palette($background, hover);
+      }
+    }
+  }
+
+  .averos-main-toolbar {
+  border-radius: 0px 0px 0px 0px;
+  
+  & mat-toolbar {
+    @if $is-dark-theme {
+      background-color: $averos-main-toolbar-bg-dark;
+      color: $averos-main-toolbar-color-dark;
+    } @else {
+      background-color: $averos-main-toolbar-bg-light;
+      color: $averos-main-toolbar-color-light;
+    }
+    min-height: 65px;
+    height: auto;
+    flex-wrap: wrap;
+    padding: 0 8px;
+  }
+}
+
+.averos-sidemenu-toolbar {
+  @include mat.elevation(8);
+  @if $is-dark-theme {
+    background-color: $averos-sidemenu-toolbar-bg-dark;
+  } @else {
+    background-color: $averos-sidemenu-toolbar-bg-light;
+  }
+  color: white;
+}
+
+.averos-main-content-toolbar {
+  @include mat.elevation(8);
+  @if $is-dark-theme {
+    background-color: $averos-main-content-toolbar-bg-dark;
+  } @else {
+    background-color: $averos-main-content-toolbar-bg-light;
+  }
+  color: white;
+}
+  
+}

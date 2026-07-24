@@ -1,0 +1,101 @@
+{
+  "name": "@averos/ui-platform",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/ui-platform/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["scope:averos", "type:ui"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/packages/ui-platform/dist"],
+      "dependsOn": ["clean", "^build"],
+      "options": {
+        "project": "packages/ui-platform/ng-package.json",
+        "tsConfig": "packages/ui-platform/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/ui-platform/tsconfig.lib.prod.json"
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit --project tsconfig.json",
+        "cwd": "packages/ui-platform"
+      }
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "outputs": ["{workspaceRoot}/packages/ui-platform/test-output/jest/coverage"],
+      "options": {
+        "watch": false,
+        "passWithNoTests": false
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/ui-platform/**/*.ts",
+          "packages/ui-platform/**/*.html"
+        ]
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "rm -rf dist coverage out-tsc test-output *.tsbuildinfo LICENSE",
+        "cwd": "packages/ui-platform"
+      }
+    },
+    "pack": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "pnpm pack --pack-destination ../../../release",
+        "cwd": "packages/ui-platform/dist"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npm publish --access public --no-git-checks",
+        "cwd": "packages/ui-platform/dist"
+      },
+      "configurations": {
+        "dry-run": {
+          "command": "npm publish --access public --no-git-checks --dry-run",
+          "cwd": "packages/ui-platform/dist"
+        }
+      }
+    },
+    "unpublish-locally": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm unpublish @averos/ui-platform@$(node -p \"require('./package.json').version\") --registry http://localhost:4873 --force",
+        "cwd": "packages/ui-platform/dist"
+      }
+    },
+    "publish-locally": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "pnpm publish --no-git-checks --registry http://localhost:4873",
+        "cwd": "packages/ui-platform/dist"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <svg xmlns="http://www.w3.org/2000/svg" 
+            width="129.74884033203125" 
+            height="50" 
+            viewBox="0 0 129.74884033203125 50">
+            <style>
+                text {
+                font-family: Cairo, sans-serif;
+                }
+            </style>
+        <g xmlns="http://www.w3.org/2000/svg" model-id="e98a5316-8a79-4e40-9f20-02baed40328d" data-type="averos.service" id="j_4" class="joint-cell joint-type-averos joint-type-averos-service joint-element joint-theme-default"><rect joint-selector="body" id="v-52" width="129.74884033203125" height="50" stroke-width="1" rx="2" ry="2" fill="#FADBD8" stroke="#D35400"/><rect joint-selector="header" id="v-53" width="129.74884033203125" height="35" stroke-width="1" fill="#F5B7B1" stroke="#922B21"/><text joint-selector="tagLabel" id="v-54" font-size="11" xml:space="preserve" text-anchor="middle" fill="#000" text="&lt;&lt;AverosService&gt;&gt;" transform="matrix(1,0,0,1,64.9,10.5)"><tspan dy="0.3em" class="v-line">&lt;&lt;AverosService&gt;&gt;</tspan></text><text joint-selector="nameLabel" id="v-55" font-weight="bold" font-size="13" xml:space="preserve" text-anchor="middle" fill="#000" text="MyService" transform="matrix(1,0,0,1,64.9,24.5)"><tspan dy="0.3em" class="v-line">MyService</tspan></text></g>
+        </svg>

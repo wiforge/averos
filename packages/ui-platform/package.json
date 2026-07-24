@@ -1,0 +1,100 @@
+{
+  "name": "@averos/ui-platform",
+  "version": "2.0.0",
+  "description": "Angular UI platform for the Averos execution runtime. Delivers a comprehensive library of Material Design components, form engines, dynamic view builders, entity use case scaffolding, and reflective rendering primitives that serve as the Angular adapter layer for the Averos DAG-driven application generation pipeline.",
+  "keywords": [
+    "averos",
+    "averos-ui",
+    "averos-ui-platform",
+    "angular",
+    "angular-material",
+    "angular-library",
+    "ui-components",
+    "component-library",
+    "material-design",
+    "form-engine",
+    "dynamic-forms",
+    "dynamic-view",
+    "entity-rendering",
+    "use-case-scaffolding",
+    "crud",
+    "reflective-ui",
+    "dag",
+    "dag-engine",
+    "execution-runtime",
+    "angular-adapter",
+    "code-generation",
+    "ai-native",
+    "deterministic-pipeline",
+    "low-code",
+    "no-code",
+    "developer-tooling"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wiforge/averos.git",
+    "directory": "packages/ui-platform"
+  },
+  "author": "averos-io<averos.tech@gmail.com>",
+  "bugs": "https://github.com/wiforge/averos/issues",
+  "homepage": "https://github.com/wiforge/averos#readme",
+  "license": "MIT",
+  "dependencies": {
+    "tslib": "catalog:"
+  },
+  "typings": "./dist/types/averos-ui-platform.d.ts",
+  "main": "./dist/fesm2022/averos-ui-platform.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/types/averos-ui-platform.d.ts",
+      "default": "./dist/fesm2022/averos-ui-platform.mjs"
+    }
+  },
+  "peerDependencies": {
+    "@angular/cdk": ">=22.0.0 <23.0.0",
+    "@angular/common": ">=22.0.0 <23.0.0",
+    "@angular/compiler": ">=22.0.0 <23.0.0",
+    "@angular/core": ">=22.0.0 <23.0.0",
+    "@angular/forms": ">=22.0.0 <23.0.0",
+    "@angular/localize": ">=22.0.0 <23.0.0",
+    "@angular/material": ">=22.0.0 <23.0.0",
+    "@angular/platform-browser": ">=22.0.0 <23.0.0",
+    "@angular/router": ">=22.0.0 <23.0.0",
+    "@angular/service-worker": ">=22.0.0 <23.0.0",
+    "file-saver": ">=2.0.5",
+    "firebase": ">=12.0.0",
+    "keycloak-js": ">=26.0.0",
+    "rxjs": ">=7.8.0 <8.0.0",
+    "zone.js": ">=0.15.0 <1.0.0",
+    "@averos/core": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "firebase": {
+      "optional": true
+    },
+    "keycloak-js": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@angular/cdk": "catalog:",
+    "@angular/common": "catalog:",
+    "@angular/compiler": "catalog:",
+    "@angular/core": "catalog:",
+    "@angular/forms": "catalog:",
+    "@angular/language-service": "catalog:",
+    "@angular/localize": "catalog:",
+    "@angular/material": "catalog:",
+    "@angular/platform-browser": "catalog:",
+    "@angular/pwa": "catalog:",
+    "@angular/router": "catalog:",
+    "@angular/service-worker": "catalog:",
+    "file-saver": "catalog:",
+    "firebase": "catalog:",
+    "keycloak-js": "catalog:",
+    "rxjs": "catalog:",
+    "zone.js": "catalog:",
+    "@averos/core": "catalog:"
+    
+  }
+}

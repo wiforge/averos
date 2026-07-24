@@ -1,0 +1,8 @@
+# This directory holds E2E-specific test fixtures.
+# The golden reference manifest lives at scripts/golden-reference/todoapp-manifest.json
+# and is shared with smoke tests.
+#
+# Add E2E-specific manifests here when testing edge cases:
+#   - minimal-app.json         (single entity, no auth)
+#   - full-auth-app.json       (keycloak + dummy providers)
+#   - composite-relations.json (deep composite hierarchies)

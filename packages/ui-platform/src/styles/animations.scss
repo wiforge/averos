@@ -1,0 +1,125 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+// ============================================================================
+// Animation Library
+// ============================================================================
+// Reusable CSS animations for Angular components
+// Usage: animate.enter="[animation]-enter" animate.leave="[animation]-leave"
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// Mixin: Create enter/leave animation pair
+// ----------------------------------------------------------------------------
+@mixin enter-leave-animation($enter-keyframe, $leave-keyframe, $duration: 500ms, $timing: ease-in-out) {
+  &-enter {
+    animation: $enter-keyframe $duration $timing both;
+  }
+  &-leave {
+    animation: $leave-keyframe $duration $timing both;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Keyframe Definitions
+// ----------------------------------------------------------------------------
+
+// Slide Right (in from right, out to right)
+@keyframes slide-in-right {
+  from {
+    right: -400%;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    right: 0;
+    background-color: transparent;
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    right: 0;
+    background-color: transparent;
+  }
+  to {
+    right: -400%;
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+// Slide Down (in from top, out to top)
+@keyframes slide-in-down {
+  from {
+    top: -400%;
+  }
+  to {
+    top: 0;
+  }
+}
+
+@keyframes slide-out-up {
+  from {
+    top: 0;
+  }
+  to {
+    top: -400%;
+  }
+}
+
+// Fade
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// ----------------------------------------------------------------------------
+// Animation Classes
+// ----------------------------------------------------------------------------
+
+// Slide In/Out (horizontal slide from right)
+// Usage: animate.enter="slide-enter" animate.leave="slide-leave"
+.slide {
+  &-enter,
+  &-leave {
+    position: relative;
+  }
+  @include enter-leave-animation(slide-in-right, slide-out-right, 500ms);
+}
+
+// Fade In/Out
+// Usage: animate.enter="fade-enter" animate.leave="fade-leave"
+.fade {
+  @include enter-leave-animation(fade-in, fade-out, 500ms);
+}
+
+// Slide Up In / Down Out (vertical slide from top)
+// Usage: animate.enter="slide-up-enter" animate.leave="slide-up-leave"
+.slide-up {
+  &-enter,
+  &-leave {
+    position: absolute;
+  }
+  @include enter-leave-animation(slide-in-down, slide-out-up, 500ms);
+}

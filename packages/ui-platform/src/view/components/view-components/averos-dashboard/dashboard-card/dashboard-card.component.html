@@ -1,0 +1,36 @@
+<mat-card appearance="outlined" class="dashboard-card">
+  <mat-card-header class="dashboard-card-header">
+    <mat-card-title class="dashboard-card-title">
+      <p class="mat-h4 dashboard-card-title-text">{{title | translate: titleTranslationID}}</p>
+      <div class="m-l-8">
+        <mat-icon [safeIcon]="headerIcon" class="icon-18" [style]="getColor(headerIconColor)"></mat-icon>
+      </div>
+    </mat-card-title>
+
+    @if (showMenu) {
+      <div>
+        <button mat-icon-button class="header-more" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+          <mat-icon [safeIcon]="'more_vert'" class="icon-18"></mat-icon>
+        </button>
+        <mat-menu #menu xPosition="before">
+          <button mat-menu-item>Expand</button>
+          <button mat-menu-item>Remove</button>
+        </mat-menu>
+      </div>
+    }
+
+  </mat-card-header>
+  <mat-card-content class="dashboard-card-content">
+    @if (value!==null && value!== undefined) {
+      <div class="dc-simple-content">
+        <div class="m-r-16 db-content-icon" [style]="getBackGroundColor(!!mainColor ? mainColor : headerIconColor)">
+          <mat-icon  [safeIcon]="mainContentIcon" class="icon-36" [ngClass]="{'rotate-icon': animateHeaderIcon}" style="color: white;"></mat-icon>
+        </div>
+        <div class="dc-value">
+          <h1 class="dashboard-card-value" [style]="getColor(!!mainColor ? mainColor : headerIconColor)">{{value}}</h1>
+          <h5  class="dc-value-description"><sup>{{valueDescription | translate: valueDescriptionTranslationID}}</sup></h5>
+        </div>
+      </div>
+    }
+  </mat-card-content>
+</mat-card>

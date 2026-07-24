@@ -1,0 +1,643 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+
+@use 'sass:math';
+@use '@angular/material' as mat;
+@use './fonts' as typography;
+@use './app-custom-theme' as averostheme;
+@use './component/variables' as var;
+
+
+@include mat.elevation-classes();
+@include mat.app-background();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+// mat-palette accepts $palette-name, main, lighter and darker variants
+
+// by default if the 3 last variables are not set
+// angular uses these values by default : $default: 500, $lighter: 100, $darker: 700.
+// $darnet-app-primary: mat-palette($mat-indigo);
+$darnet-app-primary: mat.m2-define-palette(mat.$m2-light-blue-palette, 800, 600, 900);
+// main = A200 variant | lighter = A100 variant | darker = A400 variant
+// $darnet-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$darnet-app-accent:  mat.m2-define-palette(mat.$m2-light-green-palette, 500, 300, 600);
+// $darnet-app-accent:  mat-palette($mat-lime, 500, 300, 600);
+// $darnet-app-accent:  mat-palette($mat-orange, 500, 400, 600);
+// The warn palette is optional
+// $darnet-app-warn:    mat-palette($mat-red);
+$darnet-app-warn: mat.m2-define-palette(mat.$m2-deep-orange-palette, A200);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$darnet-app-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $darnet-app-primary,
+      accent: $darnet-app-accent,
+      warn: $darnet-app-warn,
+    ),
+    typography: typography.$averos-typography/*mat.define-typography-config($font-family: "Cairo",)*/
+  ));
+
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+// @include angular-material-theme($darnet-app-theme);//the default theme is LIGHT theme
+
+@include mat.all-component-themes($darnet-app-theme);
+@include mat.all-component-typographies(typography.$averos-typography);
+
+ // custom component theme
+@include averostheme.averos-theme($darnet-app-theme);
+
+body{
+  color: #081145; ////updated the color of the text within the light theme
+}
+
+.forgot-password {
+  color: mat.m2-get-color-from-palette($darnet-app-accent, darker);
+  text-decoration: none;
+  white-space: nowrap;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.dont-have-account{
+  color: #506d7c;
+}
+
+.list-item-active {
+    font-weight: bold;
+    color: mat.m2-get-color-from-palette($darnet-app-primary, darker) !important;
+    background-color: mat.m2-get-color-from-palette($darnet-app-primary, 50, 0.5) !important;
+  }
+  
+
+.mat-expansion-panel-header {
+  border-left: 10px solid mat.m2-get-color-from-palette($darnet-app-primary, darker) !important;
+  // border-radius: 0px 0px 0px 15px !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+/// color when operator selected within a searchinputfield
+.search-input-operation-picker {
+  padding: 0px 5px 0px 0px;
+  & .mat-mdc-select-value {
+    color: mat.m2-get-color-from-palette($darnet-app-primary, darker) !important;
+  }
+}
+
+/*TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.
+ */
+.mat-mdc-button-toggle {
+  background-color: mat.m2-get-color-from-palette($darnet-app-primary);
+  color: mat.m2-get-color-from-palette($darnet-app-primary, default-contrast);
+}
+
+.mat-mdc-card{
+color: #081145;
+}
+/*TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.
+ */
+.mat-mdc-button-toggle-checked {
+  background-color: mat.m2-get-color-from-palette($darnet-app-accent);
+  color: mat.m2-get-color-from-palette($darnet-app-accent, default-contrast);
+}
+
+// ERROR message color
+.mat-mdc-form-field-error {
+  color: mat.m2-get-color-from-palette($darnet-app-warn, darker);
+}
+
+//// grid even/odd rows colors
+.averos_grid_odd {
+  background-color: inherit;
+}
+
+.averos_grid_even {
+  background-color: inherit;
+}
+
+///////// styling the fieldset/////////
+
+
+// Style on a browser
+// @media only screen and (min-width: 600px) {
+//   fieldset {
+//     @include mat.elevation(8);
+//     display: inline-block;
+//     margin-top:20px;
+//     width: 97%;
+//     border-color: mat.get-color-from-palette($darnet-app-accent, 100, 0.1) !important;
+//     border-radius: 4px;
+//   }
+// }
+/// Style on handset
+// @media only screen and (max-width: 599px) {
+//   fieldset {
+//     @include mat.elevation(8);
+//     display: inline-block;
+//     margin-top:20px;
+//     width: auto;
+//     border-color: mat.get-color-from-palette($darnet-app-accent, 100, 0.1) !important;
+//     border-radius: 4px;
+//   }
+// }
+
+fieldset {
+  // @include mat.elevation(8);
+  display: inline-block;
+  // margin-top:20px;
+  // width: auto;
+  width: -webkit-fill-available;
+  // border-color: mat.get-color-from-palette($darnet-app-accent, 100, 0.1) !important;
+  border-color: mat.m2-get-color-from-palette($darnet-app-primary, 900, 0.3) !important;
+  border-radius: 4px;
+  min-width: -webkit-fill-available;
+  margin: 15px;
+}
+
+.fieldset-register {
+  @include mat.elevation(8);
+  @include mat.elevation-transition;
+  display: inline-block;
+  margin-top:20px;
+  width: auto;
+  border-color: mat.m2-get-color-from-palette($darnet-app-accent, 100, 0.1) !important;
+  border-radius: 4px;
+
+  // add a transition
+  &:hover  {@include mat.elevation(16);}
+}
+
+.averos-fieldset {
+  @include mat.elevation(8);
+  display: inline-block;
+  margin-top:20px;
+  width: -webkit-fill-available;
+  border-color: mat.m2-get-color-from-palette($darnet-app-accent, 100, 0.1) !important;
+  border-radius: 4px;
+
+}
+
+    legend {
+      // @include mat.elevation(16);
+      // @include mat.elevation(16, black, 0.8);
+      @include mat.elevation(4, black, 0.2);
+      background-color: #3f51b5;//mat.get-color-from-palette($darnet-app-accent) !important;
+      color: white;
+      line-height: inherit; //normal;
+      padding: 3px 6px;
+      border-radius: 4px;
+      margin: 10px 0;
+      // & mat-card-title{
+      //   margin: math.div(var.$gutter, 2) !important;
+      // }
+      display: flex;
+    }
+    /////////////////////////////////////
+
+    ////////////////////////////////// Adds a vertical bar within the span ////////////
+
+    .v-bar-title {
+      width: 5px;
+      background-color: mat.m2-get-color-from-palette($darnet-app-primary);
+      border-radius: 99px;
+      margin-right: 5px;
+    }
+      
+    .v-bar-subtitle {
+      width: 5px;
+      background-color: mat.m2-get-color-from-palette($darnet-app-primary);
+      border-radius: 99px;
+      margin-right: 5px;
+    }
+
+    .v-bar-label {
+      width: 3px;
+      background-color: mat.m2-get-color-from-palette($darnet-app-primary);
+      border-radius: 99px;
+      margin-right: 5px;
+    }
+    
+    //// Styling all mat-icons under fieldset (example : register form)
+    fieldset.fieldset-register > * .mat-icon {
+      color: mat.m2-get-color-from-palette($darnet-app-accent, darker);
+    }
+
+    fieldset.fieldset-register > * .mat-mdc-icon-button {
+      color: mat.m2-get-color-from-palette($darnet-app-accent, darker);
+    }
+     //// Styling all fields inputs under fieldset
+     fieldset.fieldset-register > * input {
+      color: mat.m2-get-color-from-palette($darnet-app-accent, darker);
+    }
+
+    
+
+////////////////// Styling all generic fieldset /////////////
+
+    fieldset.averos-fieldset > * .mat-icon {
+      color: mat.m2-get-color-from-palette($darnet-app-accent, darker);
+    }
+    fieldset.averos-fieldset > * .mat-mdc-icon-button {
+      color: mat.m2-get-color-from-palette($darnet-app-accent, darker);
+    }
+
+    //// Styling all mat-hint
+    // fieldset.fieldset-register > * .mat-mdc-form-field-hint {
+    //   color: #0009; //mat.get-color-from-palette($darnet-app-primary, 100, 0.5);
+    // }
+    // fieldset.averos-fieldset > * .mat-mdc-form-field-hint {
+    //   color: #0009; //mat.get-color-from-palette($darnet-app-primary, 900, 0.9);
+    // }
+    //// Styling all mat-hint
+    fieldset.fieldset-register>*.mat-mdc-form-field-hint,
+    fieldset.fieldset-register>*mat-hint,
+    fieldset.averos-fieldset>*.mat-mdc-form-field-hint,
+    fieldset.averos-fieldset>*mat-hint,
+    * > mat-hint { 
+      color: #0009; 
+    }
+   
+//////////////////////////////////////////////////////////////
+
+
+    // Styling all Input prefixes color (mainly icons)
+    mat-icon[matPrefix], mat-datepicker-toggle[matPrefix] {
+      color: mat.m2-get-color-from-palette($darnet-app-primary, darker);
+    }
+
+    // Field Outline color
+    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.
+ */
+    .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+      color: mat.m2-get-color-from-palette($darnet-app-accent, darker);
+  }
+
+    /// mat-form-field onhover line color (for standard Input style)
+    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.
+ */
+  //   .mat-mdc-form-field-ripple {
+  //     background-color: mat.get-color-from-palette($darnet-app-accent, darker);
+  // }
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline__leading,
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline__notch, 
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline__trailing {
+    border-color: mat.m2-get-color-from-palette($darnet-app-accent, darker) !important;
+    border-width: 2px;
+    
+  }
+  
+  .averos-dialog {
+    // height: auto;
+    & [mat-dialog-title], & h1[mat-dialog-title] {
+      background: mat.m2-get-color-from-palette($darnet-app-primary, darker);
+      color: #fff !important;
+      cursor: move;
+    }
+    & [mat-dialog-content] {
+      max-height: 70vh;
+    }
+    & [mat-dialog-actions] {
+        justify-content: center;
+      } 
+    & .averos-dialog-title {
+      background: mat.m2-get-color-from-palette($darnet-app-primary, darker);
+      color: #fff !important;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      & .averos-dialog-header-button {
+        display: inline;
+          & mat-icon {
+              color: white;
+          }
+        }
+      .mat-mdc-icon-button.mat-mdc-button-base {
+        width: 30px;
+        height: 30px;
+        padding: 0px;
+      }
+
+      .mat-mdc-icon-button .mat-mdc-button-touch-target{
+        width: auto;
+        height: auto;
+      }
+      .averos-dialog-header-actions {
+        padding-right: 12px;
+      }
+
+    }
+}
+
+/// Application Background for light mode ////////////
+
+// .averos-content {
+//   // background-image: url("../assets/images/wiforge/bg/h_1.png");
+// }
+// mat-sidenav-content {
+//   background-size: cover;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-attachment: fixed;
+//   background-image: url("../assets/images/wiforge/bg/h_1.png");
+//   color: white;
+// }
+
+//////////////// Averos Designer Style ////////////////
+//// Desktop Styling
+.aeditor-upper-panel {
+
+  @include mat.elevation(8);
+  min-height: 60px;
+  background-color: #013650;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // align-items: center;
+  // justify-content: center;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 5px;
+  top: 0;
+  left: 0;
+}
+
+.aeditor-left-side-panel-container  {
+  color: whitesmoke;
+  @include mat.elevation(8);
+  height: calc(100% - 60px);
+  background-color: #013650;
+  z-index: 1;
+  // position: relative;
+  width: 17%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // display: inline-block;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  // padding: 5px;
+  top: 60px;
+  left: 0;
+}
+
+.aeditor-right-side-panel-container  {
+  color: whitesmoke;
+  @include mat.elevation(8);
+  height: calc(100% - 60px);
+  background-color: #013650;
+  z-index: 1;
+  // position: relative;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // display: inline-block;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  // padding: 5px;
+  top: 60px;
+  right: 0;
+}
+.averos-component-properties{
+  padding: 10px;
+}
+.averos-component{
+  background-color: white;
+  color: #013650;
+  border-radius: 4px;
+}
+
+.aeditor-right-palette {
+  height: calc(100% - 60px);
+  width: 95%;
+  display: flex;
+  float: right;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.aeditor-left-palette {
+  height: calc(100% - 60px);
+  width: 100%;
+  display: flex;
+  float: left;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: auto;
+}
+
+.aeditor-bottom-panel {
+
+  @include mat.elevation(8);
+  min-height: 100px;
+  background-color: #013650;
+  z-index: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 5px;
+  bottom: 0;
+}
+
+#panel-item {
+  color: whitesmoke;
+  padding: 10px;
+  border-radius: .5em;
+  border: 1px dotted rgb(57, 90, 163);
+  margin: 5px;
+
+  &:hover {
+      box-sizing: border-box;
+      @include mat.elevation(6);
+      cursor: grab;
+      filter: brightness(.7);
+      
+      color: #F28C1E;
+  }
+  &:active {
+      @include mat.elevation(0);
+      cursor: grabbing;
+      border: 1px dotted rgb(57, 90, 163);
+  }
+}
+
+//// Device Styling
+.aeditor-upper-panel-device {
+
+  @include mat.elevation(8);
+  min-height: 60px;
+  background-color: #013650;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // align-items: center;
+  // justify-content: center;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 5px;
+  top: 0;
+  left: 0;
+}
+
+.aeditor-left-side-panel-container-device  {
+  color: whitesmoke;
+  @include mat.elevation(8);
+  // height: calc(100% - 60px);
+  height: 100%;
+  background-color: #013650;
+  z-index: 1;
+  // position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // display: inline-block;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  // padding: 5px;
+  top: 0;
+  left: 0;
+}
+
+.aeditor-right-side-panel-container-device  {
+  color: whitesmoke;
+  @include mat.elevation(8);
+  // height: calc(100% - 60px);
+  height: 100%;
+  background-color: #013650;
+  z-index: 1;
+  // position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // display: inline-block;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  // padding: 5px;
+  // top: 60px;
+  // right: 0;
+}
+
+.averos-component-device {
+  background-color: white;
+  color: #013650;
+  border-radius: 4px;
+}
+
+.aeditor-right-palette-device {
+  height: calc(100% - 60px);
+  width: 95%;
+  display: flex;
+  float: right;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.aeditor-left-palette-device {
+  height: calc(100% - 60px);
+  width: 100%;
+  display: flex;
+  float: left;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: auto;
+}
+
+.aeditor-bottom-panel-device {
+
+  @include mat.elevation(8);
+  min-height: 100px;
+  background-color: #013650;
+  z-index: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 5px;
+  bottom: 0;
+}
+
+#panel-item-device {
+  color: whitesmoke;
+  padding: 10px;
+  border-radius: .5em;
+  border: 1px dotted rgb(57, 90, 163);
+  margin: 5px;
+
+  &:hover {
+      box-sizing: border-box;
+      @include mat.elevation(6);
+      cursor: grab;
+      filter: brightness(.7);
+      
+      color: #F28C1E;
+  }
+  &:active {
+      @include mat.elevation(0);
+      cursor: grabbing;
+      border: 1px dotted rgb(57, 90, 163);
+  }
+}

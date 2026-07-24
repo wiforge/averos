@@ -1,0 +1,73 @@
+{
+  "name": "@averos/mcp",
+  "version": "2.0.0",
+  "description": "Model Context Protocol server exposing Averos application design, planning, validation, and execution workflows to AI assistants.",
+  "keywords": [
+    "averos",
+    "mcp",
+    "model-context-protocol",
+    "ai-tools",
+    "ai-agent",
+    "agentic-workflow",
+    "claude",
+    "chatgpt",
+    "llm",
+    "application-design",
+    "manifest",
+    "software-generation",
+    "workflow",
+    "tool-calling",
+    "ai-native",
+    "enterprise"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wiforge/averos.git",
+    "directory": "packages/mcp"
+  },
+  "author": "averos-io<averos.tech@gmail.com>",
+  "bugs": "https://github.com/wiforge/averos/issues",
+  "homepage": "https://github.com/wiforge/averos#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types":   "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+      ],
+  "bin": {
+    "averos-mcp": "./dist/index.js"
+  },
+  "dependencies": {
+    "@averos/dag-engine":         "catalog:",
+    "@averos/executor":           "catalog:",
+    "@modelcontextprotocol/sdk":  "^1.0.0",
+    "zod": "^4.4.3",
+    "tslib":                      "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.4.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/jest":        "catalog:",
+    "@types/node":        "catalog:",
+    "jest":               "catalog:",
+    "typescript":         "catalog:"
+  }
+}

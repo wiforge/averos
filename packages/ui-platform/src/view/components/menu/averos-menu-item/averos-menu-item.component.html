@@ -1,0 +1,40 @@
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+  @for (child of items; track $index) {
+    <!-- Handle branch node menu items -->
+    @if (child.loggedSpace) {
+      <!-- Handle branch node menu items -->
+      @if (logged && child.children && child.children.length > 0) {
+        <button [disabled]="child.disabled" mat-menu-item [matMenuTriggerFor]="menu.childMenu">
+          <mat-icon [safeIcon]="child.iconName!"></mat-icon>
+          <span>{{child.displayName}}</span>
+        </button>
+        <averos-menu-item #menu [logged]="logged" [items]="child.children"></averos-menu-item>
+      }
+      <!-- Handle leaf node menu items -->
+      @if (logged && (!child.children || child.children.length === 0)) {
+        <button [disabled]="child.disabled" mat-menu-item [routerLink]="child.route">
+          <mat-icon [safeIcon]="child.iconName!"></mat-icon>
+          <span>{{child.displayName ?? '' | translate: child.translationID }}</span>
+        </button>
+      }
+    }
+
+    @if (!child.loggedSpace) {
+      <!-- Handle branch node menu items -->
+      @if (child.children && child.children.length > 0) {
+        <button [disabled]="child.disabled" mat-menu-item [matMenuTriggerFor]="menu.childMenu">
+          <mat-icon [safeIcon]="child.iconName!"></mat-icon>
+          <span>{{child.displayName ?? '' | translate: child.translationID }}</span>
+        </button>
+        <averos-menu-item #menu [logged]="logged" [items]="child.children"></averos-menu-item>
+      }
+      <!-- Handle leaf node menu items -->
+      @if (!child.children || child.children.length === 0) {
+        <button [disabled]="child.disabled" mat-menu-item [routerLink]="child.route">
+          <mat-icon [safeIcon]="child.iconName!"></mat-icon>
+          <span>{{child.displayName ?? '' | translate: child.translationID }}</span>
+        </button>
+      }
+    }
+  }
+</mat-menu>

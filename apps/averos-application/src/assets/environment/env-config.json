@@ -1,0 +1,89 @@
+{
+    "configurationItems": [
+        {
+            "id": "AuthService",
+            "type": "service",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3002,
+            "apiProtocol": "http",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "/auth/"
+        },
+        {
+            "id": "UserService",
+            "type": "service",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3002,
+            "apiProtocol": "http",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "/uapi/users/"
+        },
+        {
+            "id": "ReferentialService",
+            "type": "service",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3002,
+            "apiProtocol": "http",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "/uapi/roles/"
+        },
+        {
+            "id": "MyAverosApplicationService",
+            "type": "service",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3333,
+            "apiProtocol": "https",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "averos/api/myaverosapplications/"
+        },
+        {
+            "id": "DashboardService",
+            "type": "service",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3333,
+            "apiProtocol": "http",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "wibuild/api/report/"
+        },
+        {
+            "id": "AverosCodeGenService",
+            "type": "service",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3003,
+            "apiProtocol": "https",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "/api/application"
+        },
+        {
+            "type": "service",
+            "id": "ToDoAreaService",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3333,
+            "apiProtocol": "http",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "/averos/api/test/todoareas",
+            "externalEntityId": "_id"
+        },
+        {
+            "type": "service",
+            "id": "ToDoTaskService",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3333,
+            "apiProtocol": "http",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "/averos/api/test/todotasks",
+            "externalEntityId": "_id"
+        },
+        {
+            "type": "service",
+            "id": "CompositeTestEntityService",
+            "apiHost": "127.0.0.1",
+            "apiPort": 3333,
+            "apiProtocol": "http",
+            "apiHTTPQueryBuilder": "mongodb",
+            "apiEndPoint": "/averos/api/test/compositetestentities",
+            "externalEntityId": "_id"
+        }
+    ]
+
+}

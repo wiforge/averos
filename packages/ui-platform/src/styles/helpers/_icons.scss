@@ -1,0 +1,59 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+
+// ==================================================
+// ICONS
+// ==================================================
+@use "./mixins" as mixin;
+// Icon size
+// 14dp 18dp 24dp 36dp 48dp
+
+.icon-6 {
+  @include mixin.icon(8);
+}
+
+.icon-8 {
+  @include mixin.icon(8);
+}
+
+.icon-10 {
+  @include mixin.icon(10);
+}
+
+.icon-12 {
+  @include mixin.icon(12);
+}
+
+.icon-14 {
+  @include mixin.icon(14);
+}
+
+.icon-18 {
+  @include mixin.icon(18);
+}
+
+.icon-24 {
+  @include mixin.icon(24);
+}
+
+.icon-36 {
+  @include mixin.icon(36);
+}
+
+.icon-48 {
+  @include mixin.icon(48);
+}
+
+.icon-60 {
+  @include mixin.icon(60);
+}

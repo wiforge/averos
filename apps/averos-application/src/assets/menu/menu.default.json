@@ -1,0 +1,204 @@
+{
+    "sideMenu": [
+        {
+            "displayName": "ToDoArea",
+            "translationID": "menu.todoarea",
+            "loggedSpace": true,
+            "iconName": "chevron_right",
+            "type": "sub",
+            "children": [
+                {
+                    "displayName": "Add ToDoArea",
+                    "translationID": "menu.todoarea.add",
+                    "iconName": "add",
+                    "type": "link",
+                    "route": "/todoareas/create"
+                },
+                {
+                    "displayName": "Search ToDoArea",
+                    "translationID": "menu.todoarea.search",
+                    "iconName": "search",
+                    "type": "link",
+                    "route": "/todoareas/search"
+                }
+            ]
+        },
+        {
+            "displayName": "ToDoTask",
+            "translationID": "menu.todotask",
+            "loggedSpace": true,
+            "iconName": "chevron_right",
+            "type": "sub",
+            "children": [
+                {
+                    "displayName": "Add ToDoTask",
+                    "translationID": "menu.todotask.add",
+                    "iconName": "add",
+                    "type": "link",
+                    "route": "/todotasks/create"
+                },
+                {
+                    "displayName": "Search ToDoTask",
+                    "translationID": "menu.todotask.search",
+                    "iconName": "search",
+                    "type": "link",
+                    "route": "/todotasks/search"
+                }
+            ]
+        },
+        {
+            "displayName": "Composite Test Entity",
+            "translationID": "",
+            "iconName": "chevron_right",
+            "type": "sub",
+            "children": [
+                {
+                    "displayName": "Add Composite Test Entity",
+                    "iconName": "add",
+                    "type": "link",
+                    "route": "/compositetestentitys/create"
+                },
+                {
+                    "displayName": "Search Composite Test Entity",
+                    "translationID": "menu.todotask.search",
+                    "iconName": "search",
+                    "type": "link",
+                    "route": "/compositetestentitys/search"
+                }
+            ]
+        }
+    ],
+    "topMenu": [
+        {
+            "displayName": "My Menu",
+            "loggedSpace": "false",
+            "type": "sub",
+            "children": [
+                {
+                    "displayName": "Link 1",
+                    "iconName": "search",
+                    "loggedSpace": "false",
+                    "type": "link",
+                    "route": "/myaverosapplications/search"
+                },
+                {
+                    "displayName": "My Menu 2",
+                    "iconName": "dashboard",
+                    "loggedSpace": "false",
+                    "type": "sub",
+                    "children": [
+                        {
+                            "displayName": "Link 1",
+                            "iconName": "search",
+                            "loggedSpace": "true",
+                            "type": "link",
+                            "route": "/myaverosapplications/search"
+                        },
+                        {
+                            "displayName": "link2 disabled",
+                            "iconName": "search",
+                            "loggedSpace": "false",
+                            "disabled": "true",
+                            "type": "link",
+                            "route": "/myaverosapplications/search"
+                        }
+                    ]
+                  },
+                {
+                    "displayName": "link disabled",
+                    "iconName": "search",
+                    "loggedSpace": "false",
+                    "disabled": "true",
+                    "type": "link",
+                    "route": "/myaverosapplications/search"
+                }
+            ]
+          },
+          {
+            "displayName": "My Dashboard",
+            "translationID": "menu.dashboard",
+            "iconName": "dashboard",
+            "loggedSpace": "true",
+            "type": "link",
+            "route": "dashboard",
+            "disabled": "true"
+        },
+        {
+            "displayName": "Default Pages",
+            "loggedSpace": false,
+            "iconName": "chevron_right",
+            "type": "sub",
+            "children": [
+                {
+                    "displayName": "Menu Editor",
+                    "translationID": "menu.menueditor",
+                    "iconName": "chevron_right",
+                    "type": "link",
+                    "route": "/menueditor"
+                },
+                {
+                    "displayName": "White Board",
+                    "translationID": "menu.whiteboard",
+                    "iconName": "chevron_right",
+                    "type": "link",
+                    "route": "/whiteboard",
+                    "loggedSpace": false
+                },
+                {
+                    "displayName": "Averos Designer",
+                    "translationID": "menu.averosdesigner",
+                    "iconName": "chevron_right",
+                    "type": "link",
+                    "route": "/averosdesigner"
+                }
+            ]
+        },  
+        {
+          "displayName": "Dashboard (houceml)",
+          "iconName": "dashboard",
+          "loggedSpace": false,
+          "route": "dashboard",
+          "disabled": "false"
+        },
+        {
+          "displayName": "Formulaire",
+          "iconName": "dashboard",
+          "loggedSpace": true,
+          "route": "dashboard",
+          "disabled": "false"
+        },
+        {
+          "displayName": "Menu1",
+          "iconName": "dashboard",
+          "loggedSpace": false,
+          "route": "dashboard",
+          "children": [
+            {
+              "displayName": "Child11",
+              "iconName": "dashboard",
+              "loggedSpace": false,
+              "route": "dashboard"
+            },
+            {
+              "displayName": "Child12",
+              "iconName": "dashboard",
+              "loggedSpace": true,
+              "route": "dashboard"
+            },
+            {
+              "displayName": "Child13",
+              "iconName": "dashboard",
+              "loggedSpace": false,
+              "route": "dashboard"
+            }
+          ]
+        },
+        {
+          "displayName": "Menu2",
+          "iconName": "dashboard",
+          "loggedSpace": false,
+          "route": "dashboard",
+          "disabled": false
+        }
+    ]
+}

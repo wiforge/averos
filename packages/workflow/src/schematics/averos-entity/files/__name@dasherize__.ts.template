@@ -1,0 +1,68 @@
+/**
+ * This source code was generated using the AVEROS CODE GENERATION WORKFLOW tool.
+ * 
+ * The Averos Code Generation platform automates the creation of boilerplate
+ * code and standard structures, streamlining the development process. 
+ * This class adheres to the predefined architecture and coding standards 
+ * specified during the generation process. 
+ * 
+ * Please note:
+ * - While the generated code provides a solid foundation, manual customization 
+ *   may be required to meet specific project requirements.
+ * - Generated methods and attributes are structured to ensure maintainability 
+ *   and compatibility with the existing codebase.
+ * 
+ * It is recommended to review and test the generated code thoroughly to ensure 
+ * it aligns with the intended functionality of the application.
+ * 
+ * For more details on the code generation process, refer to the Averos 
+ * documentation https://www.wiforge.com or contact the development team.
+ */
+ 
+import {
+  AverosEntity,
+  BusinessID,
+  EntityViewLayout,
+  getUseCaseViewLayout,
+  ID,
+  Indexable,
+  UseCase,
+  UseCaseViewLayout,
+} from '@averos/core';
+import { Observable } from 'rxjs';
+<% if(sname && createService) { %>import { <%= sname %> } from '<%= getRelatedServicePath(path) %>/<%= dasherize(sname) %>';<% } %>
+
+@AverosEntity(<% if(sname && createService) { %><%= sname %><% } else { %><% } %>)
+export class <%= classifyPreserveTrailingIndex(name) %> implements Indexable {
+    public static _entityViewLayout$: Observable<EntityViewLayout<<%= classifyPreserveTrailingIndex(name) %>>>;
+    public static _entityViewLayout : EntityViewLayout<<%= classifyPreserveTrailingIndex(name) %>>;
+    public static _entityName = '<%= classifyPreserveTrailingIndex(name) %>';
+    private static readonly _instance: <%= classifyPreserveTrailingIndex(name) %> = new <%= classifyPreserveTrailingIndex(name) %>();
+    
+
+
+    @ID()
+    _entityId!: string;
+    _entityCreatedAt!: Date;
+    _entityUpdatedAt!: Date;
+    @BusinessID()
+    _entityLogicalName!: string;
+     
+    static getEntityViewLayout(): Observable<EntityViewLayout<<%= classifyPreserveTrailingIndex(name) %>>> {
+        return <%= classifyPreserveTrailingIndex(name) %>._entityViewLayout$;
+    }
+
+    static getUseCaseViewLayout(useCase: UseCase): Observable<UseCaseViewLayout<<%= classifyPreserveTrailingIndex(name) %>>|null>{
+        return getUseCaseViewLayout(<%= classifyPreserveTrailingIndex(name) %>, useCase);
+    }
+
+    static instanceMetadata(){
+        return <%= classifyPreserveTrailingIndex(name) %>._instance;
+    }
+
+    /**
+      * Add your custom implementation depending on your needs
+      *
+      */
+
+}

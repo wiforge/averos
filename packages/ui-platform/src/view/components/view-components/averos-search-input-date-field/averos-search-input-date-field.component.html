@@ -1,0 +1,24 @@
+<mat-form-field class="form-field-default-width"
+                [appearance]="$any(appearance)">
+    <mat-label>{{label ?? '' | translate: labelTranslationID ?? ''}}</mat-label>
+    <input matInput
+           [matDatepicker]="picker"
+           [placeholder]="placeholder | translate: placeholderTranslationID"
+           [required]="required"
+           [formControl]="$any(formControlName.control)"
+           (input)="changeInputValue($event.target.value)"
+           (dateChange)="changeInputValue($event.target.value)"
+           (blur)="onTouched()" #matInputComponent>
+    <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker [touchUi]="isHandset$ | async"  #picker [disabled]="pickerDisabled"></mat-datepicker>
+    <span matSuffix>
+    <mat-select #operationSelect class="search-input-operation-picker" (selectionChange)="operationChange($event)">
+        <!-- <mat-option>-- None --</mat-option> -->
+        @for (operation of operations; track operation) {
+        <mat-option [value]="operation">
+          {{ operation.description | translate: operation.translationID }}
+        </mat-option>
+      }
+      </mat-select>
+    </span>  
+  </mat-form-field>

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAddAverosCRUD",
+  "title": "Generates a new Averos CRUD use cases for the given Entity",
+  "type": "object",
+  "properties": {
+    "ename": {
+      "description": "The name of the entity.",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the Entity you would like to create?"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "ename"
+  ]
+}

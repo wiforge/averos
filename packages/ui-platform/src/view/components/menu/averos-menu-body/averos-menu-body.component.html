@@ -1,0 +1,98 @@
+<!-- In order to use ng-content multiple times in the same component
+we need to declare it as a template then using as many times as needed
+otherwise, ng-content will be used in only one place -->
+<ng-container *ngTemplateOutlet="ngContent"></ng-container>
+<ng-template #ngContent><ng-content></ng-content></ng-template>
+
+<ng-container *ngTemplateOutlet="logged || !enableAuthentication ? loggedSpace : freeSpace"></ng-container>
+
+<!-- FREE SPACE -->
+<ng-template #freeSpace>
+  <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+</ng-template>
+
+<!-- LOGGED SPACE -->
+<ng-template #loggedSpace>
+  <mat-sidenav-container class="averos-container"
+    [ngClass]="{'averos-sidenav-collapsed': sidenavCollapsed && !isHandset && drawer.opened}"
+    autosize autoFocus>
+    <!-- SIDENAV DRAWER-->
+    <mat-sidenav #drawer class="averos-sidenav"
+      [attr.role]="isHandset ? 'dialog' : 'navigation'"
+      [mode]="isHandset ? 'over' : 'side'"
+      [opened]="isHandset === false && sidenavOpened && !isHandset"
+      (openedChange)="sidenavOpenedChange($event)"
+      (closedStart)="sidenavCloseStart()">
+      <averos-sidemenu [isHandset]="isHandset"
+        [logged]="logged"
+        [enableAuthentication]="enableAuthentication"
+        [toggleChecked]="!sidenavCollapsed"
+        [drawer]="drawer"
+        [sideNavItems$]="sideNavItems$"
+        (toggleCollapsed)="toggleCollapsed()"
+        [currentLoggedUserProfile]="currentLoggedUserProfile">
+
+      </averos-sidemenu>
+    </mat-sidenav>
+    <!-- CONTENT -->
+    <mat-sidenav-content class="averos-content-wrap scrollbar-thin">
+      <mat-toolbar class="averos-main-content-toolbar">
+        <mat-toolbar-row>
+          @if (isHandset || !drawer.opened) {
+            <button
+              type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()"
+              >
+              <mat-icon [safeIcon]="'menu'" aria-label="Side nav toggle icon"></mat-icon>
+            </button>
+          }
+        <div class="tcontainer">
+          <div class="ticker-wrap">
+            <div class="ticker-move">
+              @for (averosTicker of systemTickers | async; track averosTicker.tickerID){
+                <div class="system-ticker-item">{{averosTicker.tickerMessage | translate: averosTicker.tickerMessageTranslationID}}
+                  @if (averosTicker.disposable) {
+                    <sup class="ticker-action-button" mat-icon-button [matTooltip]="'remove' | translate: 'app.delete'" (click)="onRemoveSystemTicker(averosTicker.tickerID)">
+                      <mat-icon [safeIcon]="'cancel'"></mat-icon>
+                    </sup>
+                  }
+                </div>
+              }
+              @for (usersTicker of userTickers | async; track usersTicker.tickerID){
+                <div class="user-ticker-item">{{usersTicker.tickerMessage}}
+                  @if (usersTicker.disposable) {
+                    <sup class="ticker-action-button"  [matTooltip]="'remove' | translate: 'app.delete'" (click)="onRemoveUserTicker(usersTicker.tickerID)">
+                      <mat-icon [safeIcon]="'cancel'"></mat-icon>
+                    </sup>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <main>
+      <section>
+        <ng-container *ngTemplateOutlet="ngContent"></ng-container>
+      </section>
+    </main>
+  </mat-sidenav-content>
+
+  <!-- Left Side Nav -->
+  <mat-sidenav  #rightSideNav
+    [ngClass]="{'left-side-nav-handset': isHandset, 'left-side-nav-web': !isHandset}"
+    [attr.role]="'dialog'"
+    [mode]="'over'"
+    opened="false"
+    position="end"
+    [autoFocus]="false">
+  <averos-averos-settings-panel></averos-averos-settings-panel>
+</mat-sidenav>
+  </mat-sidenav-container>
+</ng-template>
+
+<!-- END LOGGED SPACE -->
+

@@ -1,0 +1,115 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Schematics: averos-validator new custom validator",
+            "program": "${workspaceFolder}/node_modules/@angular-devkit/schematics-cli/bin/schematics.js",
+            "request": "launch",
+            "type": "node",
+            "args": [
+                "../../packages/workflow/dist/schematics/collection.json:averos-validator",
+                "--debug=false",
+                "--dry-run=false",
+                "--type=custom",
+                "--name=TestValidator",
+                "--entity-name=ToDoArea",
+                "--field-name=areaname",
+                "--validator-id=validateMyField",
+                "--validator-key=validationViolated",
+                "--nature=sync",
+                "--validation-default-message=This field is required!",
+                "--validation-message-translation-id=testentity.field.required",
+                "--validation-parameters='5'"
+
+
+            ],
+            "cwd": "${workspaceFolder}/apps/averos-application",
+            "sourceMaps": true,
+            "pauseForSourceMap": true,
+            "outFiles": [
+                "${workspaceFolder}/packages/workflow/dist/**/*.js"
+            ],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/packages/workflow/**",
+                "!**/node_modules/**"
+            ],
+             "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+             "console": "integratedTerminal",
+             "internalConsoleOptions": "neverOpen"
+        },
+        {
+        "name": "Debug Schematics: averos-validator predefined validator - dry run",
+        "program": "${workspaceFolder}/node_modules/@angular-devkit/schematics-cli/bin/schematics.js",
+        "request": "launch",
+        "type": "node",
+        "args": [
+            "../../packages/workflow/dist/schematics/collection.json:averos-validator",
+            "--debug=false",
+            "--dry-run=false",
+            "--type=predefined",
+            "--name=Validators",
+            "--entity-name=ToDoArea",
+            "--field-name=areaname",
+            "--validator-id=required",
+            "--validator-key=required",
+            "--nature=sync",
+            "--validation-default-message=This field is required!",
+            "--validation-message-translation-id=validator.required.field"
+
+
+        ],
+        "cwd": "${workspaceFolder}/apps/averos-application",
+        "sourceMaps": true,
+        "pauseForSourceMap": true,
+        "outFiles": [
+            "${workspaceFolder}/packages/workflow/dist/**/*.js"
+        ],
+        "resolveSourceMapLocations": [
+            "${workspaceFolder}/packages/workflow/**",
+            "!**/node_modules/**"
+        ],
+            "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+        "name": "Debug Schematics: averos-validator predefined validator",
+        "program": "${workspaceFolder}/node_modules/@angular-devkit/schematics-cli/bin/schematics.js",
+        "request": "launch",
+        "type": "node",
+        "args": [
+            "../../packages/workflow/dist/schematics/collection.json:averos-validator",
+            "--no-debug",
+            "--no-dry-run",
+            "--force",
+            "--type=predefined",
+            "--name=Validators",
+            "--entity-name=ToDoArea",
+            "--field-name=areaname",
+            "--validator-id=required",
+            "--validator-key=required",
+            "--nature=sync",
+            "--validation-default-message=This field is required!",
+            "--validation-message-translation-id=validator.required.field"
+
+
+        ],
+        "cwd": "${workspaceFolder}/apps/averos-application",
+        "sourceMaps": true,
+        "pauseForSourceMap": true,
+        "outFiles": [
+            "${workspaceFolder}/packages/workflow/dist/**/*.js"
+        ],
+        "resolveSourceMapLocations": [
+            "${workspaceFolder}/packages/workflow/**",
+            "!**/node_modules/**"
+        ],
+            "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}

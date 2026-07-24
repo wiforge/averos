@@ -1,0 +1,23 @@
+@if(useCaseEntity) {
+   <div animate.enter="slide-enter">
+      <button color="accent" mat-button (click)="getBack()">
+         <mat-icon [safeIcon]="'arrow_back_ios_new'"></mat-icon>
+         {{'Back' | translate:'app.back'}}
+      </button>
+      @if (reactiveForm) {
+         <averos-view-edit-entity 
+                                 [useCaseConfig]="useCaseConfig"
+                                 [entityUseCaseViewLayout$]="useCaseViewLayout"
+                                 [reactiveForm]="reactiveForm"
+                                 [editModeActivated]="editModeActivated"
+                                 [displayActions]="true"
+                                 (submitForm)="onSubmit($event)"
+                                 (updateEditMode)="updateEditMode($event)"
+                                 (cloneEvent)="clone()"
+                                 (editEvent)="edit()"
+                                 (updateRelationCollectionEvent)="updateRelationCollection($event)"
+                                 (onCompositeRelationActionEvent)="onCompositeRelationAction($event)">
+         </averos-view-edit-entity>
+      }
+   </div>
+}

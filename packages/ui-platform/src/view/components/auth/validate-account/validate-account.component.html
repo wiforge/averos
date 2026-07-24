@@ -1,0 +1,13 @@
+
+@if (verifyAccountResponse) {
+  <div class="validation-s">
+    @if (verifyAccountResponse.code === 1) {
+      <div>
+        <h1 i18n="@@app.account.validatedsuccessfully" style="color: #2FA64F"> Congratulations! Your account have been successfully validated! <br/> Enjoy!</h1>
+      </div>
+    }
+    @if (verifyAccountResponse.code === -1) {
+      <h1 i18n="app.action.notauthorized" style="color: #BE1205;"> This action is either Unauthorized or has Expired! </h1>
+    }
+  </div>
+}

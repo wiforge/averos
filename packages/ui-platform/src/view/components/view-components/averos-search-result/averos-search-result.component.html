@@ -1,0 +1,44 @@
+<mat-accordion  animate.enter="slide-enter">
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        @if(viewLayout | async; as layout ){
+          <mat-panel-title>
+          <h2>{{layout.tableUCViewLayout?.title ?? '' | translate: layout.tableUCViewLayout?.titleTranslationID }}</h2>
+        </mat-panel-title>
+        }
+        
+      </mat-expansion-panel-header>
+      <mat-card appearance="outlined" class="search-input-form">
+        <mat-card-content>
+            <averos-dynamic-table #averosDynamicTable
+                                    [trackByField]="trackByField"
+                                    [dataSource$]="data$"
+                                    [showRowActions]="showRowActions"
+                                    [forInput]="forInput"
+                                    [showCustomRowActions]="showCustomRowActions"
+                                    [selectable]="selectable"
+                                    [multipleSelection]="multipleSelection"
+                                    [customRowActions]="customRowActions"
+                                    [showFilterComponent]="showFilterComponent"
+                                    [filterComponentLabel]="filterComponentLabel"
+                                    [filterComponentLabelTranslationID]="filterComponentLabelTranslationID"
+                                    [filterKey]="filterKey"
+                                    [viewLayout]="(viewLayout | async)!"
+                                    (viewObject)="view($event)"
+                                    (viewCompositeObject)="viewCompObject($event)"
+                                    (executeCustomRowAction)="executeCustomAction($event)"
+                                    (editObject)="edit($event)"
+                                    (deleteObject)="delete($event)"
+                                    (deleteMany)="onDeleteMany($event)"
+                                    (addObject)="add($event)"
+                                    (reloadTable)="reloadData($event)"
+                                    (search)="searchData($event)"
+                                    (pageChange)="onPageChange($event)"
+                                    (selectOne)="onSelectOne($event)"
+                                    (selectMany)="onSelectMany($event)">
+              </averos-dynamic-table>
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
+  

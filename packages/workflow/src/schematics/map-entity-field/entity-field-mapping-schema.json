@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsEntityFieldMapping",
+  "title": "Creates a mapping record between an entity field key and an external entity field key",
+  "type": "object",
+  "properties": {
+    "entityName": {
+      "description": "The name of the entity",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the entity ? "
+    },
+    "fieldKey": {
+      "description": "The entity field key name",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the entity field you want to map ? "
+    },
+    "externalKey": {
+      "description": "The target field key name",
+      "type": "string",
+      "x-prompt": "What is the name of the entity field you want to map ? "
+    },
+    "targetServices": {
+      "description": "The target external managing service",
+      "type": "string",
+      "default": "*",
+      "x-prompt": "What are the services that you want to map (comma-separated values) ? [default = Applies to all services]"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "entityName",
+    "fieldKey",
+    "externalKey"
+  ]
+}

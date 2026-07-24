@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAverosAuthConfig",
+  "title": "Configure an existing Averos Authentication provider",
+  "type": "object",
+  "properties": {
+    "httpConfig": {
+      "type": "boolean",
+      "default": false,
+      "description": "Configure httpAuthConfig instead of provider config"
+    },
+    "provider": {
+      "description": "The authentication provider name (required when httpConfig is false)",
+      "type": "string"
+    },
+    "key": {
+      "description": "The configuration key.",
+      "type": "string",
+      "minLength": 1
+    },
+    "value": {
+      "description": "The configuration value.",
+      "type": "string",
+      "minLength": 1
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the configuration.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+   "required": ["key", "value"]
+}

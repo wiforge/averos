@@ -1,0 +1,74 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@mixin scrollbar-thin() {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border-width: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-image: initial;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: rgba(0, 0, 0, .2) 1px 1px 5px inset;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    min-height: 20px;
+    background-color: rgba(0, 0, 0, .2);
+  }
+
+  ::-webkit-scrollbar-thumb:hover{
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track:hover{
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  & {
+    scrollbar-width: thin;
+  }
+}
+
+@mixin scrollbar-none {
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  & {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.scrollbar-thin {
+  @include scrollbar-thin();
+}
+
+.scrollbar-none {
+  @include scrollbar-none();
+}

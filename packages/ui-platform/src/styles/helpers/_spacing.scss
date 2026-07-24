@@ -1,0 +1,130 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+// ==================================================
+// SPACING
+// ==================================================
+@use "./variables" as var;
+@use "sass:map";
+$margin-auto: (
+  auto: auto
+);
+
+$spacing: (
+  'margin': (
+    property: margin,
+    class: m,
+    values: map.merge(var.$spacers, $margin-auto)
+  ),
+  'margin-x': (
+    property: margin-left margin-right,
+    class: m-x,
+    values: map.merge(var.$spacers, $margin-auto)
+  ),
+  'margin-y': (
+    property: margin-top margin-bottom,
+    class: m-y,
+    values: map.merge(var.$spacers, $margin-auto)
+  ),
+  'margin-top': (
+    property: margin-top,
+    class: m-t,
+    values: map.merge(var.$spacers, $margin-auto)
+  ),
+  'margin-right': (
+    property: margin-right,
+    class: m-r,
+    values: map.merge(var.$spacers, $margin-auto)
+  ),
+  'margin-bottom': (
+    property: margin-bottom,
+    class: m-b,
+    values: map.merge(var.$spacers, $margin-auto)
+  ),
+  'margin-left': (
+    property: margin-left,
+    class: m-l,
+    values: map.merge(var.$spacers, $margin-auto)
+  ),
+  'negative-margin': (
+    property: margin,
+    class: m,
+    values: var.$negative-spacers
+  ),
+  'negative-margin-x': (
+    property: margin-left margin-right,
+    class: m-x,
+    values: var.$negative-spacers
+  ),
+  'negative-margin-y': (
+    property: margin-top margin-bottom,
+    class: m-y,
+    values: var.$negative-spacers
+  ),
+  'negative-margin-top': (
+    property: margin-top,
+    class: m-t,
+    values: var.$negative-spacers
+  ),
+  'negative-margin-right': (
+    property: margin-right,
+    class: m-r,
+    values: var.$negative-spacers
+  ),
+  'negative-margin-bottom': (
+    property: margin-bottom,
+    class: m-b,
+    values: var.$negative-spacers
+  ),
+  'negative-margin-left': (
+    property: margin-left,
+    class: m-l,
+    values: var.$negative-spacers
+  ),
+  'padding': (
+    property: padding,
+    class: p,
+    values: var.$spacers
+  ),
+  'padding-x': (
+    property: padding-left padding-right,
+    class: p-x,
+    values: var.$spacers
+  ),
+  'padding-y': (
+    property: padding-top padding-bottom,
+    class: p-y,
+    values: var.$spacers
+  ),
+  'padding-top': (
+    property: padding-top,
+    class: p-t,
+    values: var.$spacers
+  ),
+  'padding-right': (
+    property: padding-right,
+    class: p-r,
+    values: var.$spacers
+  ),
+  'padding-bottom': (
+    property: padding-bottom,
+    class: p-b,
+    values: var.$spacers
+  ),
+  'padding-left': (
+    property: padding-left,
+    class: p-l,
+    values: var.$spacers
+  )
+);
+
+$utilities: map.merge($spacing, var.$utilities);

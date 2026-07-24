@@ -1,0 +1,74 @@
+
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ *
+ */
+ 
+$progressBarHeight: 5px;
+
+#loading-mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9998;
+    cursor: wait;
+    
+    mat-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+    }
+  }
+
+  #loading-mask-spinner{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9998;
+    cursor: wait;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #loading-mask-grid{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.397);
+    z-index: 1000;
+    cursor: wait;
+    mat-progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+    }
+  }
+
+
+  .app-mat-progress-spinner {
+      z-index: 9999;
+  }
+
+  .app-mat-progress-inline-spinner {
+    align-self: right;
+}

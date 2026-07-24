@@ -1,0 +1,46 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+// ==================================================
+// BORDER
+// ==================================================
+@use "./variables" as var;
+@use "sass:map";
+$borders: (
+  'border': (
+    property: border,
+    class: b,
+    values: var.$border-solid
+  ),
+  'border-top': (
+    property: border-top,
+    class: b-t,
+    values: var.$border-solid
+  ),
+  'border-bottom': (
+    property: border-bottom,
+    class: b-b,
+    values: var.$border-solid
+  ),
+  'border-right': (
+    property: border-right,
+    class: b-r,
+    values: var.$border-solid
+  ),
+  'border-left': (
+    property: border-left,
+    class: b-l,
+    values: var.$border-solid
+  )
+);
+
+$utilities: map.merge($borders, var.$utilities);

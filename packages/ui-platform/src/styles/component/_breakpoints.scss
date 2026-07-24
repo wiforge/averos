@@ -1,0 +1,51 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+ 
+@use './variables' as var;
+@use 'sass:map';
+//  Media Queries
+
+@function bp($name, $breakpoints: var.$breakpoints) {
+  $min: map.get($breakpoints, $name);
+
+  @return $min;
+}
+
+// Media of at least the minimum breakpoint width.
+@mixin bp-gt($name, $breakpoints: var.$breakpoints) {
+  $min: bp($name, $breakpoints);
+
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+
+  @else {
+    @content;
+  }
+}
+
+// Media of at most the maximum breakpoint width.
+@mixin bp-lt($name, $breakpoints: var.$breakpoints) {
+  $max: bp($name, $breakpoints) - 1px;
+
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  }
+
+  @else {
+    @content;
+  }
+}

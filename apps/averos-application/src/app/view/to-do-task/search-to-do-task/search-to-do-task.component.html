@@ -1,0 +1,32 @@
+<averos-search-entity [useCaseConfig]="useCaseConfig"
+  [entityUseCaseViewLayout$]="searchUseCaseViewLayout"
+  [searchInputFormGoup]="searchInputFormGoup"
+  (executeSearch)="searchEntities($event)"
+  #averosSearchEntity>
+</averos-search-entity>
+
+@if (showSearchResult) {
+  <averos-search-result
+    [searchCriteria]="searchCriteria"
+    [data$]="tableValues$"
+    [selectable]="true"
+    [multipleSelection]="true"
+    [showRowActions]="true"
+    [showFilterComponent]="true"
+    [filterComponentLabel]="'Search Filter'"
+    [filterComponentLabelTranslationID]="'app.filter'"
+    [filterKey]="'any key'"
+    [viewLayout]="entityViewLayout"
+    (viewObject)="view($event)"
+    (viewCompositeObject)="viewCompositeObject($event)"
+    (editObject)="edit($event)"
+    (deleteObject)="delete($event!)"
+    (deleteMany)="deleteMany($event)"
+    (addObject)="add($event)"
+    (reloadTable)="reloadData($event)"
+    (search)="search($event)"
+    (pageChange)="onPageChange($event)"
+    #averosSearchResult>
+  </averos-search-result>
+}
+

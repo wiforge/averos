@@ -1,0 +1,85 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ *
+ */
+ 
+@use '../../../../styles/component/transitions' as transition;
+
+
+//////////////////////// Floating gadget styling Starts //////////////////
+.averos-settings {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1001;
+  }
+
+  .averos-settings-icon {
+    animation: rotating 3s linear infinite;
+    -webkit-animation: rotating 3s linear infinite;
+  }
+
+  @-webkit-keyframes rotating{
+    0%{
+      transform:rotate(0deg)
+      }
+    to{
+      transform:rotate(1turn)
+      }
+  
+  }
+  
+  @keyframes rotating{
+    0%{
+      transform:rotate(0deg)
+      }
+    to{
+      transform:rotate(1turn)
+      }
+  }
+  //////////////////////// Floating gadget styling ENDS //////////////////
+
+  .averos-settings-panel {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    bottom: 0;
+    z-index: 12;
+    width: 320px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    transform: translateX(0);
+    transition: swift-ease-out(transform);
+    overflow: hidden;
+    // background-color: whitesmoke;
+    visibility: hidden;
+    &.opened {
+      visibility: visible;
+      transform: translateX(-100%);
+    }
+  }
+  
+  .averos-settings-panel-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+    visibility: hidden;
+    transition-duration: transition.$swift-ease-out-duration;
+    transition-timing-function: transition.$swift-ease-out-timing-function;
+    transition-property: background-color, visibility;    
+  
+    &.opened {
+      visibility: visible;
+    }
+  }
+

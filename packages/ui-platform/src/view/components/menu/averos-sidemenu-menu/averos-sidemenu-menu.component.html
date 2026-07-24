@@ -1,0 +1,264 @@
+<ul averosAccordion class="averos-sidemenu level-0">
+  @for (menuItem of (sideNavItems$|async); track $index) {
+    <li averosAccordionLink class="averos-sidemenu-item" routerLinkActive="active" [group]="menuItem.route">
+      @if (menuItem.type === 'link') {
+        <a
+          class="averos-sidemenu-link"
+          [routerLink]="menuItem.route"
+          (click)="menuItemClicked.emit()"
+          matRipple [matRippleDisabled]="false"
+          [ngClass]="{'not-active': isDisabled(menuItem.disabled)}">
+          <mat-icon [safeIcon]="menuItem.iconName  ?? ''" class="menu-icon"></mat-icon>
+          <span class="menu-name">{{ (menuItem.displayName ?? '') | translate: menuItem.translationID }}</span>
+          @if (menuItem.label) {
+            <span class="menu-label bg-{{menuItem.label.color}}">
+              {{ menuItem.label.value | translate: menuItem.label.translationID }}
+            </span>
+          }
+          <!-- <span fxFlex></span> -->
+          <span style="margin-left: auto;"></span>
+          @if (menuItem.badge) {
+            <span class="menu-badge bg-{{menuItem.badge.color}}">
+              {{ menuItem.badge.value | translate: menuItem.badge.translationID }}
+            </span>
+          }
+        </a>
+      }
+      @if (menuItem.type === 'extTabLink') {
+        <a
+          class="averos-sidemenu-link"
+          [href]="menuItem.route"
+          target="_blank"
+          matRipple [matRippleDisabled]="false"
+          [ngClass]="{'not-active': isDisabled(menuItem.disabled)}">
+          <mat-icon [safeIcon]="menuItem.iconName  ?? ''" class="menu-icon"></mat-icon>
+          <span class="menu-name">{{(menuItem.displayName ?? '') | translate: menuItem.translationID}}</span>
+          @if (menuItem.label) {
+            <span class="menu-label bg-{{menuItem.label.color}}">
+              {{ menuItem.label.value | translate: menuItem.label.translationID }}
+            </span>
+          }
+          <!-- <span fxFlex></span> -->
+          <span style="margin-left: auto;"></span>
+          @if (menuItem.badge) {
+            <span class="menu-badge bg-{{menuItem.badge.color}}">
+              {{ menuItem.badge.value | translate: menuItem.badge.translationID }}
+            </span>
+          }
+          <mat-icon [safeIcon]="'open_in_new'" class="menu-caret"></mat-icon>
+        </a>
+      }
+      <!-- level 1 -->
+      @if (menuItem.type === 'sub') {
+        <a averosAccordionAnchor
+          class="averos-sidemenu-toggle" href="javascript:void(0);"
+          matRipple [matRippleDisabled]="true"
+          [ngClass]="{'not-active': isDisabled(menuItem.disabled)}">
+          <mat-icon [safeIcon]="menuItem.iconName  ?? ''" class="menu-icon"></mat-icon>
+          <span class="menu-name">{{(menuItem.displayName ?? '') | translate: menuItem.translationID}}</span>
+          @if (menuItem.label) {
+            <span class="menu-label bg-{{menuItem.label.color}}">
+              {{ menuItem.label.value | translate: menuItem.label.translationID }}
+            </span>
+          }
+          <!-- <span fxFlex></span> -->
+          <span style="margin-left: auto;"></span>
+          @if (menuItem.badge) {
+            <span class="menu-badge bg-{{menuItem.badge.color}}">
+              {{ menuItem.badge.value | translate: menuItem.badge.translationID }}
+            </span>
+          }
+          <mat-icon [safeIcon]="'arrow_drop_down'" class="menu-caret"></mat-icon>
+        </a>
+      }
+
+      <!-- //////////////// -->
+      @if (menuItem.type === 'sub') {
+        <ul averosAccordion class="averos-sidemenu submenu level-1">
+          @for (childLvl1 of menuItem.children; track $index) {
+            <li averosAccordionLink class="averos-sidemenu-item" routerLinkActive="active" [group]="childLvl1.route" [type]="childLvl1.type">
+              @if (childLvl1.type === 'link') {
+                <a class="averos-sidemenu-link"
+                  [routerLink]="childLvl1.route"
+                  (click)="menuItemClicked.emit()"
+                  matRipple [matRippleDisabled]="false"
+                  [ngClass]="{'not-active': isDisabled(childLvl1.disabled)}">
+                  <!-- <span class="menu-name">{{childLvl1.displayName}}</span> -->
+                  @if (childLvl1.iconName) {
+                    <mat-icon [safeIcon]="childLvl1.iconName" class="menu-icon"></mat-icon>
+                  }
+                  <span class="menu-name">{{ (childLvl1.displayName ?? '') | translate: childLvl1.translationID }}</span>
+                  @if (childLvl1.label) {
+                    <span class="menu-label bg-{{childLvl1.label.color}}">
+                      {{ childLvl1.label.value | translate: childLvl1.label.translationID }}
+                    </span>
+                  }
+                  <!-- <span fxFlex></span> -->
+                  <span style="margin-left: auto;"></span>
+                  @if (childLvl1.badge) {
+                    <span class="menu-badge bg-{{childLvl1.badge.color}}">
+                      {{childLvl1.badge.value | translate: childLvl1.badge.translationID}}
+                    </span>
+                  }
+                </a>
+              }
+              @if (childLvl1.type === 'extLink') {
+                <a class="averos-sidemenu-link" [href]="childLvl1.route"
+                  matRipple [matRippleDisabled]="false"
+                  [ngClass]="{'not-active': isDisabled(childLvl1.disabled)}">
+                  @if (childLvl1.iconName) {
+                    <mat-icon [safeIcon]="childLvl1.iconName" class="menu-icon"></mat-icon>
+                  }
+                  <span class="menu-name">{{(childLvl1.displayName ?? '') | translate: childLvl1.translationID}}</span>
+                  @if (childLvl1.label) {
+                    <span class="menu-label bg-{{childLvl1.label.color}}">
+                      {{ childLvl1.label.value | translate: childLvl1.label.translationID }}
+                    </span>
+                  }
+                  <!-- <span fxFlex></span> -->
+                  <span style="margin-left: auto;"></span>
+                  @if (childLvl1.badge) {
+                    <span class="menu-badge bg-{{childLvl1.badge.color}}">
+                      {{childLvl1.badge.value | translate: childLvl1.badge.translationID}}
+                    </span>
+                  }
+                  <mat-icon [safeIcon]="'open_in_new'" class="menu-caret"></mat-icon>
+                </a>
+              }
+              @if (childLvl1.type === 'extTabLink') {
+                <a class="averos-sidemenu-link" [href]="childLvl1.route" target="_blank"
+                  matRipple [matRippleDisabled]="false"
+                  [ngClass]="{'not-active': isDisabled(childLvl1.disabled)}">
+                  <!-- <span class="menu-name">{{childLvl1.displayName}}</span> -->
+                  @if (childLvl1.iconName) {
+                    <mat-icon [safeIcon]="childLvl1.iconName" class="menu-icon"></mat-icon>
+                  }
+                  <span class="menu-name">{{ (childLvl1.displayName ?? '') | translate: childLvl1.translationID }}</span>
+                  @if (childLvl1.label) {
+                    <span class="menu-label bg-{{childLvl1.label.color}}">
+                      {{childLvl1.label.value}}
+                    </span>
+                  }
+                  <!-- <span fxFlex></span> -->
+                  <span style="margin-left: auto;"></span>
+                  @if (childLvl1.badge) {
+                    <span class="menu-badge bg-{{childLvl1.badge.color}}">
+                      {{childLvl1.badge.value}}
+                    </span>
+                  }
+                  <mat-icon [safeIcon]="'open_in_new'" class="menu-caret"></mat-icon>
+                </a>
+              }
+              <!-- level 2 -->
+              @if (childLvl1.type === 'sub') {
+                <a averosAccordionAnchor class="averos-sidemenu-toggle" href="javascript:void(0);"
+                  matRipple [matRippleDisabled]="false"
+                  [ngClass]="{'not-active': isDisabled(childLvl1.disabled)}">
+                  <!-- <span class="menu-name">{{childLvl1.displayName}}</span> -->
+                  @if (childLvl1.iconName) {
+                    <mat-icon [safeIcon]="childLvl1.iconName" class="menu-icon"></mat-icon>
+                  }
+                  <span class="menu-name">{{ (childLvl1.displayName ?? '') | translate: childLvl1.translationID }}</span>
+                  @if (childLvl1.label) {
+                    <span class="menu-label bg-{{childLvl1.label.color}}">
+                      {{childLvl1.label.value}}
+                    </span>
+                  }
+                  <!-- <span fxFlex></span> -->
+                  <span style="margin-left: auto;"></span>
+                  @if (childLvl1.badge) {
+                    <span class="menu-badge bg-{{childLvl1.badge.color}}">
+                      {{childLvl1.badge.value}}
+                    </span>
+                  }
+                  <mat-icon [safeIcon]="'open_in_new'" class="menu-caret"></mat-icon>
+                </a>
+              }
+              @if (childLvl1.type === 'sub') {
+                <ul class="averos-sidemenu submenu level-2">
+                  @for (childLvl2 of childLvl1.children; track $index) {
+                    <li class="averos-sidemenu-item" routerLinkActive="active">
+                      @if (childLvl2.type === 'link') {
+                        <a class="averos-sidemenu-link"
+                          [routerLink]="childLvl2.route"
+                          (click)="menuItemClicked.emit()"
+                          matRipple [matRippleDisabled]="false"
+                          [ngClass]="{'not-active': isDisabled(childLvl2.disabled)}">
+                          <!-- <span class="menu-name">{{childLvl2.displayName}}</span> -->
+                          @if (childLvl2.iconName) {
+                            <mat-icon [safeIcon]="childLvl2.iconName" class="menu-icon"></mat-icon>
+                          }
+                          <span class="menu-name">{{(childLvl2.displayName ?? '') | translate: childLvl2.translationID}}</span>
+                          @if (childLvl2.label) {
+                            <span class="menu-label bg-{{childLvl2.label.color}}">
+                              {{childLvl2.label.value}}
+                            </span>
+                          }
+                          <!-- <span fxFlex></span> -->
+                          <span style="margin-left: auto;"></span>
+                          @if (childLvl2.badge) {
+                            <span class="menu-badge bg-{{childLvl2.badge.color}}">
+                              {{childLvl2.badge.value}}
+                            </span>
+                          }
+                        </a>
+                      }
+                      @if (childLvl2.type === 'extLink') {
+                        <a class="averos-sidemenu-link" [href]="childLvl2.route"
+                          matRipple [matRippleDisabled]="false"
+                          [ngClass]="{'not-active': isDisabled(childLvl2.disabled)}">
+                          <!-- <span class="menu-name">{{childLvl2.displayName}}</span> -->
+                          @if (childLvl2.iconName) {
+                            <mat-icon [safeIcon]="childLvl2.iconName" class="menu-icon"></mat-icon>
+                          }
+                          <span class="menu-name">{{ (childLvl2.displayName  ?? '') | translate: childLvl2.translationID }}</span>
+                          @if (childLvl2.label) {
+                            <span class="menu-label bg-{{childLvl2.label.color}}">
+                              {{ childLvl2.label.value | translate: childLvl2.label.translationID }}
+                            </span>
+                          }
+                          <!-- <span fxFlex></span> -->
+                          <span style="margin-left: auto;"></span>
+                          @if (childLvl2.badge) {
+                            <span class="menu-badge bg-{{childLvl2.badge.color}}">
+                              {{ childLvl2.badge.value | translate: childLvl2.badge.translationID }}
+                            </span>
+                          }
+                          <mat-icon [safeIcon]="'open_in_new'" class="menu-caret"></mat-icon>
+                        </a>
+                      }
+                      @if (childLvl2.type === 'extTabLink') {
+                        <a class="averos-sidemenu-link" [href]="childLvl2.route" target="_blank"
+                          matRipple [matRippleDisabled]="false"
+                          [ngClass]="{'not-active': isDisabled(childLvl2.disabled)}">
+                          <!-- <span class="menu-name">{{childLvl2.displayName}}</span> -->
+                          @if (childLvl2.iconName) {
+                            <mat-icon [safeIcon]="childLvl2.iconName" class="menu-icon"></mat-icon>
+                          }
+                          <span class="menu-name">{{ (childLvl2.displayName ?? '') | translate: childLvl2.translationID }}</span>
+                          @if (childLvl2.label) {
+                            <span class="menu-label bg-{{childLvl2.label.color}}">
+                              {{ childLvl2.label.value | translate: childLvl2.label.translationID }}
+                            </span>
+                          }
+                          <!-- <span fxFlex></span> -->
+                          <span style="margin-left: auto;"></span>
+                          @if (childLvl2.badge) {
+                            <span class="menu-badge bg-{{childLvl2.badge.color}}">
+                              {{ childLvl2.badge.value | translate: childLvl2.badge.translationID }}
+                            </span>
+                          }
+                          <mat-icon [safeIcon]="'open_in_new'" class="menu-caret"></mat-icon>
+                        </a>
+                      }
+                    </li>
+                  }
+                </ul>
+              }
+            </li>
+          }
+        </ul>
+      }
+    </li>
+  }
+</ul>

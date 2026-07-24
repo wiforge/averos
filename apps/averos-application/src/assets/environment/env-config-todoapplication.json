@@ -1,0 +1,36 @@
+{
+    "configurationItems": [
+        {
+            "type": "service",
+            "id": "ToDoAreaService",
+            "apiHost": "localhost",
+            "apiPort": 3333,
+            "apiProtocol": "http",
+            "apiEndPoint": "/todoareas"
+        },
+        {
+            "type": "service",
+            "id": "ToDoTaskService",
+            "apiHost": "localhost",
+            "apiPort": 3333,
+            "apiProtocol": "http",
+            "apiEndPoint": "/todotasks"
+        },
+        {
+            "type": "service",
+            "id": "AuthService",
+            "apiHost": "localhost",
+            "apiPort": 3333,
+            "apiProtocol": "http",
+            "apiEndPoint": "/auth/"
+        },
+        {
+            "type": "service",
+            "id": "UserService",
+            "apiHost": "localhost",
+            "apiPort": 3333,
+            "apiProtocol": "http",
+            "apiEndPoint": "/uapi/users/"
+        }
+    ]
+}

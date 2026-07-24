@@ -1,0 +1,292 @@
+{
+	"defaultUCViewLayout": {
+	},
+	"searchInputUCViewLayout": {
+			"orderedView": true,
+			"title": "Roles Search Input",
+			"titleTranslationID": "uc.search.role.title",
+			"parentEntityLabel": "Search Criteria",
+			"parentEntityLabelTranslationId": "uc.search.role.label",
+			"iconOrientation": "SUFFIX",
+			"ucViewLayout": [
+			{
+				"entityFieldName": "name",
+				"label": "name",
+				"labelTranslationID": "role.name",
+				"visible": true,
+				"order": 1,
+				"fieldGroup": {
+					"groupId": 1,
+					"groupOrder": 1
+				}
+			},
+			{
+				"entityFieldName": "_entityDescription",
+				"label": "description",
+				"labelTranslationID": "role.description",
+				"visible": true,
+				"order": 2,
+				"fieldGroup": {
+					"groupId": 1,
+					"groupOrder": 1
+				}
+			}
+		]
+		
+	},
+	"tableUCViewLayout": {
+		"orderedView": false,
+		"title": "Roles Search Result",
+		"titleTranslationID": "app.search.result",
+		"ucViewLayout": [
+			{
+				"entityFieldName": "name",
+				"label": "name",
+				"labelTranslationID": "role.name",
+				"visible": true,
+				"order": 1
+			},
+			{
+				"entityFieldName": "_entityDescription",
+				"label": "description",
+				"labelTranslationID": "role.description",
+				"visible": true,
+				"order": 2
+			},
+			{
+				"entityFieldName": "_entityCreatedBy",
+				"label": "createdBy",
+				"labelTranslationID": "role.createdby",
+				"type": "composite",
+				"typeName": "User",
+				"visible": true,
+				"order": 3
+			},
+			{
+				"entityFieldName": "_entityUpdatedBy",
+				"label": "updatedBy",
+				"labelTranslationID": "role.updatedby",
+				"type": "composite",
+				"typeName": "User",
+				"visible": true,
+				"order": 4
+			}
+		]
+		
+	},
+	"selectableInputTableUCViewLayout": {
+		"orderedView": false,
+		"title": "Roles Search Result",
+		"titleTranslationID": "app.search.result",
+		"ucViewLayout": [
+			{
+				"entityFieldName": "name",
+				"label": "name",
+				"labelTranslationID": "role.name",
+				"visible": true,
+				"order": 1
+			},
+			{
+				"entityFieldName": "_entityDescription",
+				"label": "description",
+				"labelTranslationID": "role.description",
+				"visible": true,
+				"order": 2
+			}
+		]
+	},
+	"viewUCViewLayout": {
+		"orderedView": true,
+		"title": "View Role",
+		"titleTranslationID": "uc.view.role.title",
+		"parentEntityLabel": "Role Details",
+		"parentEntityLabelTranslationId": "uc.view.role.label",
+		"iconOrientation": "SUFFIX",
+		"ucViewLayout": [
+			{
+				"entityFieldName": "name",
+				"visible": true,
+				"label": "Role Name",
+				"labelTranslationID": "role.name",
+				"placeholder": "",
+				"placeholderTranslationID": "",
+				"type": "string",
+				"icon": "person",
+				"required": true,
+				"disabled": true,
+				"validators": {
+					"syncValidators": 
+					[
+								{
+									"validatorID":"required", 
+									"validatorKey": "required", 
+									"type": "Validators", 
+									"nature": "sync",
+									"validationDefaultMessage": "Please enter a name", 
+									"validationMessageTranslationID": ""
+								}
+					]
+				},
+				"defaultValue": "",
+				"order": 1,
+				"fieldGroup": {
+					"groupId": "1",
+					"groupOrder": 1
+				}
+			},
+			{
+				"entityFieldName": "_entityDescription",
+				"visible": true,
+				"label": "description",
+				"labelTranslationID": "role.description",
+				"placeholder": "",
+				"placeholderTranslationID": "",
+				"type": "string",
+				"icon": "email",
+				"required": false,
+				"disabled": false,
+				"defaultValue": "",
+				"order": 2,
+				"fieldGroup": {
+					"groupId": "1",
+					"groupOrder": 1
+				}
+			},
+						{
+				"entityFieldName": "_entityCreatedBy",
+				"label": "createdBy",
+				"labelTranslationID": "user.createdby",
+				"type": "composite",
+				"typeName": "User",
+				"visible": true,
+				"order": 3,
+				"fieldGroup": {
+					"groupId": "10",
+					"layout": "tab",
+					"groupLabel": "Creator",
+					"groupLabelTranslationID": "user.createdby",
+					"groupOrder": 1
+				}
+			}
+		]
+	},
+	"createUCViewLayout": {
+		"orderedView": true,
+		"title": "Create Role",
+		"titleTranslationID": "uc.create.role.title",
+		"parentEntityLabel": "Role Details",
+		"parentEntityLabelTranslationId": "uc.create.role.label",
+		"iconOrientation": "SUFFIX",
+		"ucViewLayout": [
+			{
+				"entityFieldName": "name",
+				"visible": true,
+				"label": "Role Name",
+				"labelTranslationID": "role.name",
+				"placeholder": "",
+				"placeholderTranslationID": "",
+				"type": "string",
+				"icon": "person",
+				"required": true,
+				"disabled": false,
+				"validators": {
+					"syncValidators": 
+					[
+								{
+									"validatorID":"required", 
+									"validatorKey": "required", 
+									"type": "Validators", 
+									"nature": "sync",
+									"validationDefaultMessage": "Please enter a name", 
+									"validationMessageTranslationID": ""
+								}
+					]
+				},
+				"defaultValue": "",
+				"order": 1,
+				"fieldGroup": {
+					"groupId": "1",
+					"groupOrder": 1
+				}
+			},
+			{
+				"entityFieldName": "_entityDescription",
+				"visible": true,
+				"label": "description",
+				"labelTranslationID": "role.description",
+				"placeholder": "",
+				"placeholderTranslationID": "",
+				"type": "string",
+				"icon": "email",
+				"required": false,
+				"disabled": false,
+				"defaultValue": "",
+				"order": 2,
+				"fieldGroup": {
+					"groupId": "1",
+					"groupOrder": 1
+				}
+			}
+		]
+	},
+	"editUCViewLayout": {
+			"orderedView": true,
+			"title": "Edit Role",
+			"titleTranslationID": "uc.edit.role.title",
+			"parentEntityLabel": "Role Details",
+			"parentEntityLabelTranslationId": "uc.edit.role.label",
+			"iconOrientation": "SUFFIX",
+			"ucViewLayout": [
+				{
+					"entityFieldName": "name",
+					"visible": true,
+					"label": "Role Name",
+					"labelTranslationID": "role.name",
+					"placeholder": "",
+					"placeholderTranslationID": "",
+					"type": "string",
+					"icon": "person",
+					"required": true,
+					"disabled": false,
+					"validators": {
+						"syncValidators": 
+						[
+									{
+										"validatorID":"required", 
+										"validatorKey": "required", 
+										"type": "Validators", 
+										"nature": "sync",
+										"validationDefaultMessage": "Please enter a name", 
+										"validationMessageTranslationID": ""
+									}
+						]
+					},
+					"defaultValue": "",
+					"order": 1,
+					"fieldGroup": {
+						"groupId": "1",
+						"groupOrder": 1
+					}
+				},
+				{
+					"entityFieldName": "_entityDescription",
+					"visible": true,
+					"label": "description",
+					"labelTranslationID": "role.description",
+					"placeholder": "",
+					"placeholderTranslationID": "",
+					"type": "string",
+					"icon": "email",
+					"required": false,
+					"disabled": false,
+					"defaultValue": "",
+					"order": 2,
+					"fieldGroup": {
+						"groupId": "1",
+						"groupOrder": 1
+					}
+				}
+				
+			]
+	}
+}

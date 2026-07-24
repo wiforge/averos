@@ -1,0 +1,45 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ *
+ */
+
+input[type=averos-search] {
+    width: 5px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+  
+  /* When the input field gets focus, change its width to 100% */
+  input[type=averos-search]:focus {
+    width: 100%;
+    box-sizing: border-box;
+    outline: 0px;
+  }
+
+
+  .search-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-right: 16px;
+}
+
+.search-container input {
+  color: #444;
+  border: none;
+  border-radius: 100px;
+  background-color: #fff;
+  height: 50%;
+  -webkit-appearance: none;
+  appearance: none;
+  font-size: 14px;
+}

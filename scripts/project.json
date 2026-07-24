@@ -1,0 +1,106 @@
+{
+  "name": "scripts",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "scripts",
+  "tags": ["scope:averos-test", "type:scripts"],
+  "targets": {
+     "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit --project scripts/tsconfig.json",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "smoke": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "bash scripts/smoke/minimal-plan.sh",
+          "bash scripts/smoke/minimal-run.sh",
+          "bash scripts/smoke/golden-reference-plan.sh",
+          "bash scripts/smoke/golden-reference-run.sh"
+        ],
+        "parallel": false,
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "smoke:plan": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash scripts/smoke/minimal-plan.sh",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "smoke:run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash scripts/smoke/minimal-run.sh",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "smoke:gr-plan": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash scripts/smoke/golden-reference-plan.sh",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "smoke:gr-run": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash scripts/smoke/golden-reference-run.sh",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "integration:executor": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["@averos/executor:build"],
+      "options": {
+        "command": "bash scripts/integration/integration-test-executor.sh",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "integration:ai": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["@averos/ai:build"],
+      "options": {
+        "command": "bash scripts/integration/integration-test-ai.sh",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "integration": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["integration:executor", "integration:ai"],
+      "options": {
+        "commands": [
+          "bash scripts/integration/integration-test-executor.sh",
+          "bash scripts/integration/integration-test-ai.sh"
+        ],
+        "parallel": false,
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash scripts/e2e/run-real-angular.sh",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "e2e:local": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash scripts/e2e/run-local-angular.sh --tgz=scripts/e2e/wiforge-averos-2.0.0.tgz --averos-version=2.0.0",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "e2e:dry": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash scripts/e2e/run-real-angular.sh --dry-run --skip-build",
+        "cwd": "{workspaceRoot}"
+      }
+    }
+  }
+}

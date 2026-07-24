@@ -1,0 +1,36 @@
+/**
+ * @license
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2020-2026 Houssemeddine LAOUITI (Wiforge)
+ * https://www.wiforge.com
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root of this repository.
+ * 
+ */
+
+@mixin averos-scrollbar-theme($theme) {   
+        
+::-webkit-scrollbar {
+      width: 8px;
+      }
+      /* Track */
+      ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey;
+      border-radius: 10px;
+      }
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+      // background: rgba(mat-color($primary), .95);
+      background:  lightgrey;
+      // background-color: rgba(0,0,0,.5);
+      border-radius: 10px;
+      }
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+      // background: mat-color($primary);
+      background: grey;
+      }
+
+}

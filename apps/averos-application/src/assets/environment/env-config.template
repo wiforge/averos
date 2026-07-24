@@ -1,0 +1,59 @@
+{
+    "configurationItems": [
+        {
+            "id": "${AUTH_SERVICE_ID}",
+            "type": "${AUTH_SERVICE_TYPE}",
+            "apiHost": "${AUTH_SERVICE_HOST}",
+            "apiPort": "${AUTH_SERVICE_PORT}",
+            "apiProtocol": "${AUTH_SERVICE_PROTOCOL}",
+            "apiHTTPQueryBuilder": "${AUTH_SERVICE_QUERY_BUILDER}",
+            "apiEndPoint": "${AUTH_SERVICE_END_POINT}"
+        },
+        {
+            "id": "${USER_SERVICE_ID}",
+            "type": "${USER_SERVICE_TYPE}",
+            "apiHost": "${USER_SERVICE_HOST}",
+            "apiPort": "${USER_SERVICE_PORT}",
+            "apiProtocol": "${USER_SERVICE_PROTOCOL}",
+            "apiHTTPQueryBuilder": "${USER_SERVICE_QUERY_BUILDER}",
+            "apiEndPoint": "${USER_SERVICE_END_POINT}"
+        },
+         {
+            "id": "${REFERENTIAL_SERVICE_ID}",
+            "type": "${REFERENTIAL_SERVICE_TYPE}",
+            "apiHost": "${REFERENTIAL_SERVICE_HOST}",
+            "apiPort": "${REFERENTIAL_SERVICE_PORT}",
+            "apiProtocol": "${REFERENTIAL_SERVICE_PROTOCOL}",
+            "apiHTTPQueryBuilder": "${REFERENTIAL_SERVICE_QUERY_BUILDER}",
+            "apiEndPoint": "${REFERENTIAL_SERVICE_END_POINT}"
+        },
+        {
+            "id": "${MY_AVEROS_APPLICATION_SERVICE_ID}",
+            "type": "${MY_AVEROS_APPLICATION_SERVICE_TYPE}",
+            "apiHost": "${MY_AVEROS_APPLICATION_SERVICE_HOST}",
+            "apiPort": "${MY_AVEROS_APPLICATION_SERVICE_PORT}",
+            "apiProtocol": "${MY_AVEROS_APPLICATION_SERVICE_PROTOCOL}",
+            "apiHTTPQueryBuilder": "${MY_AVEROS_APPLICATION_SERVICE_QUERY_BUILDER}",
+            "apiEndPoint": "${MY_AVEROS_APPLICATION_SERVICE_END_POINT}"
+        },
+        {
+            "id": "${DASHBOARD_SERVICE_ID}",
+            "type": "${DASHBOARD_SERVICE_TYPE}",
+            "apiHost": "${DASHBOARD_SERVICE_HOST}",
+            "apiPort": "${DASHBOARD_SERVICE_PORT}",
+            "apiProtocol": "${DASHBOARD_SERVICE_PROTOCOL}",
+            "apiHTTPQueryBuilder": "${DASHBOARD_SERVICE_QUERY_BUILDER}",
+            "apiEndPoint": "${DASHBOARD_SERVICE_END_POINT}"
+        },
+        {
+            "id": "${AVEROS_CODE_GEN_SERVICE_ID}",
+            "type": "${AVEROS_CODE_GEN_SERVICE_TYPE}",
+            "apiHost": "${AVEROS_CODE_GEN_SERVICE_HOST}",
+            "apiPort": "${AVEROS_CODE_GEN_SERVICE_PORT}",
+            "apiProtocol": "${AVEROS_CODE_GEN_SERVICE_PROTOCOL}",
+            "apiHTTPQueryBuilder": "${AVEROS_CODE_GEN_SERVICE_QUERY_BUILDER}",
+            "apiEndPoint": "${AVEROS_CODE_GEN_SERVICE_END_POINT}"
+        }
+    ]
+
+}

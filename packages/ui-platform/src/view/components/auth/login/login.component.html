@@ -1,0 +1,220 @@
+<div class="login-form" animate.enter="slide-enter" animate.leave="slide-leave">
+
+  <!-- Credentials Form (Only shown if credentials providers exist) -->
+  @if (hasCredentialsAuth) {
+    <form #registerF [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-card appearance="outlined" class="mat-elevation-z6">
+        <mat-card-header>
+          <mat-card-title i18n="@@user.login">Login</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        
+        <!-- Form Fields -->
+        <mat-card-content class="flex-col align-center m-t-16">
+          <!-- Username Field -->
+          <mat-form-field appearance="outline" class="form-field-full-width">
+            <mat-label i18n="@@user.userName">Email / Username</mat-label>
+            <mat-icon [safeIcon]="'person'" color="accent" matPrefix></mat-icon>
+            <input 
+              i18n-placeholder="@@user.userName.placeholder" 
+              matInput 
+              placeholder="Email or Username" 
+              formControlName="username"
+              type="email"
+              autocomplete="username" 
+              required>
+            @if (loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched) {
+              <mat-error>
+                Email / Username is <strong>required</strong>
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Password Field -->
+          <mat-form-field appearance="outline" class="form-field-full-width">
+            <mat-label i18n="@@user.passwordmsg">Enter your password</mat-label>
+            <mat-icon [safeIcon]="'lock'" color="accent" matPrefix></mat-icon>
+            <input 
+              autocomplete="new-password" 
+              matInput 
+              [type]="hidePassword ? 'password' : 'text'" 
+              placeholder="password" 
+              i18n-placeholder="@@user.password" 
+              formControlName="password" 
+              required 
+              maxlength="32">
+            <mat-icon 
+              [safeIcon]="hidePassword ? 'visibility_off' : 'visibility'" 
+              color="accent" 
+              matSuffix 
+              style="cursor: pointer;"
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="'Toggle password visibility'"
+              [attr.aria-pressed]="!hidePassword">
+            </mat-icon>
+            <mat-hint>Password must be 8-32 characters long</mat-hint>
+            @if (loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched) {
+              <mat-error>
+                Password is <strong>required</strong>
+              </mat-error>
+            }
+            @if (loginForm.controls['password'].hasError('minLength') && loginForm.controls['password'].touched) {
+              <mat-error>
+                Password must be at least <strong>8 characters</strong>
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Remember Me & Forgot Password -->
+          <div class="flex-row m-t-4 m-b-8 full-width">
+            <mat-checkbox 
+              class="flex justify-start" 
+              i18n="@@user.rememberme" 
+              formControlName="rememberMeChecked">
+              Remember me
+            </mat-checkbox>
+            <a 
+              class="mat-small forgot-password flex justify-end items-center" 
+              color="accent" 
+              i18n="@@user.forgotpassword" 
+              routerLink="/passwordreset">
+              Forgot your password?
+            </a>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="flex-col">
+          <div class="flex-row items-center full-width p-b-16">
+            <button 
+              i18n="@@user.login" 
+              mat-raised-button 
+              color="primary" 
+              type="submit" 
+              [disabled]="loginForm.invalid || isLoading">
+              @if (isCredentialsLoading()) {
+                <mat-spinner class="inline-spinner" [diameter]="24"></mat-spinner>
+              }
+              @if (!isCredentialsLoading()) {
+                <span>Login</span>
+              }
+            </button>
+            <div class="flex-auto"></div>
+            <i 
+              i18n="@@user.donthaveaccount" 
+              routerLink="/register" 
+              class="mat-small dont-have-account pointer"
+              [class.disabled]="isLoading">
+              Don't have an account? <br/> Please register here
+            </i>
+          </div>
+
+          <!-- Delegated Providers Section -->
+          @if (hasDelegatedAuth) {
+            <div class="social-login-container full-width">
+              <!-- Divider -->
+              <div class="divider-container m-v-16">
+                <span class="divider-line"></span>
+                <span class="divider-text mat-small" i18n="@@user.or">OR LOGIN WITH</span>
+                <span class="divider-line"></span>
+              </div>
+
+              <!-- Dynamic Provider Buttons -->
+              <div class="flex-row justify-center gap-16">
+                @for (provider of delegatedProviders; track provider.name) {
+                  <button 
+                    type="button" 
+                    mat-icon-button 
+                    (click)="loginWithProvider(provider.name)" 
+                    [matTooltip]="provider.metadata.tooltip"
+                    [disabled]="isLoading"
+                    [class.loading]="isProviderLoading(provider.name)">
+                    @if (isProviderLoading(provider.name)) {
+                      <mat-spinner color="accent" diameter="32"></mat-spinner>
+                    }
+                    @if (!isProviderLoading(provider.name)) {
+                      <mat-icon 
+                        [safeIcon]="provider.metadata.icon!" 
+                        class="icon-48 social-icon">
+                      </mat-icon>
+                    }
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  }
+
+  <!-- Delegated-Only Layout (No credentials form) -->
+  @if (!hasCredentialsAuth && hasDelegatedAuth) {
+    <mat-card appearance="outlined" class="mat-elevation-z6">
+      <mat-card-header>
+        <mat-card-title i18n="@@user.login">Login</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+
+      <mat-card-content class="flex-col align-center m-t-16">
+          <div class="divider-container m-v-16">
+            <span class="divider-line"></span>
+            <span class="divider-text mat-small" i18n="@@auth.favorite_provider">SignIn with your favorite provider</span>
+            <span class="divider-line"></span>
+          </div>
+
+        <!-- Dynamic Provider Buttons -->
+        <div class="flex-row justify-center gap-16 flex-wrap">
+          @for (provider of delegatedProviders; track provider.name) {
+            <button 
+              type="button"
+              mat-raised-button
+              color="primary"
+              (click)="loginWithProvider(provider.name)" 
+              [disabled]="isLoading"
+              class="provider-button">
+              @if (isProviderLoading(provider.name)) {
+                <mat-spinner diameter="20" style="margin-right: 8px;"></mat-spinner>
+              }
+              @if (!isProviderLoading(provider.name)) {
+                <mat-icon 
+                  [safeIcon]="provider.metadata.icon!" 
+                  style="margin-right: 8px;">
+                </mat-icon>
+              }
+              <span>{{ provider.metadata.displayName }}</span>
+            </button>
+          }
+        </div>
+      </mat-card-content>
+
+      <!-- <mat-card-actions class="flex-col">
+        <div class="flex-row items-center full-width p-b-16 justify-center">
+          <i 
+            i18n="@@user.donthaveaccount" 
+            routerLink="/register" 
+            class="mat-small dont-have-account pointer"
+            [class.disabled]="isLoading">
+            Don't have an account? <br/> Please register here
+          </i>
+        </div>
+      </mat-card-actions> -->
+    </mat-card>
+  }
+
+  <!-- No Providers Configured -->
+  @if (!hasCredentialsAuth && !hasDelegatedAuth) {
+    <mat-card appearance="outlined" class="mat-elevation-z6">
+      <mat-card-header>
+        <mat-card-title i18n="@@auth.not_configured">Authentication Not Configured</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="flex-col align-center m-t-16">
+        <p i18n="@@auth.not_configured.msg" class="mat-body-1 text-center">
+          No authentication providers are currently configured.
+          Please configure at least one authentication provider to continue.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  }
+
+</div>

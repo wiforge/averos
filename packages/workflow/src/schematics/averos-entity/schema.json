@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsAddAverosEntity",
+  "title": "Generates a new Averos Entity (along with its service if createService is true) then register it",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name of the entity.",
+      "type": "string",
+      "minLength": 1,
+      "x-prompt": "What is the name of the Entity you would like to create?"
+    },
+    "sname": {
+      "description": "The name of the related entity service.",
+      "type": "string",
+      "default": "noname",
+      "x-prompt": "What is the name of the service related to this entity (default = YourEntityNameService)?"
+    },
+    "createService": {
+      "description": "Triggers the creation of the related entity service",
+      "type": "boolean",
+      "default": false,
+      "x-prompt": "Would you like to create a service for your entity (NO)?"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the service.",
+      "visible": false,
+      "$default": {
+        "$source": "workingDirectory"
+       }
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+   },
+  "required": [
+    "name"
+  ]
+}

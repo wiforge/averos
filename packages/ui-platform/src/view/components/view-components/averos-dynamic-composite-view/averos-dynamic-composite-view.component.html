@@ -1,0 +1,122 @@
+<div class="averos-composite-view">
+
+    <ng-container *ngTemplateOutlet="((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable | toCompositeViewLayout | async)?.containerType ==='COMPOSITE' 
+                                ? compositeView: simpeView ">
+  </ng-container>
+
+  <!-- SIMPLE VIEW -->
+  <ng-template #simpeView>
+    <div animationDuration="300ms">
+      <averos-dynamic-simple-view [useCaseConfig]="useCaseConfig"
+        [editModeActivated]="editModeActivated"
+        [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+        [reactiveForm]="reactiveForm"
+        (isFormModified)="formModified($event)"
+        (onCompositeRelationActionEvent)="onCompositeRelationAction($event)">
+      </averos-dynamic-simple-view>
+    </div>
+  </ng-template>
+
+  <!-- COMPOSITE VIEW -->
+  <ng-template #compositeView>
+        <ng-container *ngTemplateOutlet="((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable | toCompositeViewLayout | async)?.viewLayout ==='tab' 
+                                    ? tabbedCompositeView: inlineCompositeView ">
+    </ng-container>
+
+    <ng-template #tabbedCompositeView>
+      <!-- the minimum height is added to mat tab group in order to force the page (parent) not scrolling to top-->
+      <!--   when a tab index is changed (selected)-->
+      <mat-tab-group dynamicHeight animationDuration="300ms" style="min-height: 50px;" mat-stretch-tabs="false" mat-align-tabs="start">
+
+        <!-- iterate over TransformedCompositeViewLayout.transformedCompositeViewLayoutGroups=CompositeViewLayoutGroup[] -->
+        @for (compositeViewLayoutGroup of ((((entityUseCaseViewLayout$ | async)?.ucViewLayout)) | toObservable
+          | toCompositeViewLayout | async)?.transformedCompositeViewLayoutGroups ?? [] | sortCollectionBy: 'asc':'order'; track $index) {
+
+          <!-- PARENT VIEW -->
+          @if(compositeViewLayoutGroup.isParent){
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon [safeIcon]="'tag'"></mat-icon>
+                {{((entityUseCaseViewLayout$ | async)?.parentEntityLabel ?? '' | translate:(entityUseCaseViewLayout$ | async)?.parentEntityLabelTranslationId)}}
+              </ng-template>
+              <averos-dynamic-simple-view [useCaseConfig]="useCaseConfig"
+                [editModeActivated]="editModeActivated"
+                [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+                [reactiveForm]="reactiveForm"
+                (isFormModified)="formModified($event)"
+                (onCompositeRelationActionEvent)="onCompositeRelationAction($event)">
+              </averos-dynamic-simple-view>
+            </mat-tab>
+          }
+          <!-- COLLECTION (CHILD) VIEW -->
+          @let exprEval = evaluateExpression(useCaseConfig.entity,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName);
+          @if((!compositeViewLayoutGroup.isParent && compositeViewLayoutGroup?.relationType === 'collection')
+            || (exprEval!== null && exprEval !== undefined && compositeViewLayoutGroup?.relationType === 'composite')){
+            <mat-tab [disabled]="useCaseConfig.useCase===useCase.CREATE && !$any(useCaseConfig.entity).idName">
+              <ng-template mat-tab-label>
+                <ng-container *ngTemplateOutlet="compositeViewLayoutGroup?.relationType === 'collection' ? collectionEntityTab : simpleCompositeEntityTab">
+                </ng-container>
+                <!-- Show Collection count in case the relation is a collection-->
+                <ng-template #collectionEntityTab>
+                  <span [matBadge]="getCollectionCount(useCaseConfig.entity!,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                    matBadgeColor="accent"
+                    matBadgeSize="small"
+                    matBadgeOverlap="false">
+                  {{(compositeViewLayoutGroup?.transformedViewLayoutGroup[0]?.groupedFieldsLayout[0]?.label | translate:compositeViewLayoutGroup?.transformedViewLayoutGroup[0]?.groupedFieldsLayout[0]?.labelTranslationID)}}</span>
+                </ng-template>
+                <!-- Show the composite entity label on the tab in case the relation is one to one-->
+                <ng-template #simpleCompositeEntityTab>
+                  {{(compositeViewLayoutGroup?.transformedViewLayoutGroup[0]?.groupedFieldsLayout[0]?.label | translate:compositeViewLayoutGroup?.transformedViewLayoutGroup[0]?.groupedFieldsLayout[0]?.labelTranslationID)}}
+                </ng-template>
+              </ng-template>
+
+              <!-- not parent (tabbed view) => check relation type 1->n (collection) or 1->1 (composite) -->
+              @if (compositeViewLayoutGroup?.relationType === 'collection') {
+                <averos-dynamic-table #averosDynamicTable
+                  [showRowActions]="useCaseConfig.useCase === useCase.CREATE || useCaseConfig.useCase === useCase.EDIT || useCaseConfig.useCase === useCase.UPDATE"
+                  [showFilterComponent]="true"
+                  [selectable]="true"
+                  [filterComponentLabel]="'Search Filter'"
+                  [filterComponentLabelTranslationID]="'app.filter'"
+                  [filterKey]="'any key'"
+                  [viewLayout]="(getEntityViewLayout(((entityUseCaseViewLayout$ | async)!.entityType!), compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName) | async)!"
+                  [useCaseConfig]="getCollectionRelationEntityUseCaseConfig(((entityUseCaseViewLayout$ | async)!.entityType!), compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                  (deleteObject)="onDeleteRelationCollectionItem({itemSubjectToAction: $event, relationName: compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName})"
+                  (deleteMany)="onDeleteManyRelationCollectionItem({itemsSubjectToAction: $event, relationName: compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName})"
+                  (addObject)="onAddRelationCollectionItem(compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                  (resetReloadData)="resetTableReloadData($event)"
+                  [reloadData]="reloadData">
+                </averos-dynamic-table>
+              }
+              @if (compositeViewLayoutGroup?.relationType === 'composite') {
+                @if (evaluateExpression(useCaseConfig.entity,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)!== null && evaluateExpression(useCaseConfig.entity,compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName) !== undefined) {
+                  <averos-dynamic-simple-view
+                    [useCaseConfig]="getCompositeRelationEntityUseCaseConfig((entityUseCaseViewLayout$ | async)!.entityType!, compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                    [editModeActivated]="editModeActivated"
+                    [entityUseCaseViewLayout$]="getCompositeRelationUseCaseViewLayout((entityUseCaseViewLayout$ | async)!.entityType!, compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)"
+                    [reactiveForm]="getCompositeRelationEntityReactiveForm((entityUseCaseViewLayout$ | async)!.entityType!, compositeViewLayoutGroup.transformedViewLayoutGroup[0].groupedFieldsLayout[0].entityFieldName)">
+                  </averos-dynamic-simple-view>
+                }
+              }
+            </mat-tab>
+          }
+        }
+
+      </mat-tab-group>
+    </ng-template>
+
+    <ng-template #inlineCompositeView>
+      <div animationDuration="300ms">
+        <averos-dynamic-simple-view [useCaseConfig]="useCaseConfig"
+          [editModeActivated]="editModeActivated"
+          [entityUseCaseViewLayout$]="entityUseCaseViewLayout$"
+          [reactiveForm]="reactiveForm"
+          (isFormModified)="formModified($event)"
+          (onCompositeRelationActionEvent)="onCompositeRelationAction($event)">
+        </averos-dynamic-simple-view>
+      </div>
+
+    </ng-template>
+
+  </ng-template>
+</div>

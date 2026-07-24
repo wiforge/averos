@@ -1,0 +1,28 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/cli"
+    },
+    {
+      "path": "./packages/ai"
+    },
+    {
+      "path": "./packages/mcp"
+    },
+    {
+      "path": "./packages/workflow"
+    },
+    {
+      "path": "./scripts"
+    },
+    {
+      "path": "./apps/averos-application"
+    },
+    {
+      "path": "./apps/averos-application-e2e"
+    }
+  ]
+}

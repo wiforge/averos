@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "@angular/localize"],
+    "paths": {
+      "@averos/ui-platform": ["../../packages/ui-platform/dist/fesm2022/averos-ui-platform.mjs"]
+    }
+  },
+  "files": ["src/main.ts"], 
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
+}

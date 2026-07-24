@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "SchematicsActionParameters",
+  "title": "Configures the parameters ",
+  "type": "object",
+  "properties": {
+    "validationParameters": {
+        "description": "The validation parameters used with the validation method (comma-separated values).",
+        "type": "string",
+        "minLength": 1,
+        "x-prompt": "Your validation action needs validation parameters values. Please insert the applicable values in a comma-separated form. Ex. value1,value2..."
+      }
+    },
+  "required": [
+    "validationParameters"
+  ]
+}
