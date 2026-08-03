@@ -276,10 +276,10 @@ $darnet-dark-theme:   mat.m2-define-dark-theme((
       }
 
       //// Styling all mat-hint
-      fieldset.fieldset-register>*.mat-mdc-form-field-hint,
-      fieldset.fieldset-register>*mat-hint,
-      fieldset.averos-fieldset>*.mat-mdc-form-field-hint,
-      fieldset.averos-fieldset>*mat-hint,
+      fieldset.fieldset-register> * .mat-mdc-form-field-hint,
+      fieldset.fieldset-register> * mat-hint,
+      fieldset.averos-fieldset> * .mat-mdc-form-field-hint,
+      fieldset.averos-fieldset> * mat-hint,
       *>mat-hint { 
         color: #ffffffb3; 
       }

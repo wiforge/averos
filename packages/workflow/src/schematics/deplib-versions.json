@@ -6,8 +6,8 @@
         "@averos/workflow": "2.0.0",
         "@averos/ui-platform": "2.0.0",
         "@angular/material": "~21.2.6",
-        "@angular/cdk": "~21.2.6",
-        "@angular/localize": "~21.2.9",
+        "@angular/cdk": "~22.0.4",
+        "@angular/localize": "~22.0.6",
         "file-saver": "2.0.5"
     },
     "externalDependencies": {
