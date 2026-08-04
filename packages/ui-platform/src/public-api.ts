@@ -28,7 +28,7 @@ export * from './averos-core/averos-application.component';
 
 /*** added after IVY was complaining */
 export * from './averos-core/material-module';
-/************************************* */
+
 
 
 

@@ -63,15 +63,6 @@
       </app-github>
       } <!-- fxHide.lt-sm : hides the component on smaller device, eg. phone / replaces *ngIf="!isHandset" -->
 
-      <!-- AVEROS DESIGNER COMPONENT-->
-      @if (activateAverosDesigner) {
-        <button  mat-icon-button [routerLink]="['/averosdesigner']"
-          class="averos-toolbar-button"
-          (click)="handleEvent({open: true, eventType: 'openDesigner'})"
-          [matTooltip]="'Open designer'| translate: 'app.opendesigner'">
-          <mat-icon [safeIcon]="'design_services'"></mat-icon>
-        </button>
-      }
       <!-- Switch FULLSCREEN COMPONENT-->
       @if (!isHandset || isHandset === null || isHandset === undefined) {
         <button

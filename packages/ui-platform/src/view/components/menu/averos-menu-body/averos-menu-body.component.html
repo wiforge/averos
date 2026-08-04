@@ -1,7 +1,6 @@
 <!-- In order to use ng-content multiple times in the same component
 we need to declare it as a template then using as many times as needed
 otherwise, ng-content will be used in only one place -->
-<ng-container *ngTemplateOutlet="ngContent"></ng-container>
 <ng-template #ngContent><ng-content></ng-content></ng-template>
 
 <ng-container *ngTemplateOutlet="logged || !enableAuthentication ? loggedSpace : freeSpace"></ng-container>

@@ -10,25 +10,30 @@
  *
  */
 
-
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AlertService, ApplicationMenuService, ApplicationNavigationItem, ApplicationSharedService, ProfileLanguage, ViewEventHandlerService } from '@averos/core';
-
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core'
+import { Observable } from 'rxjs'
+import { map, shareReplay } from 'rxjs/operators'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import {
+  AlertService,
+  ApplicationMenuService,
+  ApplicationNavigationItem,
+  ApplicationSharedService,
+  ProfileLanguage,
+  ViewEventHandlerService,
+} from '@averos/core'
 
 /// ###################### Application Settings ####################
 export interface AppSettings {
-  navPos?: 'side' | 'top';
-  dir?: 'ltr' | 'rtl';
-  theme?: 'light' | 'dark';
-  showHeader?: boolean;
-  headerPos?: 'fixed' | 'static' | 'above';
-  showUserPanel?: boolean;
-  sidenavOpened?: boolean;
-  sidenavCollapsed?: boolean;
-  language?: string;
+  navPos?: 'side' | 'top'
+  dir?: 'ltr' | 'rtl'
+  theme?: 'light' | 'dark'
+  showHeader?: boolean
+  headerPos?: 'fixed' | 'static' | 'above'
+  showUserPanel?: boolean
+  sidenavOpened?: boolean
+  sidenavCollapsed?: boolean
+  language?: string
 }
 
 export const defaultOptions: AppSettings = {
@@ -41,37 +46,29 @@ export const defaultOptions: AppSettings = {
   sidenavOpened: true,
   sidenavCollapsed: false,
   language: 'en-US',
-};
-
-
-
+}
 
 @Component({
-    selector: 'averos-menu',
-    templateUrl: './averos-menu.component.html',
-    styleUrls: ['./averos-menu.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'averos-menu',
+  templateUrl: './averos-menu.component.html',
+  styleUrls: ['./averos-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AverosMenuComponent implements OnInit {
+  @Input() logged
+  @Input() currentLoggedUserProfile
+  @Input() languageProfileSet$!: Observable<ProfileLanguage[]>
+  @Input() activateAverosSettingsWidget!: boolean
+  @Input() activateGlobalSearchWidget!: boolean
+  @Input() activateDefaultGitWidget!: boolean
+  @Input() enableAuthentication!: boolean
+  rightSideNavOpened = false
 
-  @Input() openDesigner = false;
-  @Input() logged;
-  @Input() currentLoggedUserProfile;
-  @Input() languageProfileSet$!: Observable<ProfileLanguage[]>;
-  @Input() activateAverosSettingsWidget!: boolean;
-  @Input() activateGlobalSearchWidget!: boolean;
-  @Input() activateDefaultGitWidget!: boolean;
-  @Input() activateAverosDesigner!: boolean;
-  @Input() enableAuthentication!: boolean;
-  rightSideNavOpened = false;
-
-  isHandset$: Observable<boolean> = this.breakpointObserver
-  .observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map((result) => result.matches),
+    shareReplay(),
+  )
 
   options: AppSettings = {
     navPos: 'side',
@@ -83,54 +80,53 @@ export class AverosMenuComponent implements OnInit {
     sidenavOpened: true,
     sidenavCollapsed: false,
     language: 'en-US',
-  };
+  }
 
+  toolBarNavigationItems$!: Observable<ApplicationNavigationItem[]>
+  sideNavNavigationItems$!: Observable<ApplicationNavigationItem[]>
 
-  toolBarNavigationItems$!: Observable<ApplicationNavigationItem[]>;
-  sideNavNavigationItems$!: Observable<ApplicationNavigationItem[]>;
-
-  constructor(private breakpointObserver: BreakpointObserver,
-              private appSharedService: ApplicationSharedService,
-              private viewEventHandlerService: ViewEventHandlerService,
-              private applicationMenuService: ApplicationMenuService,
-              private alertService: AlertService) { }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private appSharedService: ApplicationSharedService,
+    private viewEventHandlerService: ViewEventHandlerService,
+    private applicationMenuService: ApplicationMenuService,
+    private alertService: AlertService,
+  ) {}
 
   ngOnInit(): void {
-    this.buildNavigationItems();
+    this.buildNavigationItems()
   }
 
   get alertservice() {
-    return AlertService;
+    return AlertService
   }
 
-
-  handleEvent(eventAction) {/// OnThemeChange
-    this.viewEventHandlerService.handleEvent(eventAction);
+  handleEvent(eventAction) {
+    this.viewEventHandlerService.handleEvent(eventAction)
   }
 
   get appSharedSrv(): ApplicationSharedService {
-    return this.appSharedService;
+    return this.appSharedService
   }
 
   buildNavigationItems() {
-    this.toolBarNavigationItems$  = this.applicationMenuService.getTopMenu();
-    this.sideNavNavigationItems$ = this.applicationMenuService.getSideMenu();
+    this.toolBarNavigationItems$ = this.applicationMenuService.getTopMenu()
+    this.sideNavNavigationItems$ = this.applicationMenuService.getSideMenu()
   }
 
-  get notificationService(){
-    return this.alertService;
+  get notificationService() {
+    return this.alertService
   }
 
-  openRightSideNav(event: boolean){
-    this.rightSideNavOpened = !this.rightSideNavOpened;
+  openRightSideNav(event: boolean) {
+    this.rightSideNavOpened = !this.rightSideNavOpened
   }
 
-  showSettingsWidget(): boolean{
-    return (this.logged || !this.enableAuthentication) && this.activateAverosSettingsWidget;
-  }
-  
-  showMenuFooter(): boolean{
-    return this.logged || !this.enableAuthentication;
+  showSettingsWidget(): boolean {
+    return (this.logged || !this.enableAuthentication) && this.activateAverosSettingsWidget
   }
 
+  showMenuFooter(): boolean {
+    return this.logged || !this.enableAuthentication
+  }
 }

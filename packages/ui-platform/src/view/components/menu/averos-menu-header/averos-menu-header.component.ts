@@ -33,7 +33,6 @@ export class AverosMenuHeaderComponent implements OnInit {
   @Input() languageProfileSet$?: Observable<ProfileLanguage[]>;
   @Input() activateGlobalSearchWidget?: boolean;
   @Input() activateDefaultGitWidget?: boolean;
-  @Input() activateAverosDesigner?: boolean;
   @Input() enableAuthentication?: boolean;
 
   @Output() eventHandler: EventEmitter<any> = new EventEmitter<any>();

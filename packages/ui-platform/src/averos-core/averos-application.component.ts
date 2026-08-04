@@ -38,18 +38,15 @@ export class AverosApplicationComponent implements OnDestroy, OnInit {
 
   @Input() activateAverosSettingsWidget: boolean = false; /// default true (show settings)
   @Input() activateGlobalSearchWidget: boolean = false; /// default true (show search)
-  @Input() activateDefaultGitWidget: boolean = false; /// default true (show my git)
-  @Input() activateAverosDesigner: boolean = false; /// show averos designer icon
+  @Input() activateDefaultGitWidget: boolean = false; /// default true (show git)
   
   protected enableAuthentication: boolean = false;
 
   currentUserProfile!: AuthUser;
   supportedLanguages!: Observable<ProfileLanguage[]>;
   authSubscription!: Subscription;
-  onOpenDesignerSubscription!: Subscription;
   routerSubscription!: Subscription;
 
-  openDesigner!: boolean;
   
   get darkThemeActivated(){
     return this.appSharedService.darkThemeActivated;
@@ -74,21 +71,7 @@ export class AverosApplicationComponent implements OnDestroy, OnInit {
                     code: e,
                     icon: e === 'en' ? 'gb' : e
                   } as ProfileLanguage)));
-    this.designerEventHandler();
 
-    if (location.pathname.includes('averosdesigner')){
-    this.openDesigner = true;
-    } else {
-    this.openDesigner = false;
-    }
-
-    this.routerSubscription = this.router.events.subscribe((event: Event) => {
-    if (event instanceof NavigationStart) {
-    if (!event.url.includes('averosdesigner')){
-    this.openDesigner = false;
-    }
-    }
-    });
   }
 
   ngOnInit(): void {
@@ -115,20 +98,11 @@ export class AverosApplicationComponent implements OnDestroy, OnInit {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
-    this.onOpenDesignerSubscription?.unsubscribe();
     this.routerSubscription?.unsubscribe();
   }
 
   get authService(): AverosAuthService {
     return this.authenticationService;
-  }
-
-
-  designerEventHandler(){
-    this.onOpenDesignerSubscription = this.appSharedService.onOpenDesigner.subscribe(openDesigner =>{
-      this.openDesigner = openDesigner;
-    });
-
   }
 
 }

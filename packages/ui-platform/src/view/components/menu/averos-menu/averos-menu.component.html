@@ -1,50 +1,38 @@
-<ng-container *ngTemplateOutlet="designerContent"></ng-container>
-<ng-template #designerContent><ng-content></ng-content></ng-template>
 
-<ng-container *ngTemplateOutlet="openDesigner ? designer : menu"></ng-container>
+<div class="averos-container-wrap averos-navbar-side averos-header-fixed averos-header-white"
+  [dir]="'ltr'">
+  <averos-menu-header
+    [navItems]="(toolBarNavigationItems$ | async) ?? undefined"
+    [isHandset]="isHandset$ | async"
+    [logged]="logged"
+    [enableAuthentication]="enableAuthentication"
+    [currentLoggedUserProfile]="currentLoggedUserProfile"
+    [isDarkThemeActive]="appSharedSrv.isDarkThemeActive()"
+    [languageProfileSet$]="languageProfileSet$"
+    [activateGlobalSearchWidget]="activateGlobalSearchWidget"
+    [activateDefaultGitWidget]="activateDefaultGitWidget"
+    (eventHandler)="handleEvent($event)">
+  </averos-menu-header>
+  <averos-menu-body   [sideNavItems$]="sideNavNavigationItems$"
+    [isHandset]="isHandset$ | async"
+    [logged]="logged"
+    [enableAuthentication]="enableAuthentication"
+    [currentLoggedUserProfile]="currentLoggedUserProfile"
+    [rightSideNavOpened]="rightSideNavOpened">
+    <averos-app-notification [role]="'GlobalAlerts'"></averos-app-notification>
+    <ng-content></ng-content>
+  </averos-menu-body>
 
-<ng-template #designer>
-  <!-- <averos-app-notification [role]="'GlobalLoading'"></averos-app-notification> -->
-  <ng-container *ngTemplateOutlet="designerContent"></ng-container>
-</ng-template>
-
-<ng-template #menu>
-  <div class="averos-container-wrap averos-navbar-side averos-header-fixed averos-header-white"
-    [dir]="'ltr'">
-    <averos-menu-header
-      [navItems]="(toolBarNavigationItems$ | async) ?? undefined"
-      [isHandset]="isHandset$ | async"
-      [logged]="logged"
-      [enableAuthentication]="enableAuthentication"
-      [currentLoggedUserProfile]="currentLoggedUserProfile"
-      [isDarkThemeActive]="appSharedSrv.isDarkThemeActive()"
-      [languageProfileSet$]="languageProfileSet$"
-      [activateGlobalSearchWidget]="activateGlobalSearchWidget"
-      [activateDefaultGitWidget]="activateDefaultGitWidget"
-      [activateAverosDesigner]="activateAverosDesigner"
-      (eventHandler)="handleEvent($event)">
-    </averos-menu-header>
-    <averos-menu-body   [sideNavItems$]="sideNavNavigationItems$"
-      [isHandset]="isHandset$ | async"
-      [logged]="logged"
-      [enableAuthentication]="enableAuthentication"
-      [currentLoggedUserProfile]="currentLoggedUserProfile"
-      [rightSideNavOpened]="rightSideNavOpened">
-      <averos-app-notification [role]="'GlobalAlerts'"></averos-app-notification>
-      <ng-container *ngTemplateOutlet="designerContent"></ng-container>
-    </averos-menu-body>
-
-    @if (showSettingsWidget()) {
-      <averos-settings
-        [isHandset]="(isHandset$ | async) ?? false"
-        (openRightSideNavEvent)="openRightSideNav($event)">
-      </averos-settings>
-    }
-    @if (showMenuFooter()) {
-      <averos-menu-footer
-        [isHandset]="(isHandset$ | async)"
-        [logged]="this.logged">
-      </averos-menu-footer>
-    }
-  </div>
-</ng-template>
+  @if (showSettingsWidget()) {
+    <averos-settings
+      [isHandset]="(isHandset$ | async) ?? false"
+      (openRightSideNavEvent)="openRightSideNav($event)">
+    </averos-settings>
+  }
+  @if (showMenuFooter()) {
+    <averos-menu-footer
+      [isHandset]="(isHandset$ | async)"
+      [logged]="this.logged">
+    </averos-menu-footer>
+  }
+</div>
