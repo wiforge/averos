@@ -196,7 +196,7 @@ useCaseViewLayout!: Observable<UseCaseViewLayout<<%= classify(ename) %>>|null>;
         }}); 
     } else if (this.useCaseConfig.useCase === UseCase.EDIT){
         let entityId = TypeScriptTypeMetaDatatHandler.instance.getIdName(this.useCaseConfig.entityType);
-        this.componentNewValue[entityId as keyof <%= classify(ename) %>] = (this.useCaseConfig.entity as any)[entityId];
+        this.componentNewValue[entityId] = (this.useCaseConfig.entity as Indexable)[entityId];
         this.updateEntitySubscription = this.entityService.updateEntity(this.componentNewValue).subscribe({
           next: (submittedEntity: <%= classify(ename) %> | null) => {
             this.alertService.success($localize`:@@uc.update.entity:Entity ${(submittedEntity as Indexable)[TypeScriptTypeMetaDatatHandler.instance.getBusinessIdName(this.useCaseConfig.entityType)]}:entity:

@@ -28,7 +28,7 @@ export class AverosMenuHeaderComponent implements OnInit {
   @Input() isHandset;
   @Input() logged;
   @Input() currentLoggedUserProfile?: AuthUser;
-  @Input() isDarkThemeActive;
+  @Input() isDarkThemeActive!: boolean;
   @Input() navItems?: ApplicationNavigationItem[];
   @Input() languageProfileSet$?: Observable<ProfileLanguage[]>;
   @Input() activateGlobalSearchWidget?: boolean;
