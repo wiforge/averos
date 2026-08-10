@@ -2,7 +2,7 @@
 
 > Workflow runtime and Angular Schematics adapter for the Averos execution platform.
 
-`@averos/workflow` provides the concrete workflow implementation used by the Averos execution engine. It bridges the generic execution model defined by the Averos DAG engine with Angular DevKit Schematics, enabling deterministic generation, transformation, and evolution of applications from execution plans.
+`@averos/workflow` provides a concrete workflow execution adapter implementation used by the Averos execution engine. It bridges the generic execution model defined by the Averos DAG engine with Angular DevKit Schematics, enabling deterministic generation, transformation, and evolution of applications from execution plans.
 
 The package contains the complete library of Averos custom schematics responsible for generating and updating application artifacts throughout the software lifecycle.
 

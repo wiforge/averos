@@ -136,8 +136,11 @@ function addAverosFramework(options: CreateApplicationOption): Rule {
     const averosVersion = !options.averosVersion
       ? getDependencyLibVersion('@averos/workflow')
       : options.averosVersion
+    
+    const averosUiPlatformVersion = getDependencyLibVersion('@averos/ui-platform')
+
     const localizeVersion = getDependencyLibVersion('@angular/localize')
-    const libraries = [`@averos/workflow@${averosVersion}`, `@angular/localize@${localizeVersion}`]
+    const libraries = [`@averos/workflow@${averosVersion}`, `@averos/ui-platform${averosUiPlatformVersion}`, `@angular/localize@${localizeVersion}`]
 
     // Loop through each library and execute "ng add"
     libraries.forEach((lib) => {

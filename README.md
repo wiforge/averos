@@ -68,15 +68,64 @@ The result is software that is reproducible, explainable, and evolves safely thr
 
 
 
+## 🚀 Try Me
 
 ```bash
 npm install -g @averos/cli
+```
+1- Copy the `ToDo` application manifest to your working folder: [todoapp-manifest.json](/scripts/golden-reference/todoapp-manifest.json)
+
+2- In your working folder, create the following file `averos.config.json` with the content below:
+
+```json
+{
+  "mode":           "resilient",
+  "timeoutMs":      1800000,
+  "development":    "true",
+  "maxAttempts":    1,
+  "workspaceRoot":  "./generated-app",
+  "manifestPath":   "../todoapp-manifest.json",
+  "logsDir":        "./generated-app/averos-logs",
+  "statePath":      "./generated-app/state.json",
+  "checkpointPath": "./generated-app/checkpoints.json"
+}
 
 ```
+
+3- Verify the Plan:
 
 ```bash
-averos run application-manifest.json --workspace=/tmp/myAverosApplication
+averos plan --config=averos.config.json
 ```
+
+4- Generate the application:
+
+Use `--verbose` for better trace 
+
+```bash
+averos run --config=averos.config.json --verbose
+```
+
+This application has **320 nodes** so the generation time may exceed the configured timeout (**30 minutes**) depending on your machine configuration.
+
+Upon timeout failure (timeout = 30 minutes), re-execute the command with `--resume` to resume from last checkpoint :
+
+```bash
+averos run --config=averos.config.json --verbose
+```
+
+5- Explore your application:
+
+Navigate to your application folder then build and serve:
+
+```bash
+cd generated-app/ToDoApp
+npx ng serve 
+```
+
+Open your browser and navigate to : [http://localhost:4200](http://localhost:4200)
+
+Use `admin/admin123` to log into your application (Dummy Auth)
 
 ---
 

@@ -40,6 +40,7 @@ export interface PackageInfo {
  */
 export const REQUIRED_PACKAGES: PackageMetadata[] = [
   { packageName: '@averos/workflow', type: NodeDependencyType.Default },
+  { packageName: '@averos/ui-platform', type: NodeDependencyType.Default },
   { packageName: '@angular/material', type: NodeDependencyType.Default },
   { packageName: '@angular/cdk', type: NodeDependencyType.Default },
   { packageName: '@angular/localize', type: NodeDependencyType.Default },

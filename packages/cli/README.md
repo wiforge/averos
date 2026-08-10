@@ -1,6 +1,6 @@
 # @averos/cli
 
-> The command-line interface for Averos. Run, plan, inspect, and generate Angular applications from manifests — with live progress, per-node logging, and full config-file support.
+> The command-line interface for Averos. Run, plan, inspect, and generate applications from manifests — with live progress, per-node logging, and full config-file support.
 
 ---
 
@@ -121,11 +121,11 @@ averos generate "A blog with posts and comments" \
   --run \
   --dry-run
 
-# Generate and execute with local library
+# Generate and execute with local @averos/workflow library
 averos generate "A project management app" \
   --output=/path/to/manifest.json \
   --run \
-  --tgz=/path/to/wiforge-averos-2.0.0.tgz \
+  --tgz=/path/to/averos-workflow-2.0.0.tgz \
   --averos-version=2.0.0
 ```
 
@@ -149,7 +149,7 @@ All CLI options can be set in `averos.config.json` to avoid repeating them on ev
   "statePath":       "/path/to/state.json",
   "checkpointPath":  "/path/to/checkpoints.json",
   "logsDir":         "/path/to/logs",
-  "localTgz":        "/path/to/wiforge-averos-2.0.0.tgz",
+  "localTgz":        "/path/to/averos-workflow-2.0.0.tgz",
   "averosVersion":   "2.0.0",
   "llmProvider":     "ollama",
   "ollamaBaseUrl":   "http://192.168.1.50:11434",
@@ -247,7 +247,7 @@ averos run app.json --workspace=/tmp/myapp --logs-dir=/var/log/averos
 
 ## Workspace Bootstrap
 
-Before any schematics run, the CLI installs `@averos/workflow` in the workspace directory so `npx schematics` can find it:
+Before any schematics task run, the CLI installs `@averos/workflow` in the workspace directory so `npx schematics` can find it:
 
 **Registry install:**
 ```bash

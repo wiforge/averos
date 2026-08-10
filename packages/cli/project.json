@@ -67,12 +67,12 @@
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
       "options": {
-        "command": "npm publish --access public --no-git-checks",
+        "command": "pnpm publish --access public --no-git-checks",
         "cwd": "packages/cli"
       },
       "configurations": {
         "dry-run": {
-          "command": "npm publish --access public --no-git-checks --dry-run",
+          "command": "pnpm publish --access public --no-git-checks --dry-run",
           "cwd": "packages/cli"
         }
       }

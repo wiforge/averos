@@ -39,10 +39,14 @@ The MCP server never calls LLM APIs directly. It is a deterministic orchestratio
 
 ## Quick Start
 
-### Build
+### Build Or Install
 
 ```bash
 npm run build -w packages/mcp
+```
+
+```bash
+npm install @averos/mcp
 ```
 
 ### Add to Claude Desktop

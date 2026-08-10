@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "description": "Averos lib dependencies ",
     "dependencies": {
-        "@averos/workflow": "2.0.0",
+        "@averos/workflow": "2.0.1",
         "@averos/ui-platform": "2.0.0",
-        "@angular/material": "~21.2.6",
+        "@angular/material": "~22.0.4",
         "@angular/cdk": "~22.0.4",
         "@angular/localize": "~22.0.6",
         "file-saver": "2.0.5"

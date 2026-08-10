@@ -61,14 +61,14 @@ catalogs:
       specifier: ~22.0.6
       version: 22.0.7
     '@averos/core':
-      specifier: 2.0.0
-      version: 2.0.0
+      specifier: 2.0.3
+      version: 2.0.3
     '@averos/dag-engine':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^2.0.3
+      version: 2.0.3
     '@averos/executor':
-      specifier: ^2.0.0
-      version: 2.0.0
+      specifier: ^2.0.3
+      version: 2.0.3
     '@eslint/js':
       specifier: ^10.0.1
       version: 10.0.1
@@ -277,13 +277,13 @@ importers:
         version: 22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
       '@averos/core':
         specifier: 'catalog:'
-        version: 2.0.0(47317725d0b2635b266005bfda5da63b)
+        version: 2.0.3(47317725d0b2635b266005bfda5da63b)
       '@averos/dag-engine':
         specifier: 'catalog:'
-        version: 2.0.0(typescript@6.0.3)
+        version: 2.0.3(typescript@6.0.3)
       '@averos/executor':
         specifier: 'catalog:'
-        version: 2.0.0(typescript@6.0.3)
+        version: 2.0.3(typescript@6.0.3)
       '@eslint/js':
         specifier: 'catalog:'
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@7.2.0))
@@ -469,7 +469,7 @@ importers:
         version: 22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
       '@averos/core':
         specifier: 'catalog:'
-        version: 2.0.0(47317725d0b2635b266005bfda5da63b)
+        version: 2.0.3(47317725d0b2635b266005bfda5da63b)
       '@averos/ui-platform':
         specifier: workspace:*
         version: link:../../packages/ui-platform
@@ -498,10 +498,10 @@ importers:
     dependencies:
       '@averos/dag-engine':
         specifier: 'catalog:'
-        version: 2.0.0(typescript@6.0.3)
+        version: 2.0.3(typescript@6.0.3)
       '@averos/executor':
         specifier: 'catalog:'
-        version: 2.0.0(typescript@6.0.3)
+        version: 2.0.3(typescript@6.0.3)
     devDependencies:
       '@types/jest':
         specifier: 'catalog:'
@@ -520,10 +520,10 @@ importers:
     dependencies:
       '@averos/dag-engine':
         specifier: 'catalog:'
-        version: 2.0.0(typescript@6.0.3)
+        version: 2.0.3(typescript@6.0.3)
       '@averos/executor':
         specifier: 'catalog:'
-        version: 2.0.0(typescript@6.0.3)
+        version: 2.0.3(typescript@6.0.3)
     devDependencies:
       '@types/jest':
         specifier: 'catalog:'
@@ -546,10 +546,10 @@ importers:
     dependencies:
       '@averos/dag-engine':
         specifier: 'catalog:'
-        version: 2.0.0(typescript@6.0.3)
+        version: 2.0.3(typescript@6.0.3)
       '@averos/executor':
         specifier: 'catalog:'
-        version: 2.0.0(typescript@6.0.3)
+        version: 2.0.3(typescript@6.0.3)
       '@modelcontextprotocol/sdk':
         specifier: ^1.0.0
         version: 1.29.0(zod@4.4.3)
@@ -617,7 +617,7 @@ importers:
         version: 22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
       '@averos/core':
         specifier: 'catalog:'
-        version: 2.0.0(47317725d0b2635b266005bfda5da63b)
+        version: 2.0.3(47317725d0b2635b266005bfda5da63b)
       file-saver:
         specifier: 'catalog:'
         version: 2.0.5
@@ -968,8 +968,8 @@ packages:
   '@asamuzakjp/nwsapi@2.3.9':
     resolution: {integrity: sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==}
 
-  '@averos/core@2.0.0':
-    resolution: {integrity: sha512-YmY9Hh8KVekSZjT5zGBFTEcsqfMms44WpUExXxDJ9DQ6lVI52LMjLRAwjRj0mKUxBQBEJtNK8F9h42TBH1M1uA==}
+  '@averos/core@2.0.3':
+    resolution: {integrity: sha512-sgXVz4mII5/tY97INGGP6bd673XXgyNPqYBLoUcJ5mU8ou1l40BU8iVWvgqD3X6+SgLSk5fKGamYYK+aEmS7MA==}
     peerDependencies:
       '@angular/cdk': '>=22.0.0 <23.0.0'
       '@angular/common': '>=22.0.0 <23.0.0'
@@ -992,8 +992,8 @@ packages:
       keycloak-js:
         optional: true
 
-  '@averos/dag-engine@2.0.0':
-    resolution: {integrity: sha512-KKmwOR4pSVAc4NngJr7tYF6QGzqvCdWd+xLMewMWhZIK58H1Nc6w0H09/BOJBM8g351afC+MK2oToYWKag9qkA==}
+  '@averos/dag-engine@2.0.3':
+    resolution: {integrity: sha512-MsAe6jloeQDwb1XwG/EuSvmTXgGN+pSaBcU/fhn7ki8NIK+l/ucx2XYdYJ34axAKEhfbggU1igKAn9Wi1b2XvQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       typescript: '>=5.4.0'
@@ -1001,8 +1001,8 @@ packages:
       typescript:
         optional: true
 
-  '@averos/executor@2.0.0':
-    resolution: {integrity: sha512-mfX4Du4h4Lk6/6G5JYuw81k3dW6fBJ05L0Nc+6hin7058lp5h970+Nm99EXrBgpxM0PrfdELKh82mmvwTGap0g==}
+  '@averos/executor@2.0.3':
+    resolution: {integrity: sha512-GjxudFZXjVDMzmtlmz/FUeTIBZ4dNxZOwDPmzWYqh6b8BrQ2T9bSXKYWAV+EHc7M7oH2dG/YzbAvgW5+fS2a8Q==}
     engines: {node: '>=20.0.0'}
 
   '@babel/code-frame@7.29.7':
@@ -9944,7 +9944,7 @@ snapshots:
 
   '@asamuzakjp/nwsapi@2.3.9': {}
 
-  '@averos/core@2.0.0(47317725d0b2635b266005bfda5da63b)':
+  '@averos/core@2.0.3(47317725d0b2635b266005bfda5da63b)':
     dependencies:
       '@angular/cdk': 22.0.5(@angular/common@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.0.7(@angular/animations@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2)))(@angular/common@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
       '@angular/common': 22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
@@ -9964,15 +9964,15 @@ snapshots:
       firebase: 12.16.0
       keycloak-js: 26.2.4
 
-  '@averos/dag-engine@2.0.0(typescript@6.0.3)':
+  '@averos/dag-engine@2.0.3(typescript@6.0.3)':
     dependencies:
       tslib: 2.8.1
     optionalDependencies:
       typescript: 6.0.3
 
-  '@averos/executor@2.0.0(typescript@6.0.3)':
+  '@averos/executor@2.0.3(typescript@6.0.3)':
     dependencies:
-      '@averos/dag-engine': 2.0.0(typescript@6.0.3)
+      '@averos/dag-engine': 2.0.3(typescript@6.0.3)
       tslib: 2.8.1
     transitivePeerDependencies:
       - typescript

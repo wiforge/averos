@@ -1,6 +1,6 @@
 {
   "name": "@averos/ui-platform",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Angular UI platform for the Averos execution runtime. Delivers a comprehensive library of Material Design components, form engines, dynamic view builders, entity use case scaffolding, and reflective rendering primitives that serve as the Angular adapter layer for the Averos DAG-driven application generation pipeline.",
   "keywords": [
     "averos",
@@ -42,12 +42,12 @@
   "dependencies": {
     "tslib": "catalog:"
   },
-  "typings": "./dist/types/averos-ui-platform.d.ts",
-  "main": "./dist/fesm2022/averos-ui-platform.mjs",
+  "typings": "./types/averos-ui-platform.d.ts",
+  "main": "./fesm2022/averos-ui-platform.mjs",
   "exports": {
     ".": {
-      "types": "./dist/types/averos-ui-platform.d.ts",
-      "default": "./dist/fesm2022/averos-ui-platform.mjs"
+      "types": "./types/averos-ui-platform.d.ts",
+      "default": "./fesm2022/averos-ui-platform.mjs"
     }
   },
   "peerDependencies": {

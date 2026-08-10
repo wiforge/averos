@@ -21,9 +21,9 @@ allowBuilds:
 
 catalog:
   # Averos core
-  '@averos/core': '2.0.0'
-  '@averos/dag-engine': '^2.0.0'
-  '@averos/executor': '^2.0.0'
+  '@averos/core': '2.0.3'
+  '@averos/dag-engine': '^2.0.3'
+  '@averos/executor': '^2.0.3'
 
   # Averos tools
   'firebase': '^12.8.0'

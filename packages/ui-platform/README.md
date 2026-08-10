@@ -17,8 +17,6 @@ It is the rendering and interaction surface of the Averos platform — the layer
 - [Peer Dependencies](#peer-dependencies)
 - [Usage](#usage)
 - [Key Concepts](#key-concepts)
-- [API Surface](#api-surface)
-- [Theming](#theming)
 - [Internationalization](#internationalization)
 - [Authentication](#authentication)
 - [Development](#development)
@@ -67,7 +65,7 @@ The library follows a **partial compilation** model (`compilationMode: partial`)
 |---|---|
 | Node.js | `>= 20.0.0` |
 | Angular | `>= 21.2.0` |
-| `@averos/core` | `>= 2.0.0` |
+| `@averos/core` | `>= 2.0.3` |
 
 ---
 
@@ -201,84 +199,12 @@ The dynamic view engine renders entity forms, tables, and detail views from meta
 </averos-dynamic-view>
 ```
 
----
-
-## API Surface
-
-The full public API is exported from the main entry point:
-
-```typescript
-import {
-  // Interfaces & types
-  Indexable,
-  IndexableType,
-  UseCaseConfig,
-  UseCaseViewLayout,
-  EntityViewLayout,
-
-  // Enums
-  UseCase,
-  ComponentAppearance,
-  IconLayout,
-
-  // Abstract use cases
-  CreateViewEditUseCase,
-  SearchUseCase,
-
-  // Services
-  ApplicationSharedService,
-  EnvironmentConfiguratorService,
-  EntityConfigurationManagerService,
-  FormControlService,
-
-  // Modules
-  AverosCoreModule,
-} from '@averos/ui-platform';
-```
-
-For deep sub-path imports (available in development mode via path aliases):
-
-```typescript
-import { CreateViewEditUseCase } from '@averos/ui-platform/view/_models/usecase/create-view-edit-usecase';
-import { EntityViewLayout }      from '@averos/ui-platform/view/_models/entity-view-layout/entity-view-layout';
-```
-
-
-
----
-
-## Theming
-
-`@averos/ui-platform` is built on Angular Material and supports full Material Design theming.
-
-Add the prebuilt theme to your application's `styles` in `angular.json` or `project.json`:
-
-```json
-"styles": [
-  "@angular/material/prebuilt-themes/indigo-pink.css",
-  "src/styles.scss"
-]
-```
-
-For custom theming, import Angular Material's SCSS API in your global stylesheet:
-
-```scss
-@use "@angular/material" as mat;
-
-$primary: mat.m2-define-palette(mat.$indigo-palette);
-$accent:  mat.m2-define-palette(mat.$pink-palette, A200, A100, A400);
-$theme:   mat.m2-define-light-theme((
-  color: (primary: $primary, accent: $accent)
-));
-
-@include mat.all-component-themes($theme);
-```
 
 ---
 
 ## Internationalization
 
-`@averos/ui-platform` supports runtime multilingual switching via Angular's `@angular/localize`.
+`@averos/ui-platform` supports runtime multilingual switching via `@averos/core/translation` component.
 
 Add a language to your application:
 
