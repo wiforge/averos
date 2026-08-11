@@ -68,7 +68,9 @@ The result is software that is reproducible, explainable, and evolves safely thr
 
 
 
-## 🚀 Try Me
+## 🚀 Try It Out
+
+Assuming an application manifest has already been created (either using AI or averos designer).
 
 ```bash
 npm install -g @averos/cli
@@ -81,7 +83,6 @@ npm install -g @averos/cli
 {
   "mode":           "resilient",
   "timeoutMs":      1800000,
-  "development":    "true",
   "maxAttempts":    1,
   "workspaceRoot":  "./generated-app",
   "manifestPath":   "../todoapp-manifest.json",
@@ -89,7 +90,6 @@ npm install -g @averos/cli
   "statePath":      "./generated-app/state.json",
   "checkpointPath": "./generated-app/checkpoints.json"
 }
-
 ```
 
 3- Verify the Plan:
@@ -100,7 +100,7 @@ averos plan --config=averos.config.json
 
 4- Generate the application:
 
-Use `--verbose` for better trace 
+Use `--verbose` for detailed tracing.
 
 ```bash
 averos run --config=averos.config.json --verbose
@@ -111,7 +111,7 @@ This application has **320 nodes** so the generation time may exceed the configu
 Upon timeout failure (timeout = 30 minutes), re-execute the command with `--resume` to resume from last checkpoint :
 
 ```bash
-averos run --config=averos.config.json --verbose
+averos run --config=averos.config.json --verbose --resume
 ```
 
 5- Explore your application:
