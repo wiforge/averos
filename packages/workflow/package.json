@@ -1,6 +1,6 @@
 {
   "name": "@averos/workflow",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Execution runtime adapters for the Averos workflow platform. Bridges the Averos DAG execution engine with concrete workflow implementations, including Angular Schematics, enabling extensible, pluggable execution of application generation, project transformation, and automation pipelines.",
   "keywords": [
     "averos",

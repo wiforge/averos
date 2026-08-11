@@ -41,39 +41,39 @@
              "internalConsoleOptions": "neverOpen"
         },
         {
-        "name": "Debug Schematics: averos-validator predefined validator - dry run",
-        "program": "${workspaceFolder}/node_modules/@angular-devkit/schematics-cli/bin/schematics.js",
-        "request": "launch",
-        "type": "node",
-        "args": [
-            "../../packages/workflow/dist/schematics/collection.json:averos-validator",
-            "--debug=false",
-            "--dry-run=false",
-            "--type=predefined",
-            "--name=Validators",
-            "--entity-name=ToDoArea",
-            "--field-name=areaname",
-            "--validator-id=required",
-            "--validator-key=required",
-            "--nature=sync",
-            "--validation-default-message=This field is required!",
-            "--validation-message-translation-id=validator.required.field"
+            "name": "Debug Schematics: averos-validator predefined validator - dry run",
+            "program": "${workspaceFolder}/node_modules/@angular-devkit/schematics-cli/bin/schematics.js",
+            "request": "launch",
+            "type": "node",
+            "args": [
+                "../../packages/workflow/dist/schematics/collection.json:averos-validator",
+                "--debug=false",
+                "--dry-run=false",
+                "--type=predefined",
+                "--name=Validators",
+                "--entity-name=ToDoArea",
+                "--field-name=areaname",
+                "--validator-id=required",
+                "--validator-key=required",
+                "--nature=sync",
+                "--validation-default-message=This field is required!",
+                "--validation-message-translation-id=validator.required.field"
 
 
-        ],
-        "cwd": "${workspaceFolder}/apps/averos-application",
-        "sourceMaps": true,
-        "pauseForSourceMap": true,
-        "outFiles": [
-            "${workspaceFolder}/packages/workflow/dist/**/*.js"
-        ],
-        "resolveSourceMapLocations": [
-            "${workspaceFolder}/packages/workflow/**",
-            "!**/node_modules/**"
-        ],
-            "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
+            ],
+            "cwd": "${workspaceFolder}/apps/averos-application",
+            "sourceMaps": true,
+            "pauseForSourceMap": true,
+            "outFiles": [
+                "${workspaceFolder}/packages/workflow/dist/**/*.js"
+            ],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/packages/workflow/**",
+                "!**/node_modules/**"
+            ],
+                "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+                "console": "integratedTerminal",
+                "internalConsoleOptions": "neverOpen"
         },
         {
         "name": "Debug Schematics: averos-validator predefined validator",
@@ -110,6 +110,33 @@
             "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Debug Schematics: create-entity-uc - dry run",
+            "program": "${workspaceFolder}/node_modules/@angular-devkit/schematics-cli/bin/schematics.js",
+            "request": "launch",
+            "type": "node",
+            "args": [
+                "../../packages/workflow/dist/schematics/collection.json:create-entity-uc",
+                "--debug=false",
+                "--dry-run=false",
+                "--name=MyUseCaseCREATE",
+                "--ename=Ent1"
+
+            ],
+            "cwd": "${workspaceFolder}/apps/averos-application",
+            "sourceMaps": true,
+            "pauseForSourceMap": true,
+            "outFiles": [
+                "${workspaceFolder}/packages/workflow/dist/**/*.js"
+            ],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/packages/workflow/**",
+                "!**/node_modules/**"
+            ],
+                "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+                "console": "integratedTerminal",
+                "internalConsoleOptions": "neverOpen"
         }
     ]
 }

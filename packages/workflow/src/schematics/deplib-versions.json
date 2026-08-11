@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Averos lib dependencies ",
     "dependencies": {
-        "@averos/workflow": "2.0.1",
+        "@averos/workflow": "2.0.2",
         "@averos/ui-platform": "2.0.0",
         "@angular/material": "~22.0.4",
         "@angular/cdk": "~22.0.4",

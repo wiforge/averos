@@ -1891,7 +1891,7 @@ export function getServiceName(source: ts.SourceFile): string {
   if (!source){
     return '';
   }
-  let metaData = getAnyDecoratorMetadata(source, 'AverosEntity', '@averos/ui-platform');
+  let metaData = getAnyDecoratorMetadata(source, 'AverosEntity', '@averos/core');
   return metaData.length > 0 ? metaData[0].getText() : '';
 }
 
