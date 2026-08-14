@@ -1,6 +1,6 @@
 # Averos
 
-#### _Deterministic AI-Native Software Generation Platform_
+#### _A deterministic platform for building and evolving applications from structured intent_
 
 <br/>
 
@@ -30,9 +30,13 @@
 
 ---
 
-Averos is an AI-native application generation platform that transforms natural language into production-ready applications through deterministic planning and execution.
+## What is Averos ?
 
-Unlike AI coding assistants that generate source code directly, Averos generates and evolves a structured application model, ensuring reproducible, explainable, and incremental software construction.
+Averos is a **deterministic execution and evolution layer between AI intent and production software.**
+
+It turns structured intent into **reviewable, reproducible code** — providing a controlled path from what AI decides should exist to software that can actually be built, inspected, evolved, and maintained.
+
+Unlike AI coding assistants that generate source code directly, Averos generates and evolves a **structured application model** — making software construction reproducible, explainable, and incremental
 
 ---
 
@@ -131,18 +135,15 @@ Use `admin/admin123` to log into your application (Dummy Auth)
 
 ## 💡 Why Averos?
 
+Most "AI coding" today works like this: you describe what you want, the model writes code, and if you want a change, you describe it again and hope the model doesn't quietly rewrite something you didn't ask it to touch. The prompt *is* the source of truth — which means there is no source of truth. The prompt is the source of truth — which means there is no durable, structured source of truth. Changes are difficult to reason about before execution, reproducibility is difficult to guarantee, and every revision risks becoming another round of code generation.
 
-|                 | Traditional AI | Averos   |
-| --------------- | -------------- | -------- |
-| Source of truth | Prompt         | Manifest |
-| Deterministic   | ❌             | ✅       |
-| Incremental     | ❌             | ✅       |
-| Rollback        | ❌             | ✅       |
-| Planning        | ❌             | ✅       |
-| Validation      | Limited        | ✅       |
-| MCP support     | Depends        | ✅       |
+Averos exists to fix that. It inserts a **deterministic execution and evolution layer** between AI intent and your running codebase — a structured, validated intermediate representation (the *manifest*) that the AI produces and everything downstream is built from. The AI still decides *what* should exist. Averos decides *how it gets built* — and that half of the process is no longer a guess.
+
+**AI provides intelligence. Averos provides control.**
 
 ---
+
+### The fundamental difference
 
 Most AI coding tools generate source code directly.
 
@@ -167,6 +168,120 @@ The manifest is then:
 
 The result is a system that combines Natural Language, AI Assistance, and Deterministic Engineering into a single workflow.
 
+**Conventional AI coding** asks:
+
+> **"What code should I generate?"**
+
+```text
+Prompt
+  ↓
+AI
+  ↓
+Code
+  ↓
+Application
+```
+
+**Averos** asks:
+
+> **"What software state should exist, and what deterministic operations are required to get there?"**
+
+
+```text
+Intent
+  ↓
+AI
+  ↓
+Application Manifest
+  ↓
+Validation
+  ↓
+Semantic Diff
+  ↓
+Execution Plan
+  ↓
+Deterministic Engine
+  ↓
+Application
+```
+
+The AI is responsible for understanding intent and producing a structured representation.
+
+The Averos engine is responsible for validating that representation, determining what changed, resolving dependencies, producing an execution plan, and applying the required transformations.
+
+
+### Why this matters
+
+
+| Challenge | Conventional AI Coding | Averos |
+|---|---|---|
+| **Source of truth** | Prompts and generated code | Structured application manifest |
+| **Architecture** | Implicit in generated code | Explicit in the application model |
+| **Planning** | Left to the AI agent | Explicit, dependency-aware execution plan |
+| **Determinism** | Model-dependent | Deterministic execution engine |
+| **Validation** | Agent- or tool-dependent | Structured manifest validation (structural, referential, constraint) |
+| **Change detection** | File- or code-level diffing | Semantic manifest diff |
+| **Incremental evolution** | Regenerate or manually edit | Apply only the required operations |
+| **Dependencies** | Inferred during generation | Explicitly modeled and planned |
+| **Execution** | Agent-driven side effects | Controlled execution through adapters |
+| **Failure handling** | Agent- or tool-dependent | Checkpoints, state, resumable execution |
+| **Rollback / revisions** | Usually external to the AI workflow | First-class application revisions |
+| **Explainability** | Inspect the generated code | Inspect manifest → validation → diff → plan → execution |
+| **AI independence** | Often coupled to a specific agent or model | LLM-agnostic architecture |
+| **MCP / agent integration** | Agent- or tool-dependent | Native, governed AI interaction layer |
+| **Reproducibility** | Difficult to guarantee | Core architectural objective |
+
+
+**Three architectural principles make this possible:**
+
+- **The manifest is the contract, not the transcript.** Because the AI's job ends at producing a validated manifest — not at writing code — the deterministic Averos engine can reproduce the same execution plan from the same defined state and engine configuration. You can hand the same manifest to Averos twice and get the same output twice. That's not true of prompt-to-code generation, no matter how good the model is.
+
+- **Evolution is a diff, not a do-over.** Change one field on one entity, and Averos recomputes only the affected nodes in the dependency graph and touches only what actually changed. In direct AI coding workflows, a requested change often becomes another round of code generation or agent-driven editing. Averos treats the application as a living graph rather than a disposable generation.
+
+- **AI agents get a governed environment, not open access.** Through `@averos/mcp`, an AI agent doesn't get raw file or shell access to your project — it gets a bounded set of tools (`update_ir`, `validate_ir`, `build_execution_plan`, `approve_plan`) that force every change through validation and an approval gate before anything is written. **The agent proposes. The engine plan. You control execution.**
+
+Averos is built on an adapter pattern, so this deterministic core isn't tied to one framework by design — Angular schematics is the first production adapter, demonstrating the pipeline end to end, with the same execution model designed to extend to other stacks over time.
+
+**Built for software evolution:**
+
+Software is not generated once. It is continuously changed.
+
+Averos is designed around **software evolution**, not just initial generation.
+
+For example:
+
+```text
+Initial application
+        ↓
+"Add priority to tasks"
+        ↓
+Manifest revision
+        ↓
+Semantic diff
+        ↓
+1 required operation
+        ↓
+Deterministic execution
+        ↓
+Updated application
+```
+
+The application is not regenerated from scratch.
+Its desired state changes, the difference is calculated, and only the necessary operations are executed.
+
+This enables a software development model based on:
+
+- **Reproducibility** — the same defined state can produce the same planned result.
+- **Explainability** — every transformation can be inspected before execution.
+- **Incremental evolution** — applications change through explicit revisions rather than uncontrolled regeneration.
+- **Control** — AI proposes intent; the deterministic engine controls execution.
+- **Recoverability** — execution state and checkpoints support failure recovery and resumption.
+- **Extensibility** — execution is separated from the core engine through adapters.
+- **AI independence** — the deterministic core does not depend on a particular LLM.
+
+### In one sentence
+
+> **Averos is the deterministic execution and evolution layer between AI intent and production software.**
 
 ---
 
