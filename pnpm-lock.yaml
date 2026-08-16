@@ -67,8 +67,8 @@ catalogs:
       specifier: ^2.0.3
       version: 2.0.3
     '@averos/executor':
-      specifier: ^2.0.3
-      version: 2.0.3
+      specifier: ^2.0.4
+      version: 2.0.4
     '@eslint/js':
       specifier: ^10.0.1
       version: 10.0.1
@@ -283,7 +283,7 @@ importers:
         version: 2.0.3(typescript@6.0.3)
       '@averos/executor':
         specifier: 'catalog:'
-        version: 2.0.3(typescript@6.0.3)
+        version: 2.0.4(typescript@6.0.3)
       '@eslint/js':
         specifier: 'catalog:'
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@7.2.0))
@@ -501,7 +501,7 @@ importers:
         version: 2.0.3(typescript@6.0.3)
       '@averos/executor':
         specifier: 'catalog:'
-        version: 2.0.3(typescript@6.0.3)
+        version: 2.0.4(typescript@6.0.3)
     devDependencies:
       '@types/jest':
         specifier: 'catalog:'
@@ -523,7 +523,7 @@ importers:
         version: 2.0.3(typescript@6.0.3)
       '@averos/executor':
         specifier: 'catalog:'
-        version: 2.0.3(typescript@6.0.3)
+        version: 2.0.4(typescript@6.0.3)
     devDependencies:
       '@types/jest':
         specifier: 'catalog:'
@@ -549,7 +549,7 @@ importers:
         version: 2.0.3(typescript@6.0.3)
       '@averos/executor':
         specifier: 'catalog:'
-        version: 2.0.3(typescript@6.0.3)
+        version: 2.0.4(typescript@6.0.3)
       '@modelcontextprotocol/sdk':
         specifier: ^1.0.0
         version: 1.29.0(zod@4.4.3)
@@ -1001,8 +1001,8 @@ packages:
       typescript:
         optional: true
 
-  '@averos/executor@2.0.3':
-    resolution: {integrity: sha512-GjxudFZXjVDMzmtlmz/FUeTIBZ4dNxZOwDPmzWYqh6b8BrQ2T9bSXKYWAV+EHc7M7oH2dG/YzbAvgW5+fS2a8Q==}
+  '@averos/executor@2.0.4':
+    resolution: {integrity: sha512-AfXi+LKDZG2KT1EWKuzr0qNPaknsGg5IVIl4EL+SYRbTlBYkju1m+gf2mYJUYV5rd/8t1u0FQF4puQVtmMo+4w==}
     engines: {node: '>=20.0.0'}
 
   '@babel/code-frame@7.29.7':
@@ -9970,9 +9970,10 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
-  '@averos/executor@2.0.3(typescript@6.0.3)':
+  '@averos/executor@2.0.4(typescript@6.0.3)':
     dependencies:
       '@averos/dag-engine': 2.0.3(typescript@6.0.3)
+      cross-spawn: 7.0.6
       tslib: 2.8.1
     transitivePeerDependencies:
       - typescript

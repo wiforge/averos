@@ -1,6 +1,6 @@
 {
   "name": "@averos/mcp",
-  "version": "2.0.0",
+  "version": "2.0.4",
   "description": "Model Context Protocol server exposing Averos application design, planning, validation, and execution workflows to AI assistants.",
   "keywords": [
     "averos",

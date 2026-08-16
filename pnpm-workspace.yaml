@@ -23,7 +23,7 @@ catalog:
   # Averos core
   '@averos/core': '2.0.3'
   '@averos/dag-engine': '^2.0.3'
-  '@averos/executor': '^2.0.3'
+  '@averos/executor': '^2.0.4'
 
   # Averos tools
   'firebase': '^12.8.0'

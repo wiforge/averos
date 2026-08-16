@@ -76,8 +76,8 @@
     "build:app:fordebug":     "pnpm nx build averos-application --configuration=dev-lib",
 
     "pack:ui-platform":               "pnpm nx run @averos/ui-platform:pack",
-    "publish-locally:ui-platform":          "pnpm nx run @averos/ui-platform:publish-locally",
-    "unpublish-locally:ui-platform":        "pnpm nx run @averos/ui-platform:unpublish-locally",
+    "publish-locally:ui-platform":    "pnpm nx run @averos/ui-platform:publish-locally",
+    "unpublish-locally:ui-platform":  "pnpm nx run @averos/ui-platform:unpublish-locally",
     "publish:ui-platform":            "pnpm nx run @averos/ui-platform:publish",
     "publish-dry-run:ui-platform":    "pnpm nx run @averos/ui-platform:publish --configuration=dry-run",
     "republish-locally:ui-platform":  "pnpm run unpublish-locally:ui-platform; pnpm run publish-locally:ui-platform",

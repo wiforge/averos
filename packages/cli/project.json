@@ -80,7 +80,7 @@
     "unpublish-locally": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npm unpublish @averos/cli@$(node -p \"require('./package.json').version\") --registry http://localhost:4873 --force",
+        "command": "pnpm unpublish @averos/cli@$(node -p \"require('./package.json').version\") --registry http://localhost:4873 --force",
         "cwd": "packages/cli"
       }
     },

@@ -1,6 +1,6 @@
 {
   "name": "@averos/ai",
-  "version": "2.0.0",
+  "version": "2.0.4",
   "description": "LLM-powered manifest generation for Averos. Translates natural language application intent into validated JSON IR via cloud and local LLM providers — with automatic retry, validation feedback injection, multi-turn conversation, and seamless handoff to the Averos execution pipeline.",
   "keywords": [
     "averos",
